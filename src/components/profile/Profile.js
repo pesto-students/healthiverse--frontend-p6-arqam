@@ -21,15 +21,15 @@ const Profile = () => {
         {currentUser.token.substr(currentUser.token.length - 20)}
       </p>
       <p>
-        <strong>Id:</strong> {currentUser.id}
+        <strong>Id:</strong> {currentUser._id}
       </p>
       <p>
         <strong>Email:</strong> {currentUser.email}
       </p>
       <strong>Authorities:</strong>
-      <ul>
-        {currentUser.role}
-      </ul>
+      <p>
+        role: {currentUser.role}
+      </p>
     </div>
   );
 };

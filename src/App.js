@@ -5,20 +5,20 @@ import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./App.css";
 
-import Login from "./components/Login";
-import Register from "./components/Register";
-import Home from "./components/Home";
-import Profile from "./components/Profile";
-import BoardUser from "./components/BoardUser";
-import BoardModerator from "./components/BoardModerator";
-import BoardAdmin from "./components/BoardAdmin";
+import Login from "./components/login/Login";
+import { RegisterSubscriber, RegisterBusiness } from "./components/registration";
+import Home from "./components/home/Home";
+import Profile from "./components/profile/Profile";
+import BoardSubscriber from "./components/dashboard/BoardSubscriber";
+import BoardBusiness from "./components/dashboard/BoardBusiness";
+import BoardAdmin from "./components/dashboard/BoardAdmin";
 
 import { logout } from "./slices/auth";
 
 import EventBus from "./common/EventBus";
 
 const App = () => {
-  const [showModeratorBoard, setShowModeratorBoard] = useState(false);
+  const [showBusinessBoard, setShowBusinessBoard] = useState(false);
   const [showAdminBoard, setShowAdminBoard] = useState(false);
 
   const { user: currentUser } = useSelector((state) => state.auth);
@@ -30,11 +30,11 @@ const App = () => {
 
   useEffect(() => {
     if (currentUser) {
-      setShowModeratorBoard(currentUser.role.includes("moderator") ||
-        currentUser.role.includes("admin"));
-      setShowAdminBoard(currentUser.role.includes("admin"));
+      setShowBusinessBoard(currentUser.role==="business" ||
+        currentUser.role==="admin");
+      setShowAdminBoard(currentUser.role==="admin");
     } else {
-      setShowModeratorBoard(false);
+      setShowBusinessBoard(false);
       setShowAdminBoard(false);
     }
 
@@ -61,10 +61,10 @@ const App = () => {
               </Link>
             </li>
 
-            {showModeratorBoard && (
+            {showBusinessBoard && (
               <li className="nav-item">
-                <Link to={"/mod"} className="nav-link">
-                  Moderator Board
+                <Link to={"/business"} className="nav-link">
+                  Business Board
                 </Link>
               </li>
             )}
@@ -79,8 +79,8 @@ const App = () => {
 
             {currentUser && (
               <li className="nav-item">
-                <Link to={"/user"} className="nav-link">
-                  User
+                <Link to={"/subscriber"} className="nav-link">
+                  Subscriber Board
                 </Link>
               </li>
             )}
@@ -121,10 +121,11 @@ const App = () => {
             <Route path="/" element={<Home />} />
             <Route path="/home" element={<Home />} />
             <Route path="/login" element={<Login />} />
-            <Route path="/register" element={<Register />} />
+            <Route path="/register" element={<RegisterSubscriber />} />
+            <Route path="/register/business" element={<RegisterBusiness />} />
             <Route path="/profile" element={<Profile />} />
-            <Route path="/user" element={<BoardUser />} />
-            <Route path="/mod" element={<BoardModerator />} />
+            <Route path="/subscriber" element={<BoardSubscriber />} />
+            <Route path="/business" element={<BoardBusiness />} />
             <Route path="/admin" element={<BoardAdmin />} />
           </Routes>
         </div>

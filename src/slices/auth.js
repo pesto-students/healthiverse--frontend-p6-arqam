@@ -6,26 +6,26 @@ const user = JSON.parse(localStorage.getItem("user"));
 
 export const register = createAsyncThunk(
     "auth/register",
-    async ({ name, email, password }, thunkAPI) => {
+    async ({ name, email, password, role }, thunkAPI) => {
         try {
-            const response = await authService.register({ name, email, password });
-            console.log("register thunk response")
-            console.log(response.data);
+            const response = await authService.register({ name, email, password, role });
             thunkAPI.dispatch(setMessage("Registration Successful"));
             return response.data;
         } catch (error) {
             const message =
                 (error.response &&
                     error.response.data &&
-                    error.response.message) ||
+                    error.response.data.message) ||
                 error.message ||
                 error.toString();
-            console.log(message);
+            console.log("Registration error");
+            console.log(error);
             thunkAPI.dispatch(setMessage(message));
             return thunkAPI.rejectWithValue();
         }
     }
 );
+
 
 export const login = createAsyncThunk(
     "auth/login",

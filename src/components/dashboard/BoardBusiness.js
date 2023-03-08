@@ -1,16 +1,18 @@
 import React, { useState, useEffect } from "react";
 
-import userService from "../services/user.service";
+import userService from "../../services/user.service";
 
-const BoardAdmin = () => {
+const BoardBusiness = () => {
     const [content, setContent] = useState("");
 
     useEffect(() => {
-        userService.getAdminBoard().then((res) => {
+        userService.getBusinessBoard().then((res) => {
             setContent(res.data);
         })
             .catch((err) => {
-                const _content = (err.response && err.response.data) ||
+                const _content = (err.response &&
+                    err.response.data &&
+                    err.response.data.message) ||
                     err.message || err.toString();
                 setContent(_content);
             });
@@ -25,4 +27,4 @@ const BoardAdmin = () => {
     );
 }
 
-export default BoardAdmin;  
+export default BoardBusiness;

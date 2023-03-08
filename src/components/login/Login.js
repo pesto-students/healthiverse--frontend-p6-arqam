@@ -4,8 +4,8 @@ import { Navigate, useNavigate } from "react-router-dom";
 import { Formik, Field, Form, ErrorMessage } from "formik";
 import * as Yup from "yup";
 
-import { login } from "../slices/auth";
-import { clearMessage } from "../slices/message";
+import { login } from "../../slices/auth";
+import { clearMessage } from "../../slices/message";
 
 const Login = () => {
     let navigate = useNavigate();
@@ -52,6 +52,9 @@ const Login = () => {
 
     return (
         <div className="login-form">
+            <div className="heading">
+                <h1>Login Page</h1>
+            </div>
             <Formik
                 initialValues={initialValues}
                 validationSchema={validationSchema}
@@ -84,6 +87,9 @@ const Login = () => {
                     </div>
                 </Form>
             </Formik>
+            {loading && (
+                <div className="loading">Loading...</div>
+            )}
             {message && (
                 <div className="form-group">
                     <div className="alert alert-danger" role="alert">

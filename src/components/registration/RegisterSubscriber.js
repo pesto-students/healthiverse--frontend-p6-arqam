@@ -2,11 +2,11 @@ import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Formik, Field, Form, ErrorMessage } from "formik";
 import * as Yup from "yup";
+import { Link } from "react-router-dom";
+import { register } from "../../slices/auth";
+import { clearMessage } from "../../slices/message";
 
-import { register } from "../slices/auth";
-import { clearMessage } from "../slices/message";
-
-const Register = () => {
+const RegisterSubscriber = () => {
     const [successful, setSuccessful] = useState(false);
 
     const { message } = useSelector((state) => state.message);
@@ -20,6 +20,7 @@ const Register = () => {
         name: "",
         email: "",
         password: "",
+        role: "subscriber",
     };
 
     const validationSchema = Yup.object().shape({
@@ -52,6 +53,12 @@ const Register = () => {
 
     return (
         <div className="signup-form">
+            <div className="heading">
+                <h1>Subscriber Signup</h1>
+                <Link to={"/register/business"} className="nav-link">
+                    Signup as a business instead
+                </Link>
+            </div>
             <Formik
                 initialValues={initialValues}
                 validationSchema={validationSchema}
@@ -117,4 +124,4 @@ const Register = () => {
 
 }
 
-export default Register;
+export default RegisterSubscriber;
