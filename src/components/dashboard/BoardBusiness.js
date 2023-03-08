@@ -1,28 +1,19 @@
 import React, { useState, useEffect } from "react";
-
-import userService from "../../services/user.service";
+import { Routes, Route, Link, Outlet } from 'react-router-dom';
+// import userService from "../../services/user.service";
 
 const BoardBusiness = () => {
-    const [content, setContent] = useState("");
-
-    useEffect(() => {
-        userService.getBusinessBoard().then((res) => {
-            setContent(res.data);
-        })
-            .catch((err) => {
-                const _content = (err.response &&
-                    err.response.data &&
-                    err.response.data.message) ||
-                    err.message || err.toString();
-                setContent(_content);
-            });
-    }, [])
 
     return (
-        <div className="container">
-            <header className="jumbotron">
-                <h3>{content}</h3>
-            </header>
+        <div className="subscriber-board">
+
+            <nav className="nav-dashboard">
+                <Link to="">Profile</Link>
+                <Link to="clients">Clients</Link>
+            </nav>
+
+            <Outlet />
+
         </div>
     );
 }

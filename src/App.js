@@ -17,6 +17,7 @@ import { logout } from "./slices/auth";
 
 import EventBus from "./common/EventBus";
 import BrowseGyms from "./components/dashboard/browse/BrowseGyms";
+import BrowseClients from "./components/dashboard/browse/BrowseClients";
 
 const App = () => {
   const [showBusinessBoard, setShowBusinessBoard] = useState(false);
@@ -126,9 +127,12 @@ const App = () => {
             <Route path="/register/business" element={<RegisterBusiness />} />
             <Route path="/subscriber" element={<BoardSubscriber />}>
               <Route path="" element={<Profile />} />
-              <Route path="browse" element={<BrowseGyms/>}/>
+              <Route path="browse" element={<BrowseGyms />} />
             </Route>
-            <Route path="/business" element={<BoardBusiness />} />
+            <Route path="/business" element={<BoardBusiness />}>
+              <Route path="" element={<Profile />} />
+              <Route path="clients" element={<BrowseClients />} />
+            </Route>
             <Route path="/admin" element={<BoardAdmin />} />
           </Routes>
         </div>

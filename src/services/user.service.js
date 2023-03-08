@@ -1,7 +1,7 @@
 import axios from "axios";
 import authHeader from "./auth-header";
 
-const API_URL = "https://manikdevbhagat-musical-disco-rrwv5q64rrh5669-5000.preview.app.github.dev"
+const API_URL = "https://manikdevbhagat-organic-cod-r7545wj95x92w99-5000.preview.app.github.dev"
     + "/api/users/";
 
 const getPublicContent = () => {
@@ -20,8 +20,12 @@ const getAdminBoard = () => {
     return axios.get(API_URL + "admin", { headers: authHeader() });
 };
 
-const getGyms = ()=>{
+const getGyms = () => {
     return axios.get(API_URL + "subscriber/browse", { headers: authHeader() });
+};
+
+const getClients = () => {
+    return axios.get(API_URL + "business/clients", { headers: authHeader() });
 };
 
 const userService = {
@@ -29,7 +33,8 @@ const userService = {
     getSubscriberBoard,
     getBusinessBoard,
     getAdminBoard,
-    getGyms
+    getGyms,
+    getClients
 };
 
 export default userService;
