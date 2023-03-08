@@ -39,7 +39,7 @@ const Login = () => {
         dispatch(login({ ...formValue }))
             .unwrap()
             .then(() => {
-                navigate("/profile");
+                navigate("/subscriber");
                 window.location.reload();
             }).catch(() => {
                 setLoading(false);
@@ -47,7 +47,7 @@ const Login = () => {
     }
 
     if (isLoggedIn) {
-        return <Navigate to={"/profile"} />
+        return <Navigate to={"/subscriber"} />
     }
 
     return (

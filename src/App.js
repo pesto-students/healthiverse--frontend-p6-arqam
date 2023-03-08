@@ -8,7 +8,7 @@ import "./App.css";
 import Login from "./components/login/Login";
 import { RegisterSubscriber, RegisterBusiness } from "./components/registration";
 import Home from "./components/home/Home";
-import Profile from "./components/profile/Profile";
+import Profile from "./components/dashboard/profile/Profile";
 import BoardSubscriber from "./components/dashboard/BoardSubscriber";
 import BoardBusiness from "./components/dashboard/BoardBusiness";
 import BoardAdmin from "./components/dashboard/BoardAdmin";
@@ -16,6 +16,7 @@ import BoardAdmin from "./components/dashboard/BoardAdmin";
 import { logout } from "./slices/auth";
 
 import EventBus from "./common/EventBus";
+import BrowseGyms from "./components/dashboard/browse/BrowseGyms";
 
 const App = () => {
   const [showBusinessBoard, setShowBusinessBoard] = useState(false);
@@ -30,9 +31,9 @@ const App = () => {
 
   useEffect(() => {
     if (currentUser) {
-      setShowBusinessBoard(currentUser.role==="business" ||
-        currentUser.role==="admin");
-      setShowAdminBoard(currentUser.role==="admin");
+      setShowBusinessBoard(currentUser.role === "business" ||
+        currentUser.role === "admin");
+      setShowAdminBoard(currentUser.role === "admin");
     } else {
       setShowBusinessBoard(false);
       setShowAdminBoard(false);
@@ -116,15 +117,17 @@ const App = () => {
           )}
         </nav>
 
-        <div className="container mt-3">
+        <div className="app-container ">
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/home" element={<Home />} />
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<RegisterSubscriber />} />
             <Route path="/register/business" element={<RegisterBusiness />} />
-            <Route path="/profile" element={<Profile />} />
-            <Route path="/subscriber" element={<BoardSubscriber />} />
+            <Route path="/subscriber" element={<BoardSubscriber />}>
+              <Route path="" element={<Profile />} />
+              <Route path="browse" element={<BrowseGyms/>}/>
+            </Route>
             <Route path="/business" element={<BoardBusiness />} />
             <Route path="/admin" element={<BoardAdmin />} />
           </Routes>

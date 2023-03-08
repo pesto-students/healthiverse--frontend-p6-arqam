@@ -31,3 +31,15 @@ label {
   -webkit-border-radius: 50%;
   border-radius: 50%;
 }
+.app-container {
+  width: 100%;
+}
+.subscriber-board {
+  display: flex;
+  justify-content: space-between;
+}
+
+.nav-dashboard {
+  display: flex;
+  flex-direction: column;
+}
