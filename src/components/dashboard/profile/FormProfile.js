@@ -42,7 +42,7 @@ const FormProfile = () => {
                 onSubmit={handleSubmit}>
                 <Form>
                     <div className="form-group">
-                        <label htmlFor="about">About me:</label>
+                        <label htmlFor="about"><b>About me:</b></label>
                         <Field name="about" type="text" className="form-control" />
                         <ErrorMessage
                             name="about"
@@ -52,7 +52,7 @@ const FormProfile = () => {
                     </div>
 
                     <div className="form-group">
-                        <label htmlFor="height">Height (cm)</label>
+                        <label htmlFor="height"><b>Height (cm)</b></label>
                         <Field name="height" type="text" className="form-control" />
                         <ErrorMessage
                             name="height"
@@ -62,7 +62,7 @@ const FormProfile = () => {
                     </div>
 
                     <div className="form-group">
-                        <label htmlFor="weight">Weight (kg)</label>
+                        <label htmlFor="weight"><b>Weight (kg)</b></label>
                         <Field name="weight" type="text" className="form-control" />
                         <ErrorMessage
                             name="weight"
@@ -72,7 +72,7 @@ const FormProfile = () => {
                     </div>
 
                     <div className="form-group">
-                        <div>Current Lifestyle</div>
+                        <div><b>Current Lifestyle</b></div>
                         <label>
                             <Field type="radio" name="lifestyle" value="Sedentary" />
                             Sedentary
@@ -93,7 +93,7 @@ const FormProfile = () => {
                     </div>
 
                     <div className="form-group">
-                        <div>Goals</div>
+                        <div><b>Goals</b></div>
                         <label>
                             <Field type="radio" name="goals" value="Weight/Fat Loss" />
                             Weight/Fat Loss
@@ -114,7 +114,7 @@ const FormProfile = () => {
                     </div>
 
                     <div className="form-group">
-                        <div>Preffered mode of exercise</div>
+                        <div><b>Preffered mode of exercise</b></div>
                         <label>
                             <Field type="radio" name="mode" value="Gym Workouts" />
                             Gym Workouts
