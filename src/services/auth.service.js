@@ -1,7 +1,7 @@
 import axios from "axios";
 // import { decodeToken } from "react-jwt";
 // const key = "secret";
-const API_URL = "https://manikdevbhagat-organic-cod-r7545wj95x92w99-5000.preview.app.github.dev"
+const API_URL = "https://manikdevbhagat-laughing-memory-6rw7xq5gj9h5w5x-5000.preview.app.github.dev"
     + "/api/users/";
 
 const register = (data) => {

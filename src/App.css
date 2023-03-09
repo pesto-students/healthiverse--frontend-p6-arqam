@@ -36,7 +36,12 @@ label {
 }
 .subscriber-board {
   display: flex;
-  justify-content: space-between;
+}
+
+.profile-outlet{
+  display: flex;
+  flex-basis: 100%;
+  justify-content: center;
 }
 
 .nav-dashboard {
