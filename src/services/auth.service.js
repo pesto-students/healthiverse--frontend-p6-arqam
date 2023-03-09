@@ -11,8 +11,6 @@ const register = (data) => {
         .post(API_URL + "register/", {
             name, email, password, role
         });
-
-
 };
 
 

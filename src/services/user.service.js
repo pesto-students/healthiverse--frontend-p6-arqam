@@ -28,6 +28,7 @@ const getClients = () => {
     return axios.get(API_URL + "business/clients", { headers: authHeader() });
 };
 
+
 const userService = {
     getPublicContent,
     getSubscriberBoard,
