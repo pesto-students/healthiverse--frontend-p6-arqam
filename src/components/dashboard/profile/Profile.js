@@ -5,7 +5,7 @@ import FormProfile from "./FormProfile";
 
 const Profile = () => {
   const { user: currentUser } = useSelector((state) => state.auth);
-  const profileCompleted = false;
+  const { profileCompleted } = useSelector(state => state.post);
 
   if (!currentUser) {
     return <Navigate to="/login" />;
@@ -13,8 +13,8 @@ const Profile = () => {
 
   return (
     <div className="profile-page">
-      {!profileCompleted && (<FormProfile />)}
-      {profileCompleted &&
+      {!profileCompleted ?
+        (<FormProfile />) :
         (<div className="container">
           <header className="jumbotron">
             <h3>

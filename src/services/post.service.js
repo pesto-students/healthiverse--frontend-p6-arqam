@@ -5,7 +5,6 @@ const API_URL = "https://manikdevbhagat-laughing-memory-6rw7xq5gj9h5w5x-5000.pre
     + "/api/users/";
 
 const postProfile = (data) => {
-    console.log(data);
     return axios
         .post(API_URL + "subscriber/", { ...data }, { headers: authHeader() })
         .then((res) => {

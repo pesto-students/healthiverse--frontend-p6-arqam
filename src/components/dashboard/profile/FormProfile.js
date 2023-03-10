@@ -1,10 +1,13 @@
 import React from "react";
 import { Formik, Field, Form, ErrorMessage } from "formik";
 import * as Yup from "yup";
+import { postProfile } from "../../../slices/post";
+import { useDispatch } from "react-redux";
 const user = JSON.parse(localStorage.getItem("user"));
 
 const FormProfile = () => {
     const initialValues = {
+        _id: user._id,
         about: "",
         height: "",
         weight: "",
@@ -29,8 +32,11 @@ const FormProfile = () => {
             .required("Select an option"),
     });
 
+    const dispatch = useDispatch();
+    
     const handleSubmit = (formValue) => {
         console.log(formValue);
+        dispatch(postProfile(formValue));
     }
 
     return (
