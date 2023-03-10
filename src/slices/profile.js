@@ -1,14 +1,15 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { setMessage } from "./message";
-import postService from "../services/post.service";
-const profile = JSON.parse(localStorage.getItem("profile"));
+import profileService from "../services/profile.service";
 
 export const postProfile = createAsyncThunk(
     "post/subscriber",
     async (data, thunkAPI) => {
         try {
-            const response = await postService.postProfile(data);
+            const response = await profileService.postProfile(data);
             thunkAPI.dispatch(setMessage("Profile Created"));
+            console.log("fulfilled");
+            console.log(response);
             return response.data;
         } catch (error) {
             const message =
@@ -24,25 +25,23 @@ export const postProfile = createAsyncThunk(
     }
 );
 
+const initialState = {
+    profileCreated: false
+};
 
-const initialState = profile ?
-    { profileCompleted: true, profileData: profile } :
-    { profileCompleted: false, profileData: null };
-
-const postSlice = createSlice({
+const profileSLice = createSlice({
     name: "profile",
     initialState,
     extraReducers: {
         [postProfile.fulfilled]: (state, action) => {
-            state.profileCompleted = true;
-            state.profileData = action.payload;
+            return { profileCreated: true };
         },
         [postProfile.rejected]: (state, action) => {
-            state.profileCompleted = profile ? true : false;
-            state.profileData = profile ? profile : null;
+            console.log("Not fulfilled");
+            return { profileCreated: false };
         },
 
     }
 });
 
-export default postSlice.reducer;
+export default profileSLice.reducer;

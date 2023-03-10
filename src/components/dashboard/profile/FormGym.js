@@ -7,13 +7,20 @@ const user = JSON.parse(localStorage.getItem("user"));
 
 const FormProfile = () => {
     const initialValues = {
-        _id: user._id,
+        _id: `ObjectId(${user._id})`,
         about: "",
-        height: "",
-        weight: "",
-        lifestyle: "",
-        goals: "",
-        mode: "",
+        address: "",
+        activites: [],
+        openTime: {
+            morning: "",
+            evening: "",
+        },
+        membership: {
+            one: "",
+            three: "",
+            six: "",
+            twelve: "",
+        },
         role: user.role,
     };
 
@@ -36,11 +43,7 @@ const FormProfile = () => {
 
     const handleSubmit = (formValue) => {
         console.log(formValue);
-        dispatch(postProfile(formValue))
-            .unwrap()
-            .then(() => {
-                window.location.reload();
-            });
+        dispatch(postProfile(formValue));
     }
 
     return (
