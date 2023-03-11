@@ -12,7 +12,9 @@ const BoardBusiness = () => {
                 <Link to="clients">Clients</Link>
             </nav>
 
-            <Outlet />
+            <div className="profile-outlet">
+                <Outlet />
+            </div>
 
         </div>
     );

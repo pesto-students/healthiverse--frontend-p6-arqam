@@ -1,8 +1,9 @@
 import React from "react";
 import { Formik, Field, Form, ErrorMessage } from "formik";
 import * as Yup from "yup";
-import { postProfile } from "../../../slices/profile";
 import { useDispatch } from "react-redux";
+import { postBusinessProfile } from "../../../slices/profile";
+import { useNavigate } from "react-router-dom";
 
 const user = JSON.parse(localStorage.getItem("user"));
 
@@ -10,6 +11,7 @@ const FormGym = () => {
     const initialValues = {
         about: "",
         address: "",
+        contact: "",
         activites: [],
         openTime: {
             from: "",
@@ -28,28 +30,37 @@ const FormGym = () => {
             .required("This field is required"),
         address: Yup.string()
             .required("This field is required"),
-        activites: Yup.array().min(1,"Select at least one activity"),
+        contact: Yup.number().typeError("Must be a number")
+            .integer()
+            .required("This field is required"),
+        activites: Yup.array().min(1, "Select at least one activity"),
         openTime: Yup.object().shape({
-            from: Yup.string().required('Opening hours are required'),
-            to: Yup.string().required('Opening hours are required')
+            from: Yup.string().required('This field is required'),
+            to: Yup.string().required('This field is required')
         }),
         membership: Yup.object().shape({
-            one: Yup.string().required('Membership price is required'),
-            three: Yup.string().required('Membership price is required'),
-            six: Yup.string().required('Membership price is required'),
-            twelve: Yup.string().required('Membership price is required'),
+            one: Yup.string().required('This field is required'),
+            three: Yup.string().required('This field is required'),
+            six: Yup.string().required('This field is required'),
+            twelve: Yup.string().required('This field is required'),
         }),
     });
 
     const dispatch = useDispatch();
+    const navigate = useNavigate();
 
     const handleSubmit = (formValue) => {
         console.log(formValue);
+        dispatch(postBusinessProfile(formValue)).unwrap()
+            .then(() => {
+                navigate("/business");
+                window.location.reload();
+            });
     }
 
     return (
         <div className="profile-form">
-            <h1>Complete your profile</h1>
+            <h1>Complete your business profile</h1>
             <Formik
                 initialValues={initialValues}
                 validationSchema={validationSchema}
@@ -70,6 +81,16 @@ const FormGym = () => {
                         <Field name="address" type="text" className="form-control" />
                         <ErrorMessage
                             name="address"
+                            component="div"
+                            className="alert alert-danger"
+                        />
+                    </div>
+
+                    <div className="form-group">
+                        <label htmlFor="contact"><h3>Contact Number:</h3></label>
+                        <Field name="contact" type="text" className="form-control" />
+                        <ErrorMessage
+                            name="contact"
                             component="div"
                             className="alert alert-danger"
                         />
