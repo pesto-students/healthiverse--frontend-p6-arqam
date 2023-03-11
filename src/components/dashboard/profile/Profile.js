@@ -1,21 +1,20 @@
 import React, { useState, useEffect } from "react";
-import { Navigate } from 'react-router-dom';
+import { Navigate, useNavigate,Link } from 'react-router-dom';
 import { useSelector } from "react-redux";
-import FormProfile from "./FormProfile";
 import profileService from "../../../services/profile.service";
 
 const Profile = () => {
   const { user: currentUser } = useSelector((state) => state.auth);
-  const { profileCreated } = useSelector(state => state.profile);
   const [profileData, setProfileData] = useState({});
+  let navigate = useNavigate();
 
   useEffect(() => {
-    console.log(profileCreated);
     profileService.getProfile()
       .then((res) => {
         setProfileData(res.data);
-      }).catch((err) => {
-        console.log(err);
+      }).catch(() => {
+        navigate("/subscriber/profile");
+        window.location.reload();
       });
 
   }, []);
@@ -26,13 +25,16 @@ const Profile = () => {
 
   return (
     <div className="profile-page">
-      {(!profileCreated && !profileData._id) ?
-        (<FormProfile />) :
+      {(!profileData._id) ?
+        (<div>
+          <h1>Loading...</h1>
+        </div>) :
         (<div className="container">
           <header className="jumbotron">
             <h3>
               <strong>{currentUser.name}</strong> Profile
             </h3>
+            <Link to="/subscriber/profile/">Edit Profile</Link>
           </header>
           <p>
             <strong>About:</strong> {profileData.about}
