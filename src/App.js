@@ -16,11 +16,14 @@ import BoardAdmin from "./components/dashboard/BoardAdmin";
 import { logout } from "./slices/auth";
 
 import EventBus from "./common/EventBus";
-import BrowseGyms from "./components/dashboard/browse/BrowseGyms";
+import BrowseGyms from "./components/dashboard/browse/BrowseBusiness";
 import BrowseClients from "./components/dashboard/browse/BrowseClients";
 import FormProfile from "./components/dashboard/profile/FormSubscriber";
 import FormGym from "./components/dashboard/profile/FormGym";
 import GymProfile from "./components/dashboard/profile/GymProfile";
+import BusinessLogin from "./components/login/BusinessLogin";
+import BrowseBusiness from "./components/dashboard/browse/BrowseBusiness";
+import AllMembership from "./components/dashboard/membership/SubscriberMembership";
 
 const App = () => {
   const [showBusinessBoard, setShowBusinessBoard] = useState(false);
@@ -107,7 +110,7 @@ const App = () => {
           ) : (
             <div className="navbar-nav ml-auto">
               <li className="nav-item">
-                <Link to={"/login"} className="nav-link">
+                <Link to={`/login`} className="nav-link">
                   Login
                 </Link>
               </li>
@@ -124,14 +127,16 @@ const App = () => {
         <div className="app-container ">
           <Routes>
             <Route path="/" element={<Home />} />
-            <Route path="/home" element={<Home />} />
+            <Route path="/home" element={<BrowseBusiness />} />
             <Route path="/login" element={<Login />} />
+            <Route path="/login/business" element={<BusinessLogin />} />
             <Route path="/register" element={<RegisterSubscriber />} />
             <Route path="/register/business" element={<RegisterBusiness />} />
             <Route path="/subscriber" element={<BoardSubscriber />}>
               <Route path="" element={<Profile />} />
               <Route path="profile" element={<FormProfile />} />
-              <Route path="browse" element={<BrowseGyms />} />
+              <Route path="browse" element={<BrowseBusiness />} />
+              <Route path="allmemberships" element={<AllMembership />} />
             </Route>
             <Route path="/business" element={<BoardBusiness />}>
               <Route path="" element={<GymProfile />} />

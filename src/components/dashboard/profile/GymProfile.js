@@ -12,15 +12,16 @@ const GymProfile = () => {
     profileService.getBusinessProfile()
       .then((res) => {
         setProfileData(res.data);
-      }).catch(() => {
+      }).catch((err) => {
+        console.log(err);
         navigate("/business/profile");
         window.location.reload();
       });
 
-  }, []);
+  },[]);
 
   if (!currentUser) {
-    return <Navigate to="/login" />;
+    return <Navigate to="/login/business" />;
   }
 
   return (

@@ -11,7 +11,7 @@ const BoardSubscriber = () => {
             <nav className="nav-dashboard">
                 <Link to="">Profile</Link>
                 <Link to="browse">Browse</Link>
-                <Link to="membership">Membership</Link>
+                <Link to="allmemberships">Membership</Link>
             </nav>
             <div className="profile-outlet">
                 <Outlet />

@@ -12,7 +12,7 @@ const FormGym = () => {
         about: "",
         address: "",
         contact: "",
-        activites: [],
+        activities: [],
         openTime: {
             from: "",
             to: "",
@@ -99,31 +99,31 @@ const FormGym = () => {
                     <div className="form-group">
                         <div><h3>Activities:</h3></div>
                         <label>
-                            <Field type="checkbox" name="activites" value="Gym" />
+                            <Field type="checkbox" name="activities" value="Gym" />
                             Gym
                         </label>
                         <label>
-                            <Field type="checkbox" name="activites" value="HIIT" />
+                            <Field type="checkbox" name="activities" value="HIIT" />
                             HIIT
                         </label>
                         <label>
-                            <Field type="checkbox" name="activites" value="CrossFit" />
+                            <Field type="checkbox" name="activities" value="CrossFit" />
                             CrossFit
                         </label>
                         <label>
-                            <Field type="checkbox" name="activites" value="Powerlifting" />
+                            <Field type="checkbox" name="activities" value="Powerlifting" />
                             Powerlifting
                         </label>
                         <label>
-                            <Field type="checkbox" name="activites" value="Zumba" />
+                            <Field type="checkbox" name="activities" value="Zumba" />
                             Zumba
                         </label>
                         <label>
-                            <Field type="checkbox" name="activites" value="Yoga" />
+                            <Field type="checkbox" name="activities" value="Yoga" />
                             Yoga
                         </label>
                         <ErrorMessage
-                            name="activites"
+                            name="activities"
                             component="div"
                             className="alert alert-danger"
                         />

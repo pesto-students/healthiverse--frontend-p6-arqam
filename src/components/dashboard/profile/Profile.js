@@ -12,11 +12,11 @@ const Profile = () => {
     profileService.getProfile()
       .then((res) => {
         setProfileData(res.data);
-      }).catch(() => {
+      }).catch((err) => {
+        console.log(err);
         navigate("/subscriber/profile");
         window.location.reload();
       });
-
   }, []);
 
   if (!currentUser) {

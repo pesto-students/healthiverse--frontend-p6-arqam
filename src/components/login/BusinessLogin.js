@@ -1,13 +1,13 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Navigate, useNavigate, Link } from "react-router-dom";
+import { Navigate, useNavigate } from "react-router-dom";
 import { Formik, Field, Form, ErrorMessage } from "formik";
 import * as Yup from "yup";
 
 import { login } from "../../slices/auth";
 import { clearMessage } from "../../slices/message";
 
-const Login = () => {
+const BusinessLogin = () => {
     let navigate = useNavigate();
 
     const [loading, setLoading] = useState(false);
@@ -40,28 +40,20 @@ const Login = () => {
         dispatch(login({ ...formValue }))
             .unwrap()
             .then(() => {
-                navigate("/subscriber");
+                navigate("/business");
             }).catch(() => {
                 setLoading(false);
             })
     }
 
     if (isLoggedIn) {
-        return <Navigate to={"/subscriber"} />
+        return <Navigate to={"/business"} />
     }
 
     return (
         <div className="login-form">
             <div className="heading">
-                <h1>Login Page</h1>
-                <div>
-                    <p>
-                        Business Acount?
-                        <span>
-                            <Link to="/login/business">Login here</Link>
-                        </span>
-                    </p>
-                </div>
+                <h1>Business Login Page</h1>
             </div>
             <Formik
                 initialValues={initialValues}
@@ -112,4 +104,4 @@ const Login = () => {
 
 };
 
-export default Login;
+export default BusinessLogin;

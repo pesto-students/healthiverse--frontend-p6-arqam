@@ -20,9 +20,13 @@ const getAdminBoard = () => {
     return axios.get(API_URL + "admin", { headers: authHeader() });
 };
 
-const getGyms = () => {
-    return axios.get(API_URL + "subscriber/browse", { headers: authHeader() });
+const getAllBusiness = () => {
+    return axios.get(API_URL + "getbusiness", { headers: authHeader() });
 };
+
+const getMemberships = () => {
+    return axios.get(API_URL + "subscriber/allmemberships", { headers: authHeader() });
+}
 
 const getClients = () => {
     return axios.get(API_URL + "business/clients", { headers: authHeader() });
@@ -34,7 +38,8 @@ const userService = {
     getSubscriberBoard,
     getBusinessBoard,
     getAdminBoard,
-    getGyms,
+    getAllBusiness,
+    getMemberships,
     getClients
 };
 
