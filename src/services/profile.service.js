@@ -22,12 +22,18 @@ const postBusinessProfile = (data) => {
 
 const getProfile = () => {
     return axios
-        .get(API_URL + "subscriber/", { headers: authHeader() });
-}
+        .get(API_URL + "subscriber/", { headers: authHeader() })
+        .then((res) => {
+            return res.data;
+        });
+};
 
 const getBusinessProfile = () => {
     return axios
-        .get(API_URL + "business/", { headers: authHeader() });
+        .get(API_URL + "business/", { headers: authHeader() })
+        .then((res) => {
+            return res.data;
+        });
 }
 
 const profileService = {
