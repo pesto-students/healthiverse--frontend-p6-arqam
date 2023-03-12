@@ -29,7 +29,7 @@ const getMemberships = () => {
 }
 
 const getClients = () => {
-    return axios.get(API_URL + "business/clients", { headers: authHeader() });
+    return axios.get(API_URL + "business/getclients", { headers: authHeader() });
 };
 
 
