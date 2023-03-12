@@ -11,15 +11,17 @@ const Login = () => {
     let navigate = useNavigate();
 
     const [loading, setLoading] = useState(false);
-
     const { isLoggedIn } = useSelector(state => state.auth);
     const { message } = useSelector(state => state.message);
 
     const dispatch = useDispatch();
 
     useEffect(() => {
+        // if (isLoggedIn) {
+        //     navigate("/subscriber");
+        // }
         dispatch(clearMessage());
-    }, [dispatch]);
+    }, []);
 
 
     const initialValues = {
@@ -46,14 +48,11 @@ const Login = () => {
             })
     }
 
-    if (isLoggedIn) {
-        return <Navigate to={"/subscriber"} />
-    }
 
     return (
         <div className="login-form">
             <div className="heading">
-                <h1>Login Page</h1>
+                <h1>Subscriber Login</h1>
                 <div>
                     <p>
                         Business Acount?

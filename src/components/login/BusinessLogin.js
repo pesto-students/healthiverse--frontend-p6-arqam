@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Navigate, useNavigate } from "react-router-dom";
+import { Navigate, useNavigate, Link } from "react-router-dom";
 import { Formik, Field, Form, ErrorMessage } from "formik";
 import * as Yup from "yup";
 
@@ -18,6 +18,9 @@ const BusinessLogin = () => {
     const dispatch = useDispatch();
 
     useEffect(() => {
+        // if (isLoggedIn) {
+        //     navigate("/business");
+        // }
         dispatch(clearMessage());
     }, [dispatch]);
 
@@ -46,14 +49,19 @@ const BusinessLogin = () => {
             })
     }
 
-    if (isLoggedIn) {
-        return <Navigate to={"/business"} />
-    }
 
     return (
         <div className="login-form">
             <div className="heading">
-                <h1>Business Login Page</h1>
+                <h1>Business Login</h1>
+                <div>
+                    <p>
+                        Subscriber Acount?
+                        <span>
+                            <Link to="/login">Login here</Link>
+                        </span>
+                    </p>
+                </div>
             </div>
             <Formik
                 initialValues={initialValues}
