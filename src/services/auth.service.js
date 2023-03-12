@@ -19,8 +19,6 @@ const login = (data) => {
     return axios
         .post(API_URL + "login/", { email, password })
         .then((res) => {
-            console.log("Login response");
-            console.log(res.data);
             if (res.data.token) {
                 const _user = {
                     _id: res.data._id,
