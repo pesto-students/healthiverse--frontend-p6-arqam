@@ -1,12 +1,14 @@
 import { configureStore } from "@reduxjs/toolkit";
 import authReducer from "./slices/auth";
 import messageReducer from "./slices/message";
-import profileReducer from "./slices/profile";
+import subscriberReducer from "./slices/subscriber";
+import businessReducer from "./slices/business";
 
 const reducer = {
     auth: authReducer,
     message: messageReducer,
-    profile: profileReducer,
+    subscriber: subscriberReducer,
+    business: businessReducer,
 };
 
 const store = configureStore({
