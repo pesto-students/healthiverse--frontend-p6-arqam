@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Formik, Field, Form, ErrorMessage } from "formik";
+import { Link } from "react-router-dom";
 import * as Yup from "yup";
 
 import { register } from "../../slices/auth";
@@ -55,6 +56,9 @@ const RegisterBusiness = () => {
         <div className="signup-form">
             <div className="heading">
                 <h1>Business Signup</h1>
+                <Link to={"/register"} className="nav-link">
+                    Signup as a subscriber instead
+                </Link>
             </div>
             <Formik
                 initialValues={initialValues}
