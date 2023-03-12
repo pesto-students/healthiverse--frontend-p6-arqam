@@ -1,31 +1,38 @@
 import React, { useState, useEffect } from "react";
-import { Navigate, useNavigate,Link } from 'react-router-dom';
+import { Navigate, useNavigate, Link } from 'react-router-dom';
 import { useSelector } from "react-redux";
-import profileService from "../../../services/profile.service";
+import { getSubscriberProfile, setSubscriberProfile } from "../../../slices/subscriber";
+import { useDispatch } from "react-redux";
 
 const Profile = () => {
   const { user: currentUser } = useSelector((state) => state.auth);
-  const [profileData, setProfileData] = useState({});
+  const { subscriberProfileData } = useSelector((state) => state.subscriber);
   let navigate = useNavigate();
+  let dispatch = useDispatch();
 
   useEffect(() => {
-    profileService.getProfile()
-      .then((res) => {
-        setProfileData(res.data);
-      }).catch((err) => {
-        console.log(err);
-        navigate("/subscriber/profile");
-        window.location.reload();
-      });
+    const fetchData = () => {
+      dispatch(getSubscriberProfile())
+        .unwrap()
+        .then((res) => {
+          dispatch(setSubscriberProfile(res));
+        }).catch((err) => {
+          navigate("/subscriber/profile");
+        });
+    };
+    if (!currentUser) {
+      navigate("/login");
+    } else {
+      fetchData();
+    }
+
+
   }, []);
 
-  if (!currentUser) {
-    return <Navigate to="/login" />;
-  }
 
   return (
     <div className="profile-page">
-      {(!profileData._id) ?
+      {(!subscriberProfileData) ?
         (<div>
           <h1>Loading...</h1>
         </div>) :
@@ -37,22 +44,22 @@ const Profile = () => {
             <Link to="/subscriber/profile/">Edit Profile</Link>
           </header>
           <p>
-            <strong>About:</strong> {profileData.about}
+            <strong>About:</strong> {subscriberProfileData.about}
           </p>
           <p>
-            <strong>Height:</strong> {profileData.height}
+            <strong>Height:</strong> {subscriberProfileData.height}
           </p>
           <p>
-            <strong>Weight:</strong> {profileData.weight}
+            <strong>Weight:</strong> {subscriberProfileData.weight}
           </p>
           <p>
-            <strong>Goals:</strong> {profileData.goals}
+            <strong>Goals:</strong> {subscriberProfileData.goals}
           </p>
           <p>
-            <strong>Lifestyle:</strong> {profileData.lifestyle}
+            <strong>Lifestyle:</strong> {subscriberProfileData.lifestyle}
           </p>
           <p>
-            <strong>Preferred Workout:</strong> {profileData.mode}
+            <strong>Preferred Workout:</strong> {subscriberProfileData.mode}
           </p>
           <div className="credentials">
             <p>

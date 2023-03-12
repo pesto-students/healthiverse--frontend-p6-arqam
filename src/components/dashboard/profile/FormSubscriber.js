@@ -1,7 +1,7 @@
 import React from "react";
 import { Formik, Field, Form, ErrorMessage } from "formik";
 import * as Yup from "yup";
-import { postProfile } from "../../../slices/profile";
+import { postSubscriberProfile } from "../../../slices/subscriber";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 
@@ -38,7 +38,7 @@ const FormProfile = () => {
 
     const handleSubmit = (formValue) => {
         console.log(formValue);
-        dispatch(postProfile(formValue))
+        dispatch(postSubscriberProfile(formValue))
             .unwrap()
             .then(() => {
                 navigate("/subscriber");

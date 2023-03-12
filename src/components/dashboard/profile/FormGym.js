@@ -2,7 +2,7 @@ import React from "react";
 import { Formik, Field, Form, ErrorMessage } from "formik";
 import * as Yup from "yup";
 import { useDispatch } from "react-redux";
-import { postBusinessProfile } from "../../../slices/profile";
+import { postBusinessProfile } from "../../../slices/business";
 import { useNavigate } from "react-router-dom";
 
 const user = JSON.parse(localStorage.getItem("user"));
@@ -54,7 +54,6 @@ const FormGym = () => {
         dispatch(postBusinessProfile(formValue)).unwrap()
             .then(() => {
                 navigate("/business");
-                window.location.reload();
             });
     }
 
