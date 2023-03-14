@@ -18,9 +18,9 @@ const BusinessLogin = () => {
     const dispatch = useDispatch();
 
     useEffect(() => {
-        // if (isLoggedIn) {
-        //     navigate("/business");
-        // }
+        if (isLoggedIn) {
+            navigate("/business");
+        }
         dispatch(clearMessage());
     }, [dispatch]);
 

@@ -22,10 +22,10 @@ const FormProfile = () => {
             .required("This field is required"),
         height: Yup.number()
             .positive()
-            .required('ERROR: The number is required!'),
+            .required('This field is required'),
         weight: Yup.number()
             .positive()
-            .required('ERROR: The number is required!'),
+            .required('This field is required'),
         lifestyle: Yup.string()
             .required("Select an option"),
         goals: Yup.string()

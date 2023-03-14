@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import profileService from "../../../services/profile.service";
 import { getBusinessProfile, setBusinessProfile } from "../../../slices/business";
 
-const GymProfile = () => {
+const BusinessProfile = () => {
     const { user: currentUser } = useSelector((state) => state.auth);
     const { businessProfileData } = useSelector((state) => state.business);
     let navigate = useNavigate();
@@ -80,4 +80,4 @@ const GymProfile = () => {
     );
 };
 
-export default GymProfile;
+export default BusinessProfile;

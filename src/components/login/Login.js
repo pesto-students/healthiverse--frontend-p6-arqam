@@ -17,9 +17,9 @@ const Login = () => {
     const dispatch = useDispatch();
 
     useEffect(() => {
-        // if (isLoggedIn) {
-        //     navigate("/subscriber");
-        // }
+        if (isLoggedIn) {
+            navigate("/subscriber");
+        }
         dispatch(clearMessage());
     }, []);
 

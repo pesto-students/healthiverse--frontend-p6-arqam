@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from "react";
-import { Navigate, useNavigate, Link } from 'react-router-dom';
+import React, { useEffect } from "react";
+import { useNavigate, Link } from 'react-router-dom';
 import { useSelector } from "react-redux";
 import { getSubscriberProfile, setSubscriberProfile } from "../../../slices/subscriber";
 import { useDispatch } from "react-redux";

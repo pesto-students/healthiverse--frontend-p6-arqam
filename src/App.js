@@ -1,10 +1,8 @@
 import React, { useState, useEffect, useCallback } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
-
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./App.css";
-
 import Login from "./components/login/Login";
 import { RegisterSubscriber, RegisterBusiness } from "./components/registration";
 import Home from "./components/home/Home";
@@ -12,18 +10,15 @@ import Profile from "./components/dashboard/profile/Profile";
 import BoardSubscriber from "./components/dashboard/BoardSubscriber";
 import BoardBusiness from "./components/dashboard/BoardBusiness";
 import BoardAdmin from "./components/dashboard/BoardAdmin";
-
 import { logout } from "./slices/auth";
-
 import EventBus from "./common/EventBus";
-import BrowseGyms from "./components/dashboard/browse/BrowseBusiness";
 import BrowseClients from "./components/dashboard/browse/BrowseClients";
 import FormProfile from "./components/dashboard/profile/FormSubscriber";
-import FormGym from "./components/dashboard/profile/FormGym";
-import GymProfile from "./components/dashboard/profile/GymProfile";
 import BusinessLogin from "./components/login/BusinessLogin";
 import BrowseBusiness from "./components/dashboard/browse/BrowseBusiness";
 import AllMembership from "./components/dashboard/membership/SubscriberMembership";
+import FormBusiness from "./components/dashboard/profile/FormBusiness";
+import BusinessProfile from "./components/dashboard/profile/BusinessProfile";
 
 const App = () => {
   const [showBusinessBoard, setShowBusinessBoard] = useState(false);
@@ -139,8 +134,8 @@ const App = () => {
               <Route path="allmemberships" element={<AllMembership />} />
             </Route>
             <Route path="/business" element={<BoardBusiness />}>
-              <Route path="" element={<GymProfile />} />
-              <Route path="profile" element={<FormGym />} />
+              <Route path="" element={<BusinessProfile />} />
+              <Route path="profile" element={<FormBusiness />} />
               <Route path="clients" element={<BrowseClients />} />
             </Route>
             <Route path="/admin" element={<BoardAdmin />} />
