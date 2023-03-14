@@ -26,23 +26,28 @@ const BrowseBusiness = () => {
         <div className="container">
             <div className="gyms">
                 <h3>Gyms</h3>
-                {gyms.map((item, index) => {
-                    return (<li key={index}>{item.name}</li>)
-                })}
+                {(gyms.length === 0) ?
+                    (<p>Loading...</p>) :
+                    (gyms.map((item, index) => {
+                        return (<li key={index}>{item.name}</li>)
+                    }))}
             </div>
             <div className="trainers">
                 <h3>Trainers</h3>
-                {trainers.map((item, index) => {
-                    return (<li key={index}>{item.name}</li>)
-                })}
+                {(trainers.length === 0) ?
+                    (<p>Loading...</p>) :
+                    (trainers.map((item, index) => {
+                        return (<li key={index}>{item.name}</li>)
+                    }))}
             </div>
             <div className="dieticians">
                 <h3>Dieticians</h3>
-                {dieticians.map((item, index) => {
-                    return (<li key={index}>{item.name}</li>)
-                })}
+                {(dieticians.length === 0) ?
+                    (<p>Loading...</p>) :
+                    (dieticians.map((item, index) => {
+                        return (<li key={index}>{item.name}</li>)
+                    }))}
             </div>
-
         </div>
     );
 }
