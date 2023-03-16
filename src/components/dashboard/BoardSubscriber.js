@@ -1,8 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Routes, Route, Link, Outlet } from 'react-router-dom';
 
-// import userService from "../../services/user.service";
-
 const BoardSubscriber = () => {
 
     return (
