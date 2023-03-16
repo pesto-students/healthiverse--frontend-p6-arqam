@@ -28,7 +28,7 @@ const BrowseClients = () => {
                 {(!isLoading && clients.length === 0) ?
                     (<p>No active clients</p>) :
                     (clients.map((item, index) => {
-                        return (<li key={index}>Name: {item[0].name} End Date: {item.endDate}</li>)
+                        return (<li key={index}>Name: {item.name} End Date: {item.endDate}</li>)
                     }))}
             </div>
         </div>
