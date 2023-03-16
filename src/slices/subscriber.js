@@ -65,6 +65,7 @@ const subscriberProfileSlice = createSlice({
         },
         [getSubscriberProfile.fulfilled]: (state, action) => {
             state.subscriberProfileCreated = true;
+            state.subscriberProfileData = action.payload;
         },
         [getSubscriberProfile.rejected]: (state, action) => {
             state.subscriberProfileCreated = false;
