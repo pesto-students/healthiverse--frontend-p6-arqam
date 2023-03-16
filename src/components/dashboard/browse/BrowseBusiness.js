@@ -22,31 +22,43 @@ const BrowseBusiness = () => {
         <div className="container">
             <div className="gyms">
                 <h3>Gyms</h3>
-                {isLoading && <p>Loading...</p>}
+                {isLoading ?
+                    (<p>Loading...</p>) :
+                    ((gyms.length === 0) ?
+                        (<p>No gyms found</p>) :
+                        (gyms.map((item, index) => {
+                            return (<li key={index}>{item.name}</li>)
+                        })
+                        )
+                    )
+                }
 
-                {(!isLoading && gyms.length === 0) ?
-                    (<p>No active membership</p>) :
-                    (gyms.map((item, index) => {
-                        return (<li key={index}>{item.name}</li>)
-                    }))}
             </div>
             <div className="trainers">
                 <h3>Trainers</h3>
-                {isLoading && <p>Loading...</p>}
-                {(!isLoading && trainers.length === 0) ?
-                    (<p>No active membership</p>) :
-                    (trainers.map((item, index) => {
-                        return (<li key={index}>{item.name}</li>)
-                    }))}
+                {isLoading ?
+                    (<p>Loading...</p>) :
+                    ((trainers.length === 0) ?
+                        (<p>No trainers found</p>) :
+                        (trainers.map((item, index) => {
+                            return (<li key={index}>{item.name}</li>)
+                        })
+                        )
+                    )
+                }
             </div>
             <div className="dieticians">
                 <h3>Dieticians</h3>
-                {isLoading && <p>Loading...</p>}
-                {(!isLoading && dieticians.length === 0) ?
-                    (<p>No active membership</p>) :
-                    (dieticians.map((item, index) => {
-                        return (<li key={index}>{item.name}</li>)
-                    }))}
+                {isLoading ?
+                    (<p>Loading...</p>) :
+                    ((dieticians.length === 0) ?
+                        (<p>No dieticians found</p>) :
+                        (dieticians.map((item, index) => {
+                            return (<li key={index}>{item.name}</li>)
+                        })
+                        )
+                    )
+                }
             </div>
 
         </div>

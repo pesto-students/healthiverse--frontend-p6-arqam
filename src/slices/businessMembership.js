@@ -40,6 +40,9 @@ const businessMembershipSlice = createSlice({
     name: "memberships",
     initialState,
     extraReducers: {
+        [getAllBusiness.pending]: (state, action) => {
+            state.isLoading = true;
+        },
         [getAllBusiness.fulfilled]: (state, action) => {
             state.isLoading = false;
             state.gyms = action.payload.gym;
@@ -51,6 +54,9 @@ const businessMembershipSlice = createSlice({
             state.gyms = null;
             state.trainers = null;
             state.dieticians = null;
+        },
+        [getMemberships.pending]: (state, action) => {
+            state.isLoading = true;
         },
         [getMemberships.fulfilled]: (state, action) => {
             state.isLoading = false;
