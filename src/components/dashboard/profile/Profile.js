@@ -12,13 +12,7 @@ const Profile = () => {
 
   useEffect(() => {
     const fetchData = () => {
-      dispatch(getSubscriberProfile())
-        .unwrap()
-        .then((res) => {
-          dispatch(setSubscriberProfile(res));
-        }).catch((err) => {
-          navigate("/subscriber/profile");
-        });
+      dispatch(getSubscriberProfile());
     };
     if (!currentUser) {
       navigate("/login");
