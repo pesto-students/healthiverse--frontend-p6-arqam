@@ -131,7 +131,7 @@ const App = () => {
               <Route path="" element={<Profile />} />
               <Route path="profile" element={<FormProfile />} />
               <Route path="browse" element={<BrowseBusiness />} />
-              <Route path="allmemberships" element={<AllMembership />} />
+              <Route path="memberships" element={<AllMembership />} />
             </Route>
             <Route path="/business" element={<BoardBusiness />}>
               <Route path="" element={<BusinessProfile />} />

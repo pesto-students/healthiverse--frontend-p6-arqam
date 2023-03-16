@@ -9,7 +9,7 @@ const BoardSubscriber = () => {
             <nav className="nav-dashboard">
                 <Link to="">Profile</Link>
                 <Link to="browse">Browse</Link>
-                <Link to="allmemberships">Membership</Link>
+                <Link to="memberships">Membership</Link>
             </nav>
             <div className="profile-outlet">
                 <Outlet />
