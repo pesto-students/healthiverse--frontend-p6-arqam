@@ -1,18 +1,14 @@
-import React, { useState, useEffect } from "react";
-
-import userService from "../../../services/user.service";
+import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { getAllBusiness } from "../../../slices/businessMembership";
 
 const BrowseBusiness = () => {
-    const [gyms, setGyms] = useState([]);
-    const [trainers, setTrainers] = useState([]);
-    const [dieticians, setDieticians] = useState([]);
+    const { isLoading, gyms, trainers, dieticians } = useSelector((state) => state.businessAndMembership);
+    const dispatch = useDispatch();
 
     useEffect(() => {
-        userService.getAllBusiness().then((res) => {
-            setGyms(res.data.gym);
-            setTrainers(res.data.trainer);
-            setDieticians(res.data.dietician);
-        })
+        dispatch(getAllBusiness())
+            .unwrap()
             .catch((err) => {
                 const _content = (err.response &&
                     err.response.data &&
@@ -26,28 +22,33 @@ const BrowseBusiness = () => {
         <div className="container">
             <div className="gyms">
                 <h3>Gyms</h3>
-                {(gyms.length === 0) ?
-                    (<p>Loading...</p>) :
+                {isLoading && <p>Loading...</p>}
+
+                {(!isLoading && gyms.length === 0) ?
+                    (<p>No active membership</p>) :
                     (gyms.map((item, index) => {
                         return (<li key={index}>{item.name}</li>)
                     }))}
             </div>
             <div className="trainers">
                 <h3>Trainers</h3>
-                {(trainers.length === 0) ?
-                    (<p>Loading...</p>) :
+                {isLoading && <p>Loading...</p>}
+                {(!isLoading && trainers.length === 0) ?
+                    (<p>No active membership</p>) :
                     (trainers.map((item, index) => {
                         return (<li key={index}>{item.name}</li>)
                     }))}
             </div>
             <div className="dieticians">
                 <h3>Dieticians</h3>
-                {(dieticians.length === 0) ?
-                    (<p>Loading...</p>) :
+                {isLoading && <p>Loading...</p>}
+                {(!isLoading && dieticians.length === 0) ?
+                    (<p>No active membership</p>) :
                     (dieticians.map((item, index) => {
                         return (<li key={index}>{item.name}</li>)
                     }))}
             </div>
+
         </div>
     );
 }

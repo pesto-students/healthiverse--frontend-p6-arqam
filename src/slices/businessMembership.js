@@ -19,7 +19,6 @@ export const getMemberships = createAsyncThunk(
     async (data, thunkAPI) => {
         try {
             const response = await userService.getMemberships();
-            console.log(response.data);
             return response.data;
         } catch (err) {
             console.log(err);
