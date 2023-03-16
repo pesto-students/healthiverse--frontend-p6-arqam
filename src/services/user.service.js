@@ -1,11 +1,15 @@
 import axios from "axios";
 import authHeader from "./auth-header";
+import PORT from "./port";
 
-const API_URL = "https://manikdevbhagat-laughing-memory-6rw7xq5gj9h5w5x-5000.preview.app.github.dev"
-    + "/api/users/";
+const API_URL = PORT + "/api/users/";
 
 const getAdminBoard = () => {
     return axios.get(API_URL + "admin", { headers: authHeader() });
+};
+
+const getAllBusiness = () => {
+    return axios.get(API_URL + "getbusiness", { headers: authHeader() });
 };
 
 const getMemberships = () => {
@@ -19,6 +23,7 @@ const getClients = () => {
 
 const userService = {
     getAdminBoard,
+    getAllBusiness,
     getMemberships,
     getClients
 };
