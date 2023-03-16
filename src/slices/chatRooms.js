@@ -1,6 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-initialState = { roomId: "" };
+const initialState = { roomId: "" };
 
 const chatRoomSlice = createSlice({
     name: "chatRoom",
