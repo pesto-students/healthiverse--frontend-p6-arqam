@@ -1,29 +1,22 @@
 import React, { useState, useEffect } from "react";
-
-import userService from "../../../services/user.service";
+import { useDispatch, useSelector } from "react-redux";
+import { getMemberships } from "../../../slices/businessMembership";
 
 const AllMembership = () => {
-    const [gyms, setGyms] = useState([]);
-    const [trainers, setTrainers] = useState([]);
-    const [dieticians, setDieticians] = useState([]);
-    const [isLoading, setIsLoading] = useState(true);
+    const { isLoading, gyms, trainers, dieticians } = useSelector((state) => state.businessAndMembership);
+    const dispatch = useDispatch();
 
     useEffect(() => {
-        userService.getMemberships().then((res) => {
-            setGyms(res.data.gym);
-            setTrainers(res.data.trainer);
-            setDieticians(res.data.dietician);
-            setIsLoading(false);
-        })
+        dispatch(getMemberships())
+            .unwrap()
             .catch((err) => {
                 const _content = (err.response &&
                     err.response.data &&
                     err.response.data.message) ||
                     err.message || err.toString();
                 console.log(_content);
-                setIsLoading(false);
             });
-    }, [])
+    }, []);
 
     return (
         <div className="container">
