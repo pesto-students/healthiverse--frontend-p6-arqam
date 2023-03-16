@@ -10,6 +10,7 @@ const BoardSubscriber = () => {
                 <Link to="">Profile</Link>
                 <Link to="browse">Browse</Link>
                 <Link to="memberships">Membership</Link>
+                <Link to="chats">Chats</Link>
             </nav>
             <div className="profile-outlet">
                 <Outlet />
