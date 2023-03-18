@@ -9,6 +9,7 @@ const BoardBusiness = () => {
             <nav className="nav-dashboard">
                 <Link to="">Profile</Link>
                 <Link to="clients">Clients</Link>
+                <Link to="chats">Chats</Link>
             </nav>
 
             <div className="profile-outlet">

@@ -1,0 +1,50 @@
+.chatContainer {
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+  }
+  
+
+  
+  /* Messages */
+  .messagesColumn {
+    height: 70vh;
+    overflow: auto;
+  }
+  .messageSent {
+    background: rgb(0, 24, 111);
+    border-radius: 6px;
+    margin-bottom: 24px;
+    margin-left: 80px;
+    padding: 12px;
+  }
+  .messageReceived{
+    background: rgb(21, 95, 0);
+    border-radius: 6px;
+    margin-bottom: 24px;
+    margin-right: 80px;
+    padding: 12px;
+  }
+  .msgMeta {
+    color: rgb(193, 227, 237);
+    font-size: 0.75rem;
+  }
+  .msgText {
+    color: #fff;
+    margin: 0;
+  }
+  
+  /* Message input and button */
+  .sendMessageContainer {
+    padding: 16px 20px 20px 16px;
+    display: flex;
+  }
+  .messageInput {
+    padding: 14px;
+    margin-right: 16px;
+    width: 60%;
+    border-radius: 6px;
+    border: 1px solid rgb(153, 217, 234);
+    font-size: 0.9rem;
+  }
+  

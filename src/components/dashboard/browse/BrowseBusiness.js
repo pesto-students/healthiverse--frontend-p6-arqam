@@ -1,5 +1,6 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { Link } from "react-router-dom";
 import { getAllBusiness } from "../../../slices/businessMembership";
 
 const BrowseBusiness = () => {
@@ -27,7 +28,7 @@ const BrowseBusiness = () => {
                     ((gyms.length === 0) ?
                         (<p>No gyms found</p>) :
                         (gyms.map((item, index) => {
-                            return (<li key={index}>{item.name}</li>)
+                            return (<li key={index}><Link to={item._id}>{item.name}</Link></li>)
                         })
                         )
                     )
@@ -41,7 +42,7 @@ const BrowseBusiness = () => {
                     ((trainers.length === 0) ?
                         (<p>No trainers found</p>) :
                         (trainers.map((item, index) => {
-                            return (<li key={index}>{item.name}</li>)
+                            return (<li key={index}><Link to={item._id}>{item.name}</Link></li>)
                         })
                         )
                     )
@@ -54,7 +55,7 @@ const BrowseBusiness = () => {
                     ((dieticians.length === 0) ?
                         (<p>No dieticians found</p>) :
                         (dieticians.map((item, index) => {
-                            return (<li key={index}>{item.name}</li>)
+                            return (<li key={index}><Link to={item._id}>{item.name}</Link></li>)
                         })
                         )
                     )

@@ -19,6 +19,9 @@ import BrowseBusiness from "./components/dashboard/browse/BrowseBusiness";
 import AllMembership from "./components/dashboard/membership/SubscriberMembership";
 import FormBusiness from "./components/dashboard/profile/FormBusiness";
 import BusinessProfile from "./components/dashboard/profile/BusinessProfile";
+import socket from "./socket/socket";
+import Chat from "./components/dashboard/chat";
+import BusinessDetails from "./components/dashboard/browse/BusinessDetails";
 
 const App = () => {
   const [showBusinessBoard, setShowBusinessBoard] = useState(false);
@@ -123,6 +126,7 @@ const App = () => {
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/home" element={<BrowseBusiness />} />
+            <Route path="home/:id" element={<BusinessDetails />} />
             <Route path="/login" element={<Login />} />
             <Route path="/login/business" element={<BusinessLogin />} />
             <Route path="/register" element={<RegisterSubscriber />} />
@@ -131,12 +135,15 @@ const App = () => {
               <Route path="" element={<Profile />} />
               <Route path="profile" element={<FormProfile />} />
               <Route path="browse" element={<BrowseBusiness />} />
+              <Route path="browse/:id" element={<BusinessDetails />} />
               <Route path="memberships" element={<AllMembership />} />
+              <Route path="chats" element={<Chat />} />
             </Route>
             <Route path="/business" element={<BoardBusiness />}>
               <Route path="" element={<BusinessProfile />} />
               <Route path="profile" element={<FormBusiness />} />
               <Route path="clients" element={<BrowseClients />} />
+              <Route path="chats" element={<Chat />} />
             </Route>
             <Route path="/admin" element={<BoardAdmin />} />
           </Routes>

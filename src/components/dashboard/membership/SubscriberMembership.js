@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import { getMemberships } from "../../../slices/businessMembership";
 import { setRoom } from "../../../slices/chatRooms";
 
@@ -8,6 +9,7 @@ const AllMembership = () => {
     const { user: currentUser } = useSelector((state) => state.auth);
 
     const dispatch = useDispatch();
+    const navigate = useNavigate();
 
     useEffect(() => {
         dispatch(getMemberships())
@@ -20,6 +22,15 @@ const AllMembership = () => {
                 console.log(_content);
             });
     }, []);
+
+    const chatClick = (item) => {
+        dispatch(setRoom({
+            user1: currentUser,
+            user2: item
+        }));
+        // socket.emit('join_room', { name: currentUser.name, roomId: roomId });
+        navigate("/subscriber/chats");
+    };
 
     return (
         <div className="container">
@@ -36,8 +47,7 @@ const AllMembership = () => {
                                         {item.name}
                                     </p>
                                     <button onClick={() => {
-                                        const roomID = currentUser._id + "+" + item._id;
-                                        dispatch(setRoom(roomID));
+                                        chatClick(item);
                                     }}>
                                         Chat
                                     </button>
@@ -60,8 +70,7 @@ const AllMembership = () => {
                                         {item.name}
                                     </p>
                                     <button onClick={() => {
-                                        const roomID = currentUser._id + "+" + item._id;
-                                        dispatch(setRoom(roomID));
+                                        chatClick(item);
                                     }}>
                                         Chat
                                     </button>
@@ -84,8 +93,7 @@ const AllMembership = () => {
                                         {item.name}
                                     </p>
                                     <button onClick={() => {
-                                        const roomID = currentUser._id + "+" + item._id;
-                                        dispatch(setRoom(roomID));
+                                        chatClick(item);
                                     }}>
                                         Chat
                                     </button>
