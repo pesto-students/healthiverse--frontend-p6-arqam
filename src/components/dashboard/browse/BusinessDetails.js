@@ -1,17 +1,56 @@
-import React from "react";
-import { useParams } from "react-router-dom";
-import { useSelector } from "react-redux";
+import React, { useEffect } from "react";
+import { useParams, Link, useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { getMemberships } from "../../../slices/membership";
 
-const BusinessDetails = ()=>{
-    const {gyms, trainers, dieticians } = useSelector((state) => state.businessAndMembership);
-    const allBusiness = gyms.concat(trainers,dieticians);
-    const {id} = useParams();
-    const businessArr = allBusiness.filter((business)=>{return business._id===id});
+const BusinessDetails = () => {
+    const { gyms, trainers, dieticians } = useSelector((state) => state.browseBusiness);
+    const allBusiness = gyms.concat(trainers, dieticians);
+    const { id } = useParams();
+    const businessArr = allBusiness.filter((business) => { return business._id === id });
     const business = businessArr[0];
-    return(
-        <div>
-            <h3>{business.name}</h3>
-            <button>Buy Membership</button>
+    const navigate = useNavigate();
+    const dispatch = useDispatch();
+
+    
+    const handleClick=()=>{
+        dispatch(getMemberships());
+        navigate("buy");
+    }
+    return (
+
+        <div className="container">
+            <header className="jumbotron">
+                <Link to="/subscriber/browse">back</Link>
+                <h3>
+                    <strong>{business.name}</strong> Profile
+                </h3>
+                <button onClick={handleClick}>Buy Membership</button>
+            </header>
+            <p>
+                <strong>About:</strong> {business.about}
+            </p>
+            <p>
+                <strong>Adress:</strong> {business.address}
+            </p>
+            <p>
+                <strong>Contact:</strong> {business.contact}
+            </p>
+
+            <div className="credentials">
+                <p>
+                    <h2>Credentials</h2>
+                </p>
+                <p>
+                    <strong>Email:</strong> {business.email}
+                </p>
+                <p>
+                    <strong>Password:</strong> **********
+                </p>
+
+            </div>
+
+            
         </div>
     );
 };
