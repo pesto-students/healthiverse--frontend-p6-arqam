@@ -1,17 +1,32 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Formik, Field, Form, ErrorMessage } from "formik";
 import * as Yup from "yup";
-import { useDispatch } from "react-redux";
-import { postBusinessProfile } from "../../../slices/business";
+import { useDispatch, useSelector } from "react-redux";
+import { postBusinessProfile } from "../../../slices/businessProfile";
 import { useNavigate } from "react-router-dom";
+import { clearMessage } from "../../../slices/message";
 
 const user = JSON.parse(localStorage.getItem("user"));
 
 const FormBusiness = () => {
+    const { businessProfiles } = useSelector((state) => state.business);
+    let gymProfiles = businessProfiles.filter(profile => profile.businessType === "gym");
+    let trainerProfile = businessProfiles.filter(profile => profile.businessType === "trainer");
+    let dieticianProfile = businessProfiles.filter(profile => profile.businessType === "dietician");
+    const [alert, setAlert] = useState("");
     const [option, setOption] = useState("");
     const [businessType, setBusinessType] = useState("");
+    const { message } = useSelector(state => state.message);
+    const [successful, setSuccessful] = useState(false);
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
+
+    useEffect(() => {
+        dispatch(clearMessage())
+    }, [dispatch]);
 
     const initialValues = {
+        name: "",
         about: "",
         address: "",
         contact: "",
@@ -30,6 +45,8 @@ const FormBusiness = () => {
     };
 
     const validationSchema = Yup.object().shape({
+        name: Yup.string()
+            .required("This field is required"),
         about: Yup.string()
             .required("This field is required"),
         address: Yup.string(),
@@ -51,46 +68,79 @@ const FormBusiness = () => {
         }),
     });
 
-    const dispatch = useDispatch();
-    const navigate = useNavigate();
-
     const handleSubmit = (formValue) => {
         console.log(formValue);
         dispatch(postBusinessProfile(formValue)).unwrap()
             .then(() => {
+                setSuccessful(true);
                 navigate("/business");
+            }).catch(() => {
+                setSuccessful(false);
             });
     }
 
     const handleChange = (e) => {
+        const selection = e.target.value;
+
+        setAlert("");
+        if (trainerProfile.length > 0 && selection === "trainer") {
+            setAlert("Trainer profile already exists");
+        } else if (dieticianProfile.length > 0 && selection === "dietician") {
+            setAlert("Dietician profile already exists");
+        }
         setOption(e.target.value);
         console.log(e.target.value);
     }
     const handleNext = (e) => {
         e.preventDefault();
-        setBusinessType(option);
-        console.log(option);
+        if (alert = "") {
+            setBusinessType(option);
+        }
+
     }
 
     return (
         <div className="profile-form">
-            <h1>Complete your business profile</h1>
+            <h1>Create your business profile</h1>
             {businessType === "" ?
-                (<form onChange={handleChange} onSubmit={handleNext}>
-                    <p>Please select your business type:</p>
-                    <input type="radio" id="gym" name="business" value="gym" />
-                    <label htmlFor="gym">Gym</label>
-                    <input type="radio" id="trainer" name="business" value="trainer" />
-                    <label htmlFor="trainer">Trainer</label>
-                    <input type="radio" id="dietician" name="business" value="dietician" />
-                    <label htmlFor="dietician">Dietician</label>
-                    <button type="submit">Next</button>
-                </form>) :
+                (<>
+                    <form onChange={handleChange} onSubmit={handleNext}>
+                        <p>Please select your business type:</p>
+                        <input type="radio" id="gym" name="business" value="gym" />
+                        <label htmlFor="gym">Gym</label>
+                        <input type="radio" id="trainer" name="business" value="trainer" />
+                        <label htmlFor="trainer">Trainer</label>
+                        <input type="radio" id="dietician" name="business" value="dietician" />
+                        <label htmlFor="dietician">Dietician</label>
+                        <button type="submit">Next</button>
+                    </form>
+                    {alert && (
+                        <div className="form-group">
+                            <div
+                                className="alert alert-danger"
+                                role="alert"
+                            >
+                                {alert}
+                            </div>
+                        </div>
+                    )}
+                </>
+                ) :
                 (<Formik
                     initialValues={initialValues}
                     validationSchema={validationSchema}
                     onSubmit={handleSubmit}>
                     <Form>
+                        <div className="form-group">
+                            <label htmlFor="name"><h3>Name:</h3></label>
+                            <Field name="name" type="text" className="form-control" />
+                            <ErrorMessage
+                                name="name"
+                                component="div"
+                                className="alert alert-danger"
+                            />
+                        </div>
+
                         <div className="form-group">
                             <label htmlFor="about"><h3>About:</h3></label>
                             <Field name="about" type="text" className="form-control" />
@@ -240,7 +290,16 @@ const FormBusiness = () => {
 
                     </Form>
                 </Formik>)}
-
+            {message && (
+                <div className="form-group">
+                    <div
+                        className={successful ? "alert alert-success" : "alert alert-danger"}
+                        role="alert"
+                    >
+                        {message}
+                    </div>
+                </div>
+            )}
 
         </div>
     );
