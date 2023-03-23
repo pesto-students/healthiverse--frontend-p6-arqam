@@ -19,8 +19,7 @@ const RegisterSubscriber = () => {
     const initialValues = {
         name: "",
         email: "",
-        password: "",
-        role: "subscriber",
+        password: ""
     };
 
     const validationSchema = Yup.object().shape({
@@ -54,10 +53,14 @@ const RegisterSubscriber = () => {
     return (
         <div className="signup-form">
             <div className="heading">
-                <h1>Subscriber Signup</h1>
-                <Link to={"/register/business"} className="nav-link">
-                    Signup as a business instead
-                </Link>
+                <h1>Signup</h1>
+                <div style={{display: "flex"}}>
+                    <p>Already have an account?</p>
+
+                    <Link to={"/login"} >
+                        Login
+                    </Link>
+                </div>
             </div>
             <Formik
                 initialValues={initialValues}
