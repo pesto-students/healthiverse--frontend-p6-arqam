@@ -1,23 +1,33 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
-import { getAllBusiness } from "../../../slices/businessMembership";
+import { getAllBusiness } from "../../../slices/browseBusiness";
 
 const BrowseBusiness = () => {
-    const { isLoading, gyms, trainers, dieticians } = useSelector((state) => state.businessAndMembership);
+    const { isLoading, gyms, trainers, dieticians } = useSelector((state) => state.browseBusiness);
     const dispatch = useDispatch();
+    const allBusiness = gyms.concat(trainers, dieticians);
 
     useEffect(() => {
-        dispatch(getAllBusiness())
-            .unwrap()
-            .catch((err) => {
-                const _content = (err.response &&
-                    err.response.data &&
-                    err.response.data.message) ||
-                    err.message || err.toString();
-                console.log(_content);
-            });
-    }, [])
+        const fetchData = () => {
+            dispatch(getAllBusiness())
+                .unwrap()
+                .catch((err) => {
+                    const _content = (err.response &&
+                        err.response.data &&
+                        err.response.data.message) ||
+                        err.message || err.toString();
+                    console.log(_content);
+                });
+        }
+
+        fetchData();
+
+        // if (allBusiness.length === 0) {
+        //     fetchData()
+        // }
+
+    }, []);
 
     return (
         <div className="container">
@@ -25,9 +35,9 @@ const BrowseBusiness = () => {
                 <h3>Gyms</h3>
                 {isLoading ?
                     (<p>Loading...</p>) :
-                    ((gyms.length === 0) ?
+                    ((gyms?.length === 0) ?
                         (<p>No gyms found</p>) :
-                        (gyms.map((item, index) => {
+                        (gyms?.map((item, index) => {
                             return (<li key={index}><Link to={item._id}>{item.name}</Link></li>)
                         })
                         )
@@ -39,9 +49,9 @@ const BrowseBusiness = () => {
                 <h3>Trainers</h3>
                 {isLoading ?
                     (<p>Loading...</p>) :
-                    ((trainers.length === 0) ?
+                    ((trainers?.length === 0) ?
                         (<p>No trainers found</p>) :
-                        (trainers.map((item, index) => {
+                        (trainers?.map((item, index) => {
                             return (<li key={index}><Link to={item._id}>{item.name}</Link></li>)
                         })
                         )
@@ -52,9 +62,9 @@ const BrowseBusiness = () => {
                 <h3>Dieticians</h3>
                 {isLoading ?
                     (<p>Loading...</p>) :
-                    ((dieticians.length === 0) ?
+                    ((dieticians?.length === 0) ?
                         (<p>No dieticians found</p>) :
-                        (dieticians.map((item, index) => {
+                        (dieticians?.map((item, index) => {
                             return (<li key={index}><Link to={item._id}>{item.name}</Link></li>)
                         })
                         )
