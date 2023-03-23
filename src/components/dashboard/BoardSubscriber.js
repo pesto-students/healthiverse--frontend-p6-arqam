@@ -11,6 +11,7 @@ const BoardSubscriber = () => {
                 <Link to="browse">Browse</Link>
                 <Link to="memberships">Membership</Link>
                 <Link to="chats">Chats</Link>
+                <Link to="addbusiness">Add Business</Link>
             </nav>
             <div className="profile-outlet">
                 <Outlet />
