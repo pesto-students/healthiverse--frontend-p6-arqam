@@ -5,7 +5,7 @@ import profileService from "../services/profile.service";
 
 
 export const postBusinessProfile = createAsyncThunk(
-    "post/profile/subscriber",
+    "post/profile/business",
     async (data, thunkAPI) => {
         try {
             const response = await profileService.postBusinessProfile(data);
@@ -29,10 +29,11 @@ export const postBusinessProfile = createAsyncThunk(
 );
 
 export const getBusinessProfile = createAsyncThunk(
-    "get/profile/subscriber",
+    "get/profile/business",
     async (data, thunkAPI) => {
         try {
             const response = await profileService.getBusinessProfile();
+            console.log(response);
             return response;
         } catch (err) {
             console.log(err);
@@ -45,7 +46,7 @@ export const getBusinessProfile = createAsyncThunk(
 
 const initialState = {
     businessProfileCreated: false,
-    businessProfileData: null
+    businessProfiles: []
 };
 
 const businessProfileSlice = createSlice({
@@ -54,24 +55,23 @@ const businessProfileSlice = createSlice({
     reducers: {
         setBusinessProfile: (state, action) => {
             state.businessProfileCreated = true;
-            state.businessProfileData = action.payload;
+            state.businessProfiles = action.payload;
         },
     },
     extraReducers: {
         [postBusinessProfile.fulfilled]: (state, action) => {
             state.businessProfileCreated = true;
-            state.businessProfileData = action.payload;
+            state.businessProfiles = action.payload;
         },
         [postBusinessProfile.rejected]: (state, action) => {
-            state.businessProfileCreated = false;
-            state.businessProfileData = null;
         },
         [getBusinessProfile.fulfilled]: (state, action) => {
             state.businessProfileCreated = true;
+            state.businessProfiles = action.payload;
         },
         [getBusinessProfile.rejected]: (state, action) => {
             state.businessProfileCreated = false;
-            state.businessProfileData = null;
+            state.businessProfiles = [];
         },
 
     }

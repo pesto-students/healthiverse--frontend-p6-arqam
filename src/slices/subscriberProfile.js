@@ -48,32 +48,23 @@ const initialState = {
 const subscriberProfileSlice = createSlice({    
     name: "subscriberProfile",
     initialState,
-    reducers: {
-        setSubscriberProfile: (state, action) => {
-            state.subscriberProfileCreated = true;
-            state.subscriberProfileData = action.payload;
-        },
-    },
     extraReducers: {
         [postSubscriberProfile.fulfilled]: (state, action) => {
             state.subscriberProfileCreated = true;
             state.subscriberProfileData = action.payload;
         },
         [postSubscriberProfile.rejected]: (state, action) => {
-            state.subscriberProfileCreated = false;
-            state.subscriberProfileData = null;
+            
         },
         [getSubscriberProfile.fulfilled]: (state, action) => {
             state.subscriberProfileCreated = true;
             state.subscriberProfileData = action.payload;
         },
         [getSubscriberProfile.rejected]: (state, action) => {
-            state.subscriberProfileCreated = false;
-            state.subscriberProfileData = null;
+          
         },
 
     }
 });
 
-export const { setSubscriberProfile } = subscriberProfileSlice.actions;
 export default subscriberProfileSlice.reducer;
