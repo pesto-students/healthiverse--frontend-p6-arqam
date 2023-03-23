@@ -1,7 +1,7 @@
 import React from "react";
 import { Formik, Field, Form, ErrorMessage } from "formik";
 import * as Yup from "yup";
-import { postSubscriberProfile } from "../../../slices/subscriber";
+import { postSubscriberProfile } from "../../../slices/subscriberProfile";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 
