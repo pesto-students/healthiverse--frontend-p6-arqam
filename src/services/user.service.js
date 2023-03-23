@@ -20,12 +20,17 @@ const getClients = () => {
     return axios.get(API_URL + "business/clients", { headers: authHeader() });
 };
 
+const buyMembership = (data) => {
+    console.log(data);
+    return axios.post(API_URL + "subscriber/buy", { ...data }, { headers: authHeader() });
+}
 
 const userService = {
     getAdminBoard,
     getAllBusiness,
     getMemberships,
-    getClients
+    getClients,
+    buyMembership
 };
 
 export default userService;
