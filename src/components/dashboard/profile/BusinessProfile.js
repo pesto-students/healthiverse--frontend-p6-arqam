@@ -1,12 +1,15 @@
 import React, { useState, useEffect } from "react";
-import { Navigate, useNavigate, Link } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import { useDispatch, useSelector } from "react-redux";
-import profileService from "../../../services/profile.service";
-import { getBusinessProfile, setBusinessProfile } from "../../../slices/business";
+import { getBusinessProfile } from "../../../slices/businessProfile";
 
 const BusinessProfile = () => {
     const { user: currentUser } = useSelector((state) => state.auth);
-    const { businessProfileData } = useSelector((state) => state.business);
+    const { businessProfiles } = useSelector((state) => state.business);
+    let gymProfiles = businessProfiles?.filter(profile => profile.businessType === "gym");
+    let trainerProfile = businessProfiles?.filter(profile => profile.businessType === "trainer");
+    let dieticianProfile = businessProfiles?.filter(profile => profile.businessType === "dietician");
+
     let navigate = useNavigate();
     let dispatch = useDispatch();
 
@@ -14,65 +17,49 @@ const BusinessProfile = () => {
         const fetchData = () => {
             dispatch(getBusinessProfile())
                 .unwrap()
-                .then((res) => {
-                    dispatch(setBusinessProfile(res));
-
-                }).catch((err) => {
+                .catch((err) => {
                     navigate("/business/profile");
                 });
         };
-        if (!currentUser) {
-            navigate("/login/business");
-        } else {
-            fetchData();
-        }
+
+        fetchData();
+
+        // if (!currentUser) {
+        //     navigate("/login");
+        // } else if (businessProfiles.length === 0) {
+        //     fetchData();
+        // }
 
     }, []);
 
 
     return (
         <div className="profile-page">
-            {(!businessProfileData) ?
+            {(!businessProfiles) ?
                 (<div>
                     <h1>Loading...</h1>
                 </div>) :
-                (<div className="container">
-                    <header className="jumbotron">
-                        <h3>
-                            <strong>{currentUser.name}</strong> Profile
-                        </h3>
-                        <Link to="/business/profile/">Edit Profile</Link>
-                    </header>
-                    <p>
-                        <strong>About:</strong> {businessProfileData.about}
-                    </p>
-                    <p>
-                        <strong>Adress:</strong> {businessProfileData.address}
-                    </p>
-                    <p>
-                        <strong>Contact:</strong> {businessProfileData.contact}
-                    </p>
-                    {/* <p>
-            <strong>Goals:</strong> {businessProfileData.goals}
-          </p>
-          <p>
-            <strong>Lifestyle:</strong> {businessProfileData.lifestyle}
-          </p>
-          <p>
-            <strong>Preferred Workout:</strong> {businessProfileData.mode}
-          </p> */}
-                    <div className="credentials">
-                        <p>
-                            <h2>Credentials</h2>
-                        </p>
-                        <p>
-                            <strong>Email:</strong> {currentUser.email}
-                        </p>
-                        <p>
-                            <strong>Password:</strong> **********
-                        </p>
+                (<div>
+                    {gymProfiles.length !== 0 && (<div>
+                        <h3>Gym Profile</h3>
+                        {gymProfiles.map(profile => {
+                            return <Link key={profile._id} to={profile._id}>{profile.name}</Link>
+                        })}
+                    </div>)}
 
-                    </div>
+                    {trainerProfile.length !== 0 && (<div>
+                        <h3>Trainer Profile</h3>
+                        {trainerProfile.map(profile => {
+                            return <Link key={profile._id} to={profile._id}>{profile.name}</Link>
+                        })}
+                    </div>)}
+
+                    {dieticianProfile.length !== 0 && (<div>
+                        <h3>Dietician Profile</h3>
+                        {dieticianProfile.map(profile => {
+                            return <Link key={profile._id} to={profile._id}>{profile.name}</Link>
+                        })}
+                    </div>)}
 
                 </div>)}
 
