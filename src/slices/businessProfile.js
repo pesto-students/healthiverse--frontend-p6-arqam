@@ -28,6 +28,29 @@ export const postBusinessProfile = createAsyncThunk(
     }
 );
 
+export const editBusinessProfile = createAsyncThunk(
+    "post/profile/business",
+    async (data, thunkAPI) => {
+        try {
+            const response = await profileService.editBusinessProfile(data);
+            thunkAPI.dispatch(setMessage("Profile Updated"));
+            console.log(response);
+            return response.data;
+        } catch (error) {
+            const message =
+                (error.response &&
+                    error.response.data &&
+                    error.response.data.message) ||
+                error.message ||
+                error.toString();
+            console.log("Not fulfilled");
+            console.log(error);
+            thunkAPI.dispatch(setMessage(message));
+            return thunkAPI.rejectWithValue();
+        }
+    }
+);
+
 export const getBusinessProfile = createAsyncThunk(
     "get/profile/business",
     async (data, thunkAPI) => {
@@ -63,7 +86,9 @@ const businessProfileSlice = createSlice({
             state.businessProfileCreated = true;
             state.businessProfiles = action.payload;
         },
-        [postBusinessProfile.rejected]: (state, action) => {
+        [editBusinessProfile.fulfilled]: (state, action) => {
+            state.businessProfileCreated = true;
+            state.businessProfiles = action.payload;
         },
         [getBusinessProfile.fulfilled]: (state, action) => {
             state.businessProfileCreated = true;

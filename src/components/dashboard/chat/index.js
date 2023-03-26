@@ -19,7 +19,7 @@ const Chat = () => {
     });
 
     useEffect(() => {
-        socket.emit('join_room', { name: currentUser.name, senderRole: user1.role, receiverId: user2._id });
+        socket.emit('join_room', { name: user1.name, senderType: user1.senderType, receiver: user2 });
     }, [socket]);
 
     return (

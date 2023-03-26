@@ -22,12 +22,16 @@ import BusinessProfile from "./components/dashboard/profile/BusinessProfile";
 import socket from "./socket/socket";
 import Chat from "./components/dashboard/chat";
 import BusinessDetails from "./components/dashboard/browse/BusinessDetails";
+import BusinessProfileDetails from "./components/dashboard/profile/BusinessProfileDetails";
+import BuyMembership from "./components/dashboard/membership/BuyMembership";
+import EditBusiness from "./components/dashboard/profile/EditBusinessProfile";
 
 const App = () => {
   const [showBusinessBoard, setShowBusinessBoard] = useState(false);
   const [showAdminBoard, setShowAdminBoard] = useState(false);
 
   const { user: currentUser } = useSelector((state) => state.auth);
+  const { businessProfileCreated } = useSelector(state => state.business);
   const dispatch = useDispatch();
 
   const logOut = useCallback(() => {
@@ -36,8 +40,7 @@ const App = () => {
 
   useEffect(() => {
     if (currentUser) {
-      setShowBusinessBoard(currentUser.role === "business" ||
-        currentUser.role === "admin");
+      setShowBusinessBoard(businessProfileCreated);
       setShowAdminBoard(currentUser.role === "admin");
     } else {
       setShowBusinessBoard(false);
@@ -51,7 +54,7 @@ const App = () => {
     return () => {
       EventBus.remove("logout");
     };
-  }, [currentUser, logOut]);
+  }, [currentUser, businessProfileCreated, logOut]);
 
   return (
     <Router>
@@ -100,9 +103,9 @@ const App = () => {
                 </Link>
               </li>
               <li className="nav-item">
-                <a href="/login" className="nav-link" onClick={logOut}>
-                  LogOut
-                </a>
+                <Link to={`/login`} className="nav-link" onClick={logOut}>
+                  Logout
+                </Link>
               </li>
             </div>
           ) : (
@@ -136,14 +139,20 @@ const App = () => {
               <Route path="profile" element={<FormProfile />} />
               <Route path="browse" element={<BrowseBusiness />} />
               <Route path="browse/:id" element={<BusinessDetails />} />
+              <Route path="browse/:id/buy" element={<BuyMembership />} />
               <Route path="memberships" element={<AllMembership />} />
               <Route path="chats" element={<Chat />} />
+              <Route path="addbusiness" element={<FormBusiness />} />
             </Route>
             <Route path="/business" element={<BoardBusiness />}>
               <Route path="" element={<BusinessProfile />} />
+              <Route path=":id" element={<BusinessProfileDetails />} />
+              <Route path=":id/edit" element={<EditBusiness/>}/>
+
               <Route path="profile" element={<FormBusiness />} />
               <Route path="clients" element={<BrowseClients />} />
               <Route path="chats" element={<Chat />} />
+              <Route path="addbusiness" element={<FormBusiness />} />
             </Route>
             <Route path="/admin" element={<BoardAdmin />} />
           </Routes>
