@@ -32,6 +32,16 @@ const getBusinessProfile = () => {
     return axios
         .get(API_URL + "business/", { headers: authHeader() })
         .then((res) => {
+            console.log(res.data);
+            return res.data;
+        });
+}
+
+const editBusinessProfile = (data) => {
+    return axios
+        .post(API_URL + "business/edit", { ...data }, { headers: authHeader() })
+        .then((res) => {
+            console.log(res.data);
             return res.data;
         });
 }
@@ -41,6 +51,7 @@ const profileService = {
     postBusinessProfile,
     getProfile,
     getBusinessProfile,
+    editBusinessProfile
 };
 
 export default profileService;
