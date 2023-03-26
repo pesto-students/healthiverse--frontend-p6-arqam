@@ -1,20 +1,23 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Formik, Field, Form, ErrorMessage } from "formik";
 import * as Yup from "yup";
 import { postSubscriberProfile } from "../../../slices/subscriberProfile";
 import { useDispatch, useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
+import { getSubscriberProfile } from "../../../slices/subscriberProfile";
 
 const FormProfile = () => {
+    const { user } = useSelector((state) => state.auth);
+    const { subscriberProfileData } = useSelector(state => state.subscriber);
     let navigate = useNavigate();
-    
+
     const initialValues = {
-        about: "",
-        height: "",
-        weight: "",
-        lifestyle: "",
-        goals: "",
-        mode: "",
+        about: subscriberProfileData ? subscriberProfileData.about : "",
+        height: subscriberProfileData ? subscriberProfileData.height : "",
+        weight: subscriberProfileData ? subscriberProfileData.weight : "",
+        lifestyle: subscriberProfileData ? subscriberProfileData.lifestyle : "",
+        goals: subscriberProfileData ? subscriberProfileData.goals : "",
+        mode: subscriberProfileData ? subscriberProfileData.mode : "",
     };
 
     const validationSchema = Yup.object().shape({
@@ -34,6 +37,18 @@ const FormProfile = () => {
             .required("Select an option"),
     });
 
+    useEffect(() => {
+        const fetchData = () => {
+            dispatch(getSubscriberProfile());
+        };
+        if (!user) {
+            navigate("/login");
+        } else {
+            fetchData();
+        }
+    }, []);
+
+
     const dispatch = useDispatch();
 
     const handleSubmit = (formValue) => {
@@ -47,8 +62,10 @@ const FormProfile = () => {
     }
 
     return (
+
         <div className="profile-form">
-            <h1>Complete your profile</h1>
+            <Link to="/subscriber">back</Link>
+            <h1>Complete your profile</h1 >
             <Formik
                 initialValues={initialValues}
                 validationSchema={validationSchema}
@@ -151,7 +168,9 @@ const FormProfile = () => {
 
                 </Form>
             </Formik>
-        </div>
+        </div >
+
+
     );
 }
 
