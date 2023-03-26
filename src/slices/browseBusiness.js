@@ -14,12 +14,9 @@ export const getAllBusiness = createAsyncThunk(
     }
 );
 
-
 const initialState = {
     isLoading: true,
-    gyms: [],
-    trainers: [],
-    dieticians: [],
+    allBusiness: null,
 };
 
 const browseBusinessSlice = createSlice({
@@ -31,15 +28,11 @@ const browseBusinessSlice = createSlice({
         },
         [getAllBusiness.fulfilled]: (state, action) => {
             state.isLoading = false;
-            state.gyms = action.payload.gym;
-            state.trainers = action.payload.trainer;
-            state.dieticians = action.payload.dietician;
+            state.allBusiness = action.payload;
         },
         [getAllBusiness.rejected]: (state, action) => {
             state.isLoading = false;
-            state.gyms = null;
-            state.trainers = null;
-            state.dieticians = null;
+            state.allBusiness = null;
         }
 
     }

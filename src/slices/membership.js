@@ -31,9 +31,7 @@ export const buyMembership = createAsyncThunk(
 
 const initialState = {
     isLoading: true,
-    gymMembership: [],
-    trainerMembership: [],
-    dieticianMembership: [],
+    memberships: []
 };
 
 const membershipSlice = createSlice({
@@ -45,15 +43,11 @@ const membershipSlice = createSlice({
         },
         [getMemberships.fulfilled]: (state, action) => {
             state.isLoading = false;
-            state.gymMembership = action.payload.gym;
-            state.trainerMembership = action.payload.trainer;
-            state.dieticianMembership = action.payload.dietician;
+            state.memberships = action.payload
         },
         [getMemberships.rejected]: (state, action) => {
             state.isLoading = false;
-            state.gymMembership = null;
-            state.trainerMembership = null;
-            state.dieticianMembership = null;
+            state.memberships = []
         },
 
     }
