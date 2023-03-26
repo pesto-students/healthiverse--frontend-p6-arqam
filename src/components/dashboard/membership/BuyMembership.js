@@ -4,14 +4,11 @@ import { useDispatch, useSelector } from "react-redux";
 import { buyMembership } from "../../../slices/membership";
 
 const BuyMembership = () => {
-    const { gyms, trainers, dieticians } = useSelector((state) => state.browseBusiness);
-    const { gymMembership, trainerMembership, dieticianMembership } = useSelector((state) => state.membership);
-    const allBusiness = gyms.concat(trainers, dieticians);
-    const allMemberships = gymMembership.concat(trainerMembership, dieticianMembership);
+    const { allBusiness } = useSelector((state) => state.browseBusiness);
+    const { memberships } = useSelector((state) => state.membership);
     const { id } = useParams();
-    const businessArr = allBusiness.filter((business) => { return business._id === id });
-    const business = businessArr[0];
-    const existingMembership = allMemberships.filter((business) => { return business._id === id });
+    const business = allBusiness.filter((business) => { return business._id === id })[0];
+    const existingMembership = memberships.filter((m) => { return m.businessId === id })[0];
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
@@ -29,14 +26,18 @@ const BuyMembership = () => {
         date.setMonth(date.getMonth() + months);
         const data = {
             id: id,
-            endDate: date
+            endDate: date,
+            businessType: business.businessType
         }
+        console.log(data);
+        console.log(memberships);
+        console.log(existingMembership);
         if (existingMembership) { setAlert("You are already subscribed to the business") }
         else {
             dispatch(buyMembership(data)).unwrap()
                 .then((res) => {
                     console.log(res);
-                    navigate("subscriber/memberships");
+                    navigate("/subscriber/memberships");
                 })
         }
     }
