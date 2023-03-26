@@ -5,6 +5,8 @@ import { Formik, Field, Form, ErrorMessage } from "formik";
 import * as Yup from "yup";
 import { login } from "../../slices/auth";
 import { clearMessage } from "../../slices/message";
+import { getSubscriberProfile } from "../../slices/subscriberProfile";
+import { getBusinessProfile } from "../../slices/businessProfile";
 
 const Login = () => {
     let navigate = useNavigate();
@@ -41,6 +43,8 @@ const Login = () => {
         dispatch(login({ ...formValue }))
             .unwrap()
             .then(() => {
+                dispatch(getSubscriberProfile());
+                dispatch(getBusinessProfile());
                 navigate("/subscriber");
             }).catch(() => {
                 setLoading(false);
@@ -51,14 +55,12 @@ const Login = () => {
     return (
         <div className="login-form">
             <div className="heading">
-                <h1>Subscriber Login</h1>
-                <div>
-                    <p>
-                        Business Acount?
-                        <span>
-                            <Link to="/login/business">Login here</Link>
-                        </span>
-                    </p>
+                <h1>Login</h1>
+                <div style={{ display: 'flex' }}>
+                    <p>New User?</p>
+                    <Link to={"/register"}>
+                        Register
+                    </Link>
                 </div>
             </div>
             <Formik
