@@ -1,39 +1,55 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate, Link } from 'react-router-dom';
 import { useSelector } from "react-redux";
-import { getSubscriberProfile, setSubscriberProfile } from "../../../slices/subscriber";
+import { getSubscriberProfile } from "../../../slices/subscriberProfile";
 import { useDispatch } from "react-redux";
+import { getBusinessProfile } from "../../../slices/businessProfile";
 
 const Profile = () => {
-  const { user: currentUser } = useSelector((state) => state.auth);
-  const { subscriberProfileData } = useSelector((state) => state.subscriber);
+  const { user } = useSelector((state) => state.auth);
+  const { subscriberProfileCreated, subscriberProfileData } = useSelector((state) => state.subscriber);
+  const [loading, setLoading] = useState(true);
   let navigate = useNavigate();
   let dispatch = useDispatch();
 
   useEffect(() => {
     const fetchData = () => {
-      dispatch(getSubscriberProfile());
+      dispatch(getSubscriberProfile()).unwrap()
+        .then((res) => {
+          console.log(res);
+          setLoading(false);
+        }).catch((err)=>{
+          setLoading(false);
+        });
     };
-    if (!currentUser) {
+    if (!user) {
       navigate("/login");
     } else {
       fetchData();
     }
-
-
   }, []);
 
 
   return (
     <div className="profile-page">
       {(!subscriberProfileData) ?
-        (<div>
-          <h1>Loading...</h1>
-        </div>) :
+        ((loading) ?
+          (<div>
+            <h1>Loading...</h1>
+          </div>) :
+          (<div>
+            <Link to="/subscriber/profile">Create subscriber profile</Link>
+            <br></br>
+            <p>
+              Own a business?
+              <Link to="/subscriber/addbusiness"> Create business profile</Link>
+            </p>
+          </div>)
+        ) :
         (<div className="container">
           <header className="jumbotron">
             <h3>
-              <strong>{currentUser.name}</strong> Profile
+              <strong>{user.name}</strong> Profile
             </h3>
             <Link to="/subscriber/profile/">Edit Profile</Link>
           </header>
@@ -60,7 +76,7 @@ const Profile = () => {
               <h2>Credentials</h2>
             </p>
             <p>
-              <strong>Email:</strong> {currentUser.email}
+              <strong>Email:</strong> {user.email}
             </p>
             <p>
               <strong>Password:</strong> **********
