@@ -4,9 +4,11 @@ import { Link } from "react-router-dom";
 import { getAllBusiness } from "../../../slices/browseBusiness";
 
 const BrowseBusiness = () => {
-    const { isLoading, gyms, trainers, dieticians } = useSelector((state) => state.browseBusiness);
+    const { isLoading, allBusiness } = useSelector((state) => state.browseBusiness);
+    const gyms = allBusiness?.filter(business=>business.businessType==="gym");
+    const trainers = allBusiness?.filter(business=>business.businessType==="trainer");
+    const dieticians = allBusiness?.filter(business=>business.businessType==="dietician");
     const dispatch = useDispatch();
-    const allBusiness = gyms.concat(trainers, dieticians);
 
     useEffect(() => {
         const fetchData = () => {
@@ -22,10 +24,6 @@ const BrowseBusiness = () => {
         }
 
         fetchData();
-
-        // if (allBusiness.length === 0) {
-        //     fetchData()
-        // }
 
     }, []);
 
