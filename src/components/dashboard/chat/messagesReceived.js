@@ -54,7 +54,7 @@ const Messages = ({socket}) => {
   return (
     <div className={styles.messagesColumn} ref={messagesColumnRef}>
       {messagesRecieved.map((msg, i) => (
-        <div className={(msg.receiverId === user2._id) ?
+        <div className={(msg.receiverId === user2.s_id) ?
           (styles.messageSent) :
           (styles.messageReceived)} key={i}>
           <div style={{ display: 'flex', justifyContent: 'space-between' }}>
