@@ -2,13 +2,13 @@ import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { setMessage } from "./message";
 import authService from "../services/auth.service";
 
-const user = JSON.parse(localStorage.getItem("user"));
+// const user = JSON.parse(localStorage.getItem("user"));
 
 export const register = createAsyncThunk(
     "auth/register",
-    async ({ name, email, password, role }, thunkAPI) => {
+    async ({ name, email, password }, thunkAPI) => {
         try {
-            const response = await authService.register({ name, email, password, role });
+            const response = await authService.register({ name, email, password });
             thunkAPI.dispatch(setMessage("Registration Successful"));
             return response.data;
         } catch (error) {
@@ -47,20 +47,18 @@ export const login = createAsyncThunk(
     }
 );
 
-export const logout = createAsyncThunk(
-    "auth/logout",
-    async () => {
-        await authService.logout();
-    }
-);
-
-const initialState = user ?
-    { isLoggedIn: true, user } :
-    { isLoggedIn: false, user: null };
+const initialState = { isLoggedIn: false, user: null };
 
 const authSlice = createSlice({
     name: "auth",
     initialState,
+    reducers: {
+        logout: (state, action) => {
+            state.isLoggedIn = false;
+            state.user = null;
+            authService.logout();
+        }
+    },
     extraReducers: {
         [register.fulfilled]: (state, action) => {
             state.isLoggedIn = false;
@@ -76,11 +74,9 @@ const authSlice = createSlice({
             state.isLoggedIn = false;
             state.user = null;
         },
-        [logout.fulfilled]: (state, action) => {
-            state.isLoggedIn = false;
-            state.user = null;
-        }
     }
 });
+
+export const {logout} =  authSlice.actions;
 
 export default authSlice.reducer;
