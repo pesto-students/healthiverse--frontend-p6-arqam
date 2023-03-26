@@ -4,8 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { getMemberships } from "../../../slices/membership";
 
 const BusinessDetails = () => {
-    const { gyms, trainers, dieticians } = useSelector((state) => state.browseBusiness);
-    const allBusiness = gyms.concat(trainers, dieticians);
+    const { allBusiness } = useSelector((state) => state.browseBusiness);
     const { id } = useParams();
     const businessArr = allBusiness.filter((business) => { return business._id === id });
     const business = businessArr[0];
