@@ -10,9 +10,9 @@ const user = JSON.parse(localStorage.getItem("user"));
 
 const FormBusiness = () => {
     const { businessProfiles } = useSelector((state) => state.business);
-    let gymProfiles = businessProfiles.filter(profile => profile.businessType === "gym");
-    let trainerProfile = businessProfiles.filter(profile => profile.businessType === "trainer");
-    let dieticianProfile = businessProfiles.filter(profile => profile.businessType === "dietician");
+    // let gymProfiles = businessProfiles.filter(profile => profile.businessType === "gym");
+    let trainerProfile = businessProfiles?.filter(profile => profile.businessType === "trainer");
+    let dieticianProfile = businessProfiles?.filter(profile => profile.businessType === "dietician");
     const [alert, setAlert] = useState("");
     const [option, setOption] = useState("");
     const [businessType, setBusinessType] = useState("");
@@ -93,7 +93,7 @@ const FormBusiness = () => {
     }
     const handleNext = (e) => {
         e.preventDefault();
-        if (alert = "") {
+        if (alert === "") {
             setBusinessType(option);
         }
 
