@@ -12,7 +12,7 @@ const SendMessage = ({socket}) => {
     if (message !== '') {
       const __createdTime__ = Date.now();
       // Send message to server
-      socket.emit('send_message', { name: user1.name, senderRole: user1.role, receiverId: user2._id, message, __createdTime__ });
+      socket.emit('send_message', { name: user1.name, senderType: user1.senderType, receiver: user2, message, __createdTime__ });
       setMessage('');
     }
   };
