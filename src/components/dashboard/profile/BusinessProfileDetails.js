@@ -5,8 +5,7 @@ import { useSelector } from "react-redux";
 const BusinessProfileDetails = () => {
     const { businessProfiles } = useSelector((state) => state.business);
     const { id } = useParams();
-    const businessArr = businessProfiles.filter((business) => { return business._id === id });
-    const business = businessArr[0];
+    const business = businessProfiles.filter((business) => { return business._id === id })[0];
     return (
 
         <div className="container">
@@ -15,7 +14,7 @@ const BusinessProfileDetails = () => {
                 <h3>
                     <strong>{business.name}</strong> Profile
                 </h3>
-                <Link to="/business/profile/">Edit Profile</Link>
+                <Link to={`/business/${id}/edit`}>Edit Profile</Link>
             </header>
             <p>
                 <strong>About:</strong> {business.about}
