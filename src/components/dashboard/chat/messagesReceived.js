@@ -4,7 +4,7 @@ import { useState, useEffect, useRef } from 'react';
 import { useSelector } from 'react-redux';
 // import { socket } from '../profile/Profile';
 
-const Messages = ({socket}) => {
+const Messages = ({ socket }) => {
   const { user: currentUser } = useSelector(state => state.auth);
   const { user1, user2 } = useSelector(state => state.chatRoom);
   const [messagesRecieved, setMessagesReceived] = useState([]);
@@ -48,7 +48,13 @@ const Messages = ({socket}) => {
   // dd/mm/yyyy, hh:mm:ss
   function formatDateFromTimestamp(timestamp) {
     const date = new Date(timestamp);
-    return date.toLocaleString();
+    return date.toLocaleTimeString([], {
+      year: 'numeric',
+      month: '2-digit',
+      day: '2-digit',
+      hour: '2-digit',
+      minute: '2-digit',
+    });
   }
 
   return (
