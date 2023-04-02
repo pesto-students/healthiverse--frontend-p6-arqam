@@ -2,9 +2,13 @@ import React, { useState, useEffect, useCallback } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
+import "./globals.css";
 import "./App.css";
 import Login from "./components/login/Login";
-import { RegisterSubscriber, RegisterBusiness } from "./components/registration";
+import {
+  RegisterSubscriber,
+  RegisterBusiness,
+} from "./components/registration";
 import Home from "./components/home/Home";
 import Profile from "./components/dashboard/profile/Profile";
 import BoardSubscriber from "./components/dashboard/BoardSubscriber";
@@ -37,7 +41,7 @@ const App = () => {
   const [showAdminBoard, setShowAdminBoard] = useState(false);
 
   const { user: currentUser } = useSelector((state) => state.auth);
-  const { businessProfileCreated } = useSelector(state => state.business);
+  const { businessProfileCreated } = useSelector((state) => state.business);
   const dispatch = useDispatch();
 
   const logOut = useCallback(() => {
@@ -134,25 +138,25 @@ const App = () => {
         <div className="app-container ">
           <Routes>
             <Route path="/" element={<Home />} />
-            <Route path="home" >
+            <Route path="home">
               <Route index={true} element={<BrowseBusiness />} />
               <Route path="gyms">
                 <Route index={true} element={<BrowseGyms />} />
-                <Route path=":id" >
+                <Route path=":id">
                   <Route index={true} element={<BusinessDetails />} />
                   <Route path="buy" element={<BuyMembership />} />
                 </Route>
               </Route>
               <Route path="trainers">
                 <Route index={true} element={<BrowseTrainers />} />
-                <Route path=":id" >
+                <Route path=":id">
                   <Route index={true} element={<BusinessDetails />} />
                   <Route path="buy" element={<BuyMembership />} />
                 </Route>
               </Route>
               <Route path="dieticians">
                 <Route index={true} element={<BrowseDieticians />} />
-                <Route path=":id" >
+                <Route path=":id">
                   <Route index={true} element={<BusinessDetails />} />
                   <Route path="buy" element={<BuyMembership />} />
                 </Route>
@@ -167,25 +171,25 @@ const App = () => {
               <Route path="account" element={<Account />} />
               <Route path="account/edit" element={<EditAccount />} />
               <Route path="profile" element={<FormProfile />} />
-              <Route path="browse" >
+              <Route path="browse">
                 <Route index={true} element={<BrowseBusiness />} />
                 <Route path="gyms">
                   <Route index={true} element={<BrowseGyms />} />
-                  <Route path=":id" >
+                  <Route path=":id">
                     <Route index={true} element={<BusinessDetails />} />
                     <Route path="buy" element={<BuyMembership />} />
                   </Route>
                 </Route>
                 <Route path="trainers">
                   <Route index={true} element={<BrowseTrainers />} />
-                  <Route path=":id" >
+                  <Route path=":id">
                     <Route index={true} element={<BusinessDetails />} />
                     <Route path="buy" element={<BuyMembership />} />
                   </Route>
                 </Route>
                 <Route path="dieticians">
                   <Route index={true} element={<BrowseDieticians />} />
-                  <Route path=":id" >
+                  <Route path=":id">
                     <Route index={true} element={<BusinessDetails />} />
                     <Route path="buy" element={<BuyMembership />} />
                   </Route>
