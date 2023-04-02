@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { getMemberships } from "../../../slices/membership";
 import { setRoom } from "../../../slices/chatRooms";
 import { useDispatch, useSelector } from "react-redux";
+import { Avatar } from "@mui/material";
 
 const SubscriberChatHistory = () => {
     const [chats, setChats] = useState([]);
@@ -37,6 +38,11 @@ const SubscriberChatHistory = () => {
             <h1>Chats</h1>
             {(chats.length > 0) && chats.map((item) => {
                 return (<>
+                    <Avatar
+                        alt="Avatar"
+                        src={item.userImage}
+                        style={{ width: "50px", height: "50px" }}
+                    />
                     <div>{item.business.name}</div>
                     <div>{item.lastMessage.message}</div>
                     <button onClick={() => {

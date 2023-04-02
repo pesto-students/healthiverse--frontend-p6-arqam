@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { getMemberships } from "../../../slices/membership";
 import { setRoom } from "../../../slices/chatRooms";
 import { getAllBusiness } from "../../../slices/browseBusiness";
+import { Avatar } from "@mui/material";
 
 const AllMembership = () => {
     const { allBusiness } = useSelector((state) => state.browseBusiness);
@@ -58,6 +59,11 @@ const AllMembership = () => {
                         (gymMembership?.map((item, index) => {
                             return (
                                 <div key={index}>
+                                    <Avatar
+                                        alt="Avatar"
+                                        src={item.userImage}
+                                        style={{ width: "50px", height: "50px" }}
+                                    />
                                     <p>
                                         {item.name}
                                     </p>
@@ -82,6 +88,11 @@ const AllMembership = () => {
                         (trainerMembership?.map((item) => {
                             return (
                                 <div key={item._id}>
+                                    <Avatar
+                                        alt="Avatar"
+                                        src={item.userImage}
+                                        style={{ width: "50px", height: "50px" }}
+                                    />
                                     <p>
                                         {item.name}
                                     </p>
@@ -106,6 +117,11 @@ const AllMembership = () => {
                         (dieticianMembership?.map((item, index) => {
                             return (
                                 <div key={index}>
+                                    <Avatar
+                                        alt="Avatar"
+                                        src={item.userImage}
+                                        style={{ width: "50px", height: "50px" }}
+                                    />
                                     <p>
                                         {item.name}
                                     </p>
