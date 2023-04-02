@@ -11,6 +11,7 @@ const BoardBusiness = () => {
                 <Link to="clients">Clients</Link>
                 <Link to="chats">Chats</Link>
                 <Link to="addbusiness">Add Business</Link>
+                <Link to="account">Account</Link>
             </nav>
 
             <div className="profile-outlet">
