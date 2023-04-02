@@ -3,10 +3,13 @@ import { Formik, Field, Form, ErrorMessage } from "formik";
 import * as Yup from "yup";
 import { useDispatch, useSelector } from "react-redux";
 import { editBusinessProfile } from "../../../slices/businessProfile";
-import { useNavigate, useParams, Link } from "react-router-dom";
+import { getBusinessProfile } from "../../../slices/businessProfile";
+import { useNavigate, useParams, Link, UNSAFE_useScrollRestoration } from "react-router-dom";
 import { clearMessage } from "../../../slices/message";
-
+import axios from "axios";
+import { Avatar } from "@mui/material";
 const user = JSON.parse(localStorage.getItem("user"));
+
 
 const EditBusiness = () => {
     const { businessProfiles } = useSelector((state) => state.business);
@@ -14,13 +17,56 @@ const EditBusiness = () => {
     const business = businessProfiles?.filter((business) => { return business._id === id })[0];
     // const [alert, setAlert] = useState("");
     // const [option, setOption] = useState("");
-    const businessType = business?business.businessType:"";
+    const businessType = business ? business.businessType : "";
     const { message } = useSelector(state => state.message);
     const [successful, setSuccessful] = useState(false);
     const dispatch = useDispatch();
     const navigate = useNavigate();
+    const [profileUrl, setProfileUrl] = useState(business?.userImage ? business.userImage : "");
+    const [profileImage, setProfileImage] = useState("");
+
+    const handleProfileImage = (event) => {
+        setProfileImage(event.target.files[0]);
+    }
+    const uploadProfileImage = () => {
+        const data = new FormData()
+        data.append("file", profileImage);
+        data.append("upload_preset", "tadipaar");
+        data.append("cloud_name", "dhkb0cyyy");
+        return axios.post("https://api.cloudinary.com/v1_1/dhkb0cyyy/image/upload", data);
+    }
+
+    const [otherImagesUrls, setOtherImagesUrls] = useState(business?.otherImages ? business.otherImages : []);
+    const [otherImages, setOtherImages] = useState([]);
+
+    const handleOtherImages = (event) => {
+        setOtherImages([...event.target.files]);
+    }
+
+    const uploadOtherImages = () => {
+        const files = [...otherImages];
+        const formData = new FormData();
+        const requests = [];
+        for (let i = 0; i < files.length; i++) {
+            formData.append("file", files[i]);
+            formData.append("upload_preset", "tadipaar");
+            formData.append("api_key", "dhkb0cyyy");
+            formData.append("timestamp", (Date.now() / 1000) || 0);
+
+            requests.push(axios.post(
+                "https://api.cloudinary.com/v1_1/dhkb0cyyy/image/upload",
+                formData
+            ));
+
+        }
+        return requests;
+    };
 
     useEffect(() => {
+        const fetchData = () => {
+            dispatch(getBusinessProfile());
+        };
+        if (!businessProfiles) fetchData();
         dispatch(clearMessage())
     }, [dispatch]);
 
@@ -67,35 +113,71 @@ const EditBusiness = () => {
         }),
     });
 
-    const handleSubmit = (formValue) => {
+    const handleSubmit = async (formValue) => {
+        let addedImages = [];
+        if (profileImage) {
+            console.log("Upload image called");
+            const response = await uploadProfileImage();
+            setProfileUrl(response.data.url);
+            formValue.userImage = response.data.url;
+            console.log(profileUrl);
+        }
+        if (otherImages) {
+            console.log("Upload other images called");
+            const responses = await Promise.all(uploadOtherImages());
+            addedImages = responses.map(response => response.data.url);
+        }
+        formValue.otherImages = otherImagesUrls.concat(addedImages);
         console.log(formValue);
-        dispatch(editBusinessProfile({...formValue, id})).unwrap()
+        dispatch(editBusinessProfile({ ...formValue, id })).unwrap()
             .then(() => {
                 setSuccessful(true);
-                navigate("/business");
+                navigate(`/business/${id}`);
             }).catch(() => {
                 setSuccessful(false);
             });
     }
 
-    // const handleChange = (e) => {
-    //     const selection = e.target.value;
-    //     setOption(selection);
-    //     console.log(selection);
-    // }
-    // const handleNext = (e) => {
-    //     e.preventDefault();
-    //     if (alert === "") {
-    //         setBusinessType(option);
-    //     }
-
-    // }
-
     return (
         <div className="profile-form">
             <Link to={`/business/${id}`}>back</Link>
             <h1>Edit your business profile</h1>
+            <div>
+                <h3>Profile Image</h3>
+                <Avatar
+                    alt="Avatar"
+                    src={profileUrl}
+                    style={{ width: "200px", height: "200px" }}
+                />
+                <div>
+                    <input
+                        // ref={inputFileRef}
+                        accept="image/*"
+                        id="avatar-image-upload"
+                        type="file"
+                        onChange={handleProfileImage}
+                    />
+                    <button onClick={() => setProfileUrl("")}>Delete</button>
+                </div>
+            </div>
+            <div>
+                <h3>Other Images</h3>
+                <input type="file" multiple onChange={handleOtherImages} />
 
+                {otherImagesUrls?.map((url) => (
+                    <div>
+                        <img key={url} src={url} alt="uploaded" style={{ width: "200px", height: "200px" }} />
+                        <button onClick={() => setOtherImagesUrls((prevState) => {
+                            const state = [...prevState];
+                            const index = state.indexOf(url);
+                            if (index > -1) { // only splice array when item is found
+                                state.splice(index, 1);
+                                return state;
+                            }
+                        })}>Delete</button>
+                    </div>
+                ))}
+            </div>
             <Formik
                 initialValues={initialValues}
                 validationSchema={validationSchema}

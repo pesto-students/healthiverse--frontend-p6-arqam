@@ -5,7 +5,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { postBusinessProfile } from "../../../slices/businessProfile";
 import { useNavigate } from "react-router-dom";
 import { clearMessage } from "../../../slices/message";
-
+import axios from "axios";
+import { Avatar } from "@mui/material";
 const user = JSON.parse(localStorage.getItem("user"));
 
 const FormBusiness = () => {
@@ -20,6 +21,18 @@ const FormBusiness = () => {
     const [successful, setSuccessful] = useState(false);
     const dispatch = useDispatch();
     const navigate = useNavigate();
+    const [image, setImage] = useState("");
+
+    const handleImageChange = (event) => {
+        setImage(event.target.files[0]);
+    }
+    const uploadImage = () => {
+        const data = new FormData()
+        data.append("file", image);
+        data.append("upload_preset", "tadipaar");
+        data.append("cloud_name", "dhkb0cyyy");
+        return axios.post("https://api.cloudinary.com/v1_1/dhkb0cyyy/image/upload", data);
+    }
 
     useEffect(() => {
         dispatch(clearMessage())
@@ -68,7 +81,17 @@ const FormBusiness = () => {
         }),
     });
 
-    const handleSubmit = (formValue) => {
+    const handleSubmit = async (formValue) => {
+        let url = "";
+        if (image) {
+            console.log("Upload image called");
+            const response = await uploadImage();
+            url = response.data.url;
+            console.log(url);
+        }
+        if (url) {
+            formValue.userImage = url;
+        }
         console.log(formValue);
         dispatch(postBusinessProfile(formValue)).unwrap()
             .then(() => {
@@ -126,170 +149,188 @@ const FormBusiness = () => {
                     )}
                 </>
                 ) :
-                (<Formik
-                    initialValues={initialValues}
-                    validationSchema={validationSchema}
-                    onSubmit={handleSubmit}>
-                    <Form>
-                        <div className="form-group">
-                            <label htmlFor="name"><h3>Name:</h3></label>
-                            <Field name="name" type="text" className="form-control" />
-                            <ErrorMessage
-                                name="name"
-                                component="div"
-                                className="alert alert-danger"
+                (<div>
+                    <div>
+                        <Avatar
+                            alt="Avatar"
+                            style={{ width: "200px", height: "200px" }}
+                        />
+                        <div>
+                            <input
+                                // ref={inputFileRef}
+                                accept="image/*"
+                                id="avatar-image-upload"
+                                type="file"
+                                onChange={handleImageChange}
                             />
                         </div>
-
-                        <div className="form-group">
-                            <label htmlFor="about"><h3>About:</h3></label>
-                            <Field name="about" type="text" className="form-control" />
-                            <ErrorMessage
-                                name="about"
-                                component="div"
-                                className="alert alert-danger"
-                            />
-                        </div>
-
-                        {businessType === "gym" &&
-                            (<div className="form-group">
-                                <label htmlFor="address"><h3>Address:</h3></label>
-                                <Field name="address" type="text" className="form-control" />
+                    </div>
+                    <Formik
+                        initialValues={initialValues}
+                        validationSchema={validationSchema}
+                        onSubmit={handleSubmit}>
+                        <Form>
+                            <div className="form-group">
+                                <label htmlFor="name"><h3>Name:</h3></label>
+                                <Field name="name" type="text" className="form-control" />
                                 <ErrorMessage
-                                    name="address"
+                                    name="name"
                                     component="div"
                                     className="alert alert-danger"
                                 />
-                            </div>)}
+                            </div>
 
-                        <div className="form-group">
-                            <label htmlFor="contact"><h3>Contact Number:</h3></label>
-                            <Field name="contact" type="text" className="form-control" />
-                            <ErrorMessage
-                                name="contact"
-                                component="div"
-                                className="alert alert-danger"
-                            />
-                        </div>
-
-
-                        {businessType === "dietician" ?
-                            (<div className="form-group">
-                                <div><h3>Specializations:</h3></div>
-                                <label>
-                                    <Field type="checkbox" name="activities" value="vegan" />
-                                    Vegan
-                                </label>
-                                <label>
-                                    <Field type="checkbox" name="activities" value="vegetarian" />
-                                    Vegetarian
-                                </label>
-                                <label>
-                                    <Field type="checkbox" name="activities" value="non-vegetarian" />
-                                    Non-Vegetarian
-                                </label>
-                                <label>
-                                    <Field type="checkbox" name="activities" value="keto" />
-                                    Keto
-                                </label>
-                                <label>
-                                    <Field type="checkbox" name="activities" value="paleo" />
-                                    Paleo
-                                </label>
+                            <div className="form-group">
+                                <label htmlFor="about"><h3>About:</h3></label>
+                                <Field name="about" type="text" className="form-control" />
                                 <ErrorMessage
-                                    name="activities"
+                                    name="about"
                                     component="div"
                                     className="alert alert-danger"
                                 />
-                            </div>) :
-                            (<div className="form-group">
-                                <div><h3>Activities:</h3></div>
-                                <label>
-                                    <Field type="checkbox" name="activities" value="Gym" />
-                                    Gym
-                                </label>
-                                <label>
-                                    <Field type="checkbox" name="activities" value="HIIT" />
-                                    HIIT
-                                </label>
-                                <label>
-                                    <Field type="checkbox" name="activities" value="CrossFit" />
-                                    CrossFit
-                                </label>
-                                <label>
-                                    <Field type="checkbox" name="activities" value="Zumba" />
-                                    Zumba
-                                </label>
-                                <label>
-                                    <Field type="checkbox" name="activities" value="Yoga" />
-                                    Yoga
-                                </label>
+                            </div>
+
+                            {businessType === "gym" &&
+                                (<div className="form-group">
+                                    <label htmlFor="address"><h3>Address:</h3></label>
+                                    <Field name="address" type="text" className="form-control" />
+                                    <ErrorMessage
+                                        name="address"
+                                        component="div"
+                                        className="alert alert-danger"
+                                    />
+                                </div>)}
+
+                            <div className="form-group">
+                                <label htmlFor="contact"><h3>Contact Number:</h3></label>
+                                <Field name="contact" type="text" className="form-control" />
                                 <ErrorMessage
-                                    name="activities"
+                                    name="contact"
                                     component="div"
                                     className="alert alert-danger"
                                 />
-                            </div>)}
+                            </div>
 
-                        {businessType === "gym" &&
-                            (<div className="form-group">
-                                <div><h3>Open Time:</h3></div>
-                                <label htmlFor="openTime.from"><b>From:</b></label>
-                                <Field name="openTime.from" type="text" className="form-control" />
+
+                            {businessType === "dietician" ?
+                                (<div className="form-group">
+                                    <div><h3>Specializations:</h3></div>
+                                    <label>
+                                        <Field type="checkbox" name="activities" value="vegan" />
+                                        Vegan
+                                    </label>
+                                    <label>
+                                        <Field type="checkbox" name="activities" value="vegetarian" />
+                                        Vegetarian
+                                    </label>
+                                    <label>
+                                        <Field type="checkbox" name="activities" value="non-vegetarian" />
+                                        Non-Vegetarian
+                                    </label>
+                                    <label>
+                                        <Field type="checkbox" name="activities" value="keto" />
+                                        Keto
+                                    </label>
+                                    <label>
+                                        <Field type="checkbox" name="activities" value="paleo" />
+                                        Paleo
+                                    </label>
+                                    <ErrorMessage
+                                        name="activities"
+                                        component="div"
+                                        className="alert alert-danger"
+                                    />
+                                </div>) :
+                                (<div className="form-group">
+                                    <div><h3>Activities:</h3></div>
+                                    <label>
+                                        <Field type="checkbox" name="activities" value="Gym" />
+                                        Gym
+                                    </label>
+                                    <label>
+                                        <Field type="checkbox" name="activities" value="HIIT" />
+                                        HIIT
+                                    </label>
+                                    <label>
+                                        <Field type="checkbox" name="activities" value="CrossFit" />
+                                        CrossFit
+                                    </label>
+                                    <label>
+                                        <Field type="checkbox" name="activities" value="Zumba" />
+                                        Zumba
+                                    </label>
+                                    <label>
+                                        <Field type="checkbox" name="activities" value="Yoga" />
+                                        Yoga
+                                    </label>
+                                    <ErrorMessage
+                                        name="activities"
+                                        component="div"
+                                        className="alert alert-danger"
+                                    />
+                                </div>)}
+
+                            {businessType === "gym" &&
+                                (<div className="form-group">
+                                    <div><h3>Open Time:</h3></div>
+                                    <label htmlFor="openTime.from"><b>From:</b></label>
+                                    <Field name="openTime.from" type="text" className="form-control" />
+                                    <ErrorMessage
+                                        name="openTime.from"
+                                        component="div"
+                                        className="alert alert-danger"
+                                    />
+                                    <label htmlFor="openTime.to"><b>To:</b></label>
+                                    <Field name="openTime.to" type="text" className="form-control" />
+                                    <ErrorMessage
+                                        name="openTime.to"
+                                        component="div"
+                                        className="alert alert-danger"
+                                    />
+                                </div>)}
+
+                            <div className="form-group">
+                                <div><h3>Membership Price:</h3></div>
+                                <label htmlFor="membership.one"><b>One Month:</b></label>
+                                <Field name="membership.one" type="text" className="form-control" />
                                 <ErrorMessage
-                                    name="openTime.from"
+                                    name="membership.one"
                                     component="div"
                                     className="alert alert-danger"
                                 />
-                                <label htmlFor="openTime.to"><b>To:</b></label>
-                                <Field name="openTime.to" type="text" className="form-control" />
+                                <label htmlFor="membership.three"><b>Three Months:</b></label>
+                                <Field name="membership.three" type="text" className="form-control" />
                                 <ErrorMessage
-                                    name="openTime.to"
+                                    name="membership.three"
                                     component="div"
                                     className="alert alert-danger"
                                 />
-                            </div>)}
+                                <label htmlFor="membership.six"><b>Six Months:</b></label>
+                                <Field name="membership.six" type="text" className="form-control" />
+                                <ErrorMessage
+                                    name="membership.six"
+                                    component="div"
+                                    className="alert alert-danger"
+                                />
+                                <label htmlFor="membership.twelve"><b>One Year:</b></label>
+                                <Field name="membership.twelve" type="text" className="form-control" />
+                                <ErrorMessage
+                                    name="membership.twelve"
+                                    component="div"
+                                    className="alert alert-danger"
+                                />
+                            </div>
 
-                        <div className="form-group">
-                            <div><h3>Membership Price:</h3></div>
-                            <label htmlFor="membership.one"><b>One Month:</b></label>
-                            <Field name="membership.one" type="text" className="form-control" />
-                            <ErrorMessage
-                                name="membership.one"
-                                component="div"
-                                className="alert alert-danger"
-                            />
-                            <label htmlFor="membership.three"><b>Three Months:</b></label>
-                            <Field name="membership.three" type="text" className="form-control" />
-                            <ErrorMessage
-                                name="membership.three"
-                                component="div"
-                                className="alert alert-danger"
-                            />
-                            <label htmlFor="membership.six"><b>Six Months:</b></label>
-                            <Field name="membership.six" type="text" className="form-control" />
-                            <ErrorMessage
-                                name="membership.six"
-                                component="div"
-                                className="alert alert-danger"
-                            />
-                            <label htmlFor="membership.twelve"><b>One Year:</b></label>
-                            <Field name="membership.twelve" type="text" className="form-control" />
-                            <ErrorMessage
-                                name="membership.twelve"
-                                component="div"
-                                className="alert alert-danger"
-                            />
-                        </div>
+                            <div className="form-group">
+                                <button type="submit" className="btn btn-primary btn-block">
+                                    Submit Form
+                                </button>
+                            </div>
 
-                        <div className="form-group">
-                            <button type="submit" className="btn btn-primary btn-block">
-                                Submit Form
-                            </button>
-                        </div>
-
-                    </Form>
-                </Formik>)}
+                        </Form>
+                    </Formik>
+                </div>)
+            }
             {message && (
                 <div className="form-group">
                     <div

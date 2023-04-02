@@ -3,6 +3,7 @@ import userService from "../../../services/user.service";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { setRoom } from "../../../slices/chatRooms";
+import { Avatar } from "@mui/material";
 
 const BrowseClients = () => {
     const [clients, setClients] = useState([]);
@@ -50,11 +51,11 @@ const BrowseClients = () => {
 
     const chatClick = (item) => {
         dispatch(setRoom({
-            user1: {...currentUser, senderType: "business"},
+            user1: { ...currentUser, senderType: "business" },
             user2: item
         }));
         // socket.emit('join_room', { name: currentUser.name, roomId: roomId });
-        navigate("/business/chats");
+        navigate(`/business/chats/${item.s_id}`);
     };
 
     return (
@@ -70,6 +71,11 @@ const BrowseClients = () => {
                             {gymClients.map(item => {
                                 return (
                                     <div key={item._id}>
+                                        <Avatar
+                                            alt="Avatar"
+                                            src={item.userImage}
+                                            style={{ width: "50px", height: "50px" }}
+                                        />
                                         <p>
                                             {item.name}
                                         </p>
@@ -94,6 +100,11 @@ const BrowseClients = () => {
                             {trainerClients.map(item => {
                                 return (
                                     <div key={item._id}>
+                                        <Avatar
+                                            alt="Avatar"
+                                            src={item.userImage}
+                                            style={{ width: "50px", height: "50px" }}
+                                        />
                                         <p>
                                             {item.name}
                                         </p>
@@ -118,6 +129,11 @@ const BrowseClients = () => {
                             {dieticianClients.map(item => {
                                 return (
                                     <div key={item._id}>
+                                        <Avatar
+                                            alt="Avatar"
+                                            src={item.userImage}
+                                            style={{ width: "50px", height: "50px" }}
+                                        />
                                         <p>
                                             {item.name}
                                         </p>

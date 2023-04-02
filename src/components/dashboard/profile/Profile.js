@@ -3,7 +3,8 @@ import { useNavigate, Link } from 'react-router-dom';
 import { useSelector } from "react-redux";
 import { getSubscriberProfile } from "../../../slices/subscriberProfile";
 import { useDispatch } from "react-redux";
-import { getBusinessProfile } from "../../../slices/businessProfile";
+import { Avatar } from "@mui/material";
+import AvatarUpload from "./profileImage";
 
 const Profile = () => {
   const { user } = useSelector((state) => state.auth);
@@ -48,6 +49,11 @@ const Profile = () => {
         ) :
         (<div className="container">
           <header className="jumbotron">
+          <Avatar
+                alt="Avatar"
+                src={subscriberProfileData.userImage}
+                style={{ width: "200px", height: "200px" }}
+            />
             <h3>
               <strong>{user.name}</strong> Profile
             </h3>
@@ -71,19 +77,6 @@ const Profile = () => {
           <p>
             <strong>Preferred Workout:</strong> {subscriberProfileData.mode}
           </p>
-          <div className="credentials">
-            <p>
-              <h2>Credentials</h2>
-            </p>
-            <p>
-              <strong>Email:</strong> {user.email}
-            </p>
-            <p>
-              <strong>Password:</strong> **********
-            </p>
-
-          </div>
-
         </div>)}
 
     </div>

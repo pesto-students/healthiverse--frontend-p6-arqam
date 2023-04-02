@@ -5,11 +5,24 @@ import { postSubscriberProfile } from "../../../slices/subscriberProfile";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, Link } from "react-router-dom";
 import { getSubscriberProfile } from "../../../slices/subscriberProfile";
+import { Avatar } from "@mui/material";
+import axios from "axios";
 
 const FormProfile = () => {
     const { user } = useSelector((state) => state.auth);
     const { subscriberProfileData } = useSelector(state => state.subscriber);
     let navigate = useNavigate();
+    const [image, setImage] = useState("");
+    const handleChange = (event) => {
+        setImage(event.target.files[0]);
+    }
+    const uploadImage = () => {
+        const data = new FormData()
+        data.append("file", image);
+        data.append("upload_preset", "tadipaar");
+        data.append("cloud_name", "dhkb0cyyy");
+        return axios.post("https://api.cloudinary.com/v1_1/dhkb0cyyy/image/upload", data);
+    }
 
     const initialValues = {
         about: subscriberProfileData ? subscriberProfileData.about : "",
@@ -18,6 +31,7 @@ const FormProfile = () => {
         lifestyle: subscriberProfileData ? subscriberProfileData.lifestyle : "",
         goals: subscriberProfileData ? subscriberProfileData.goals : "",
         mode: subscriberProfileData ? subscriberProfileData.mode : "",
+        userImage: subscriberProfileData ? subscriberProfileData.userImage : "",
     };
 
     const validationSchema = Yup.object().shape({
@@ -51,7 +65,19 @@ const FormProfile = () => {
 
     const dispatch = useDispatch();
 
-    const handleSubmit = (formValue) => {
+    const handleSubmit = async (formValue) => {
+        let url="";
+        if (image) {
+            console.log("Upload image called");
+            const response = await uploadImage();
+            url = response.data.url;
+            console.log(url);
+        }
+        if (url) {
+            formValue.userImage = url;
+        } else {
+            formValue.userImage = subscriberProfileData.userImage;
+        }
         console.log(formValue);
         dispatch(postSubscriberProfile(formValue))
             .unwrap()
@@ -66,6 +92,27 @@ const FormProfile = () => {
         <div className="profile-form">
             <Link to="/subscriber">back</Link>
             <h1>Complete your profile</h1 >
+            <div>
+                <Avatar
+                    alt="Avatar"
+                    src={subscriberProfileData.userImage}
+                    style={{ width: "200px", height: "200px" }}
+                />
+                <div>
+                    <input
+                        // ref={inputFileRef}
+                        accept="image/*"
+                        id="avatar-image-upload"
+                        type="file"
+                        onChange={handleChange}
+                    />
+                    {/* <label htmlFor="avatar-image-upload">
+                        <button onClick={uploadImage}>
+                            Upload
+                        </button>
+                    </label> */}
+                </div>
+            </div>
             <Formik
                 initialValues={initialValues}
                 validationSchema={validationSchema}
