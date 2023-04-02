@@ -25,6 +25,14 @@ import BusinessDetails from "./components/dashboard/browse/BusinessDetails";
 import BusinessProfileDetails from "./components/dashboard/profile/BusinessProfileDetails";
 import BuyMembership from "./components/dashboard/membership/BuyMembership";
 import EditBusiness from "./components/dashboard/profile/EditBusinessProfile";
+import SubscriberChatHistory from "./components/dashboard/chat/subscriberChatHistory";
+import BusinessChatHistory from "./components/dashboard/chat/businessChatHistory";
+import Account from "./components/dashboard/account";
+import BrowseGyms from "./components/dashboard/browse/BrowseGyms";
+import BrowseTrainers from "./components/dashboard/browse/BrowseTrainers";
+import BrowseDieticians from "./components/dashboard/browse/BrowseDieticians";
+import BrowseRoutes from "./routes/browseRoutes";
+import EditAccount from "./components/dashboard/account/editAccount";
 
 const App = () => {
   const [showBusinessBoard, setShowBusinessBoard] = useState(false);
@@ -128,32 +136,81 @@ const App = () => {
         <div className="app-container ">
           <Routes>
             <Route path="/" element={<Home />} />
-            <Route path="/home" element={<BrowseBusiness />} />
-            <Route path="home/:id" element={<BusinessDetails />} />
+            <Route path="home" >
+              <Route index={true} element={<BrowseBusiness />} />
+              <Route path="gyms">
+                <Route index={true} element={<BrowseGyms />} />
+                <Route path=":id" >
+                  <Route index={true} element={<BusinessDetails />} />
+                  <Route path="buy" element={<BuyMembership />} />
+                </Route>
+              </Route>
+              <Route path="trainers">
+                <Route index={true} element={<BrowseTrainers />} />
+                <Route path=":id" >
+                  <Route index={true} element={<BusinessDetails />} />
+                  <Route path="buy" element={<BuyMembership />} />
+                </Route>
+              </Route>
+              <Route path="dieticians">
+                <Route index={true} element={<BrowseDieticians />} />
+                <Route path=":id" >
+                  <Route index={true} element={<BusinessDetails />} />
+                  <Route path="buy" element={<BuyMembership />} />
+                </Route>
+              </Route>
+            </Route>
             <Route path="/login" element={<Login />} />
             <Route path="/login/business" element={<BusinessLogin />} />
             <Route path="/register" element={<RegisterSubscriber />} />
             <Route path="/register/business" element={<RegisterBusiness />} />
             <Route path="/subscriber" element={<BoardSubscriber />}>
               <Route path="" element={<Profile />} />
+              <Route path="account" element={<Account />} />
+              <Route path="account/edit" element={<EditAccount />} />
               <Route path="profile" element={<FormProfile />} />
-              <Route path="browse" element={<BrowseBusiness />} />
-              <Route path="browse/:id" element={<BusinessDetails />} />
-              <Route path="browse/:id/buy" element={<BuyMembership />} />
+              <Route path="browse" >
+                <Route index={true} element={<BrowseBusiness />} />
+                <Route path="gyms">
+                  <Route index={true} element={<BrowseGyms />} />
+                  <Route path=":id" >
+                    <Route index={true} element={<BusinessDetails />} />
+                    <Route path="buy" element={<BuyMembership />} />
+                  </Route>
+                </Route>
+                <Route path="trainers">
+                  <Route index={true} element={<BrowseTrainers />} />
+                  <Route path=":id" >
+                    <Route index={true} element={<BusinessDetails />} />
+                    <Route path="buy" element={<BuyMembership />} />
+                  </Route>
+                </Route>
+                <Route path="dieticians">
+                  <Route index={true} element={<BrowseDieticians />} />
+                  <Route path=":id" >
+                    <Route index={true} element={<BusinessDetails />} />
+                    <Route path="buy" element={<BuyMembership />} />
+                  </Route>
+                </Route>
+              </Route>
               <Route path="memberships" element={<AllMembership />} />
-              <Route path="chats" element={<Chat />} />
+              <Route path="chats" element={<SubscriberChatHistory />} />
+              <Route path="chats/:id" element={<Chat />} />
               <Route path="addbusiness" element={<FormBusiness />} />
             </Route>
             <Route path="/business" element={<BoardBusiness />}>
               <Route path="" element={<BusinessProfile />} />
+              <Route path="account" element={<Account />} />
+              <Route path="account/edit" element={<EditAccount />} />
               <Route path=":id" element={<BusinessProfileDetails />} />
-              <Route path=":id/edit" element={<EditBusiness/>}/>
-
+              <Route path=":id/edit" element={<EditBusiness />} />
               <Route path="profile" element={<FormBusiness />} />
               <Route path="clients" element={<BrowseClients />} />
-              <Route path="chats" element={<Chat />} />
+              <Route path="chats" element={<BusinessChatHistory />} />
+              <Route path="chats/:id" element={<Chat />} />
               <Route path="addbusiness" element={<FormBusiness />} />
             </Route>
+
             <Route path="/admin" element={<BoardAdmin />} />
           </Routes>
         </div>
