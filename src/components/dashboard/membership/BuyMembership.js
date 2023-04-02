@@ -45,7 +45,7 @@ const BuyMembership = () => {
 
         <div className="container">
             <header className="jumbotron">
-                <Link to="/subscriber/browse">back</Link>
+                <button onClick={() => navigate(-1)}>go back</button>
                 <h3>
                     <strong>{business.name}</strong> Profile
                 </h3>

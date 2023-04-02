@@ -44,7 +44,7 @@ const AllMembership = () => {
             user2: item
         }));
         // socket.emit('join_room', { name: currentUser.name, roomId: roomId });
-        navigate("/subscriber/chats");
+        navigate(`/subscriber/chats/${item._id}`);
     };
 
     return (

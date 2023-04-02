@@ -11,8 +11,8 @@ const BusinessDetails = () => {
     const navigate = useNavigate();
     const dispatch = useDispatch();
 
-    
-    const handleClick=()=>{
+
+    const handleClick = () => {
         dispatch(getMemberships());
         navigate("buy");
     }
@@ -20,7 +20,7 @@ const BusinessDetails = () => {
 
         <div className="container">
             <header className="jumbotron">
-                <Link to="/subscriber/browse">back</Link>
+                <button onClick={() => navigate(-1)}>go back</button>
                 <h3>
                     <strong>{business.name}</strong> Profile
                 </h3>
@@ -49,7 +49,7 @@ const BusinessDetails = () => {
 
             </div>
 
-            
+
         </div>
     );
 };
