@@ -25,12 +25,24 @@ const buyMembership = (data) => {
     return axios.post(API_URL + "subscriber/buy", { ...data }, { headers: authHeader() });
 }
 
+const getSubscriberChats = () => {
+    return axios.get(API_URL + "subscriber/chats", { headers: authHeader() });
+}
+
+const getBusinessChats = () => {
+    return axios.get(API_URL + "business/chats", { headers: authHeader() });
+}
+
+
+
 const userService = {
     getAdminBoard,
     getAllBusiness,
     getMemberships,
     getClients,
-    buyMembership
+    buyMembership,
+    getSubscriberChats,
+    getBusinessChats
 };
 
 export default userService;
