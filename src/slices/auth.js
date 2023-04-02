@@ -47,6 +47,26 @@ export const login = createAsyncThunk(
     }
 );
 
+export const updateAccountDetails = createAsyncThunk(
+    "auth/update",
+    async (data, thunkAPI) => {
+        try {
+            const response = await authService.updateAccountDetails(data);
+            thunkAPI.dispatch(setMessage("Account Details Updated"));
+            return response;
+        } catch (error) {
+            const message =
+                (error.response &&
+                    error.response.data &&
+                    error.response.data.message) ||
+                error.message ||
+                error.toString();
+            thunkAPI.dispatch(setMessage(message));
+            return thunkAPI.rejectWithValue();
+        }
+    }
+)
+
 const initialState = { isLoggedIn: false, user: null };
 
 const authSlice = createSlice({
@@ -74,9 +94,12 @@ const authSlice = createSlice({
             state.isLoggedIn = false;
             state.user = null;
         },
+        [updateAccountDetails.fulfilled]: (state,action)=>{
+            state.user = action.payload;
+        }
     }
 });
 
-export const {logout} =  authSlice.actions;
+export const { logout } = authSlice.actions;
 
 export default authSlice.reducer;

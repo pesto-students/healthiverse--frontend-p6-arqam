@@ -1,5 +1,6 @@
 import axios from "axios";
 import PORT from "./port";
+import authHeader from "./auth-header";
 
 const API_URL = PORT + "/api/users/";
 
@@ -22,6 +23,7 @@ const login = (data) => {
                 const _user = {
                     name: res.data.name,
                     email: res.data.email,
+                    password: password,
                     token: res.data.token,
                 }
                 localStorage.setItem("user", JSON.stringify(_user));
@@ -35,6 +37,21 @@ const logout = () => {
     localStorage.removeItem("user");
 };
 
-const authService = { register, login, logout };
+const updateAccountDetails = (data) => {
+    return axios.put(API_URL + "update", data, { headers: authHeader() })
+        .then((res) => {
+            if (res.data.token) {
+                const _user = {
+                    name: res.data.name,
+                    email: res.data.email,
+                    token: res.data.token,
+                }
+                localStorage.setItem("user", JSON.stringify(_user));
+            }
+            return res.data;
+        });
+}
+
+const authService = { register, login, logout, updateAccountDetails };
 
 export default authService;
