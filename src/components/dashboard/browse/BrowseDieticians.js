@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import { getAllBusiness } from "../../../slices/browseBusiness";
+import { Avatar } from "@mui/material";
 
 const BrowseDieticians = () => {
     const { isLoading, allBusiness } = useSelector((state) => state.browseBusiness);
@@ -36,9 +37,13 @@ const BrowseDieticians = () => {
                 {isLoading ?
                     (<p>Loading...</p>) :
                     ((dieticians?.length === 0) ?
-                        (<p>No gyms found</p>) :
+                        (<p>No dieticians found</p>) :
                         (dieticians?.map((item, index) => {
-                            return (<li key={index}><Link to={item._id}>{item.name}</Link></li>)
+                            return (<div style={{ width: "200px", backgroundColor: "grey", margin: "10px", cursor: "pointer" }} onClick={() => navigate(item._id)} >
+                                <div><Avatar src={item.userImage} style={{ width: "50px", height: "50px" }} /></div>
+                                <div>{item.name}</div>
+                                <div>{item.about}</div>
+                            </div>)
                         })
                         )
                     )

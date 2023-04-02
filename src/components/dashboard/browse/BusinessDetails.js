@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 import { useParams, Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { getMemberships } from "../../../slices/membership";
+import { Avatar } from "@mui/material";
 
 const BusinessDetails = () => {
     const { allBusiness } = useSelector((state) => state.browseBusiness);
@@ -21,10 +22,16 @@ const BusinessDetails = () => {
         <div className="container">
             <header className="jumbotron">
                 <button onClick={() => navigate(-1)}>go back</button>
+                <Avatar src={business.userImage} style={{ width: "100px", height: "100px" }} />
                 <h3>
                     <strong>{business.name}</strong> Profile
                 </h3>
                 <button onClick={handleClick}>Buy Membership</button>
+                <div>
+                    {business?.otherImages?.map((url) => (
+                        <img key={url} src={url} alt="uploaded" style={{ width: "200px", height: "200px" }} />
+                    ))}
+                </div>
             </header>
             <p>
                 <strong>About:</strong> {business.about}
