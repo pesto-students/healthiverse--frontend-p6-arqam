@@ -33,7 +33,7 @@ const BrowseBusiness = () => {
         <div className="container">
             <div className="gyms">
                 <h3>Gyms</h3>
-                {(!isLoading) && gyms.length > 0 && <Link to="gyms">see all</Link>}
+                {(!isLoading) && gyms?.length > 0 && <Link to="gyms">see all</Link>}
                 {isLoading ?
                     (<p>Loading...</p>) :
                     ((gyms?.length === 0) ?
@@ -51,7 +51,7 @@ const BrowseBusiness = () => {
             </div>
             <div className="trainers">
                 <h3>Trainers</h3>
-                {(!isLoading) && trainers.length > 0 && <Link to="trainers">see all</Link>}
+                {(!isLoading) && trainers?.length > 0 && <Link to="trainers">see all</Link>}
                 {isLoading ?
                     (<p>Loading...</p>) :
                     ((trainers?.length === 0) ?
@@ -69,7 +69,7 @@ const BrowseBusiness = () => {
             </div>
             <div className="dieticians">
                 <h3>Dieticians</h3>
-                {(!isLoading) && dieticians.length > 0 && <Link to="dieticians">see all</Link>}
+                {(!isLoading) && dieticians?.length > 0 && <Link to="dieticians">see all</Link>}
                 {isLoading ?
                     (<p>Loading...</p>) :
                     ((dieticians?.length === 0) ?
