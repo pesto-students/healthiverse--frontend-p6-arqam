@@ -63,8 +63,7 @@ const Messages = ({ socket }) => {
         <div className={(msg.receiverId === user2.s_id) ?
           (styles.messageSent) :
           (styles.messageReceived)} key={i}>
-          <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-            <span className={styles.msgMeta}>{msg.name}</span>
+          <div >
             <span className={styles.msgMeta}>
               {formatDateFromTimestamp(msg.__createdTime__)}
             </span>
