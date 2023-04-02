@@ -19,7 +19,6 @@ import BrowseBusiness from "./components/dashboard/browse/BrowseBusiness";
 import AllMembership from "./components/dashboard/membership/SubscriberMembership";
 import FormBusiness from "./components/dashboard/profile/FormBusiness";
 import BusinessProfile from "./components/dashboard/profile/BusinessProfile";
-import socket from "./socket/socket";
 import Chat from "./components/dashboard/chat";
 import BusinessDetails from "./components/dashboard/browse/BusinessDetails";
 import BusinessProfileDetails from "./components/dashboard/profile/BusinessProfileDetails";
@@ -31,7 +30,6 @@ import Account from "./components/dashboard/account";
 import BrowseGyms from "./components/dashboard/browse/BrowseGyms";
 import BrowseTrainers from "./components/dashboard/browse/BrowseTrainers";
 import BrowseDieticians from "./components/dashboard/browse/BrowseDieticians";
-import BrowseRoutes from "./routes/browseRoutes";
 import EditAccount from "./components/dashboard/account/editAccount";
 
 const App = () => {
