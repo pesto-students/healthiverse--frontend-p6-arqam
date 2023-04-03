@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import { getAllBusiness } from "../../../slices/browseBusiness";
 import { Avatar } from "@mui/material";
+import StarRatings from "react-star-ratings";
 
 const BrowseBusiness = () => {
     const { isLoading, allBusiness } = useSelector((state) => state.browseBusiness);
@@ -39,9 +40,22 @@ const BrowseBusiness = () => {
                     ((gyms?.length === 0) ?
                         (<p>No gyms found</p>) :
                         (gyms?.slice(0, 2).map((item, index) => {
-                            return (<div key={index} style={{ width: "200px", backgroundColor: "grey", margin: "10px", cursor: "pointer" }} onClick={() => navigate(`gyms/${item._id}`)} >
+                            return (<div key={index} style={{ width: "300px", backgroundColor: "grey", margin: "10px", cursor: "pointer" }} onClick={() => navigate(`gyms/${item._id}`)} >
                                 <div><Avatar src={item.userImage} style={{ width: "50px", height: "50px" }} /></div>
                                 <div><strong>{item.name}</strong></div>
+                                <div>
+                                    {item.averageRating &&
+                                        <>
+                                            <span>{item.averageRating}</span>
+                                            <StarRatings rating={item.averageRating}
+                                                starRatedColor="black"
+                                                numberOfStars={5}
+                                                starDimension="20px"
+                                                starSpacing="15px"
+                                                name='rating' />
+                                            <span>({item.reviews.length})</span>
+                                        </>}
+                                </div>
                                 <div>Address: {item.address}</div>
                                 <div>Open Hours: {item.openTime.from} to {item.openTime.to}</div>
                             </div>)
@@ -58,9 +72,22 @@ const BrowseBusiness = () => {
                     ((trainers?.length === 0) ?
                         (<p>No trainers found</p>) :
                         (trainers?.slice(0, 2).map((item, index) => {
-                            return (<div key={index} style={{ width: "200px", backgroundColor: "grey", margin: "10px", cursor: "pointer" }} onClick={() => navigate(`gyms/${item._id}`)} >
+                            return (<div key={index} style={{ width: "300px", backgroundColor: "grey", margin: "10px", cursor: "pointer" }} onClick={() => navigate(`gyms/${item._id}`)} >
                                 <div><Avatar src={item.userImage} style={{ width: "50px", height: "50px" }} /></div>
                                 <div><strong>{item.name}</strong></div>
+                                <div>
+                                    {item.averageRating &&
+                                        <>
+                                            <span>{item.averageRating}</span>
+                                            <StarRatings rating={item.averageRating}
+                                                starRatedColor="black"
+                                                numberOfStars={5}
+                                                starDimension="20px"
+                                                starSpacing="15px"
+                                                name='rating' />
+                                            <span>({item.reviews.length})</span>
+                                        </>}
+                                </div>
                                 <div>About: {item.about}</div>
                                 <div>Contact: {item.contact}</div>
                             </div>)
@@ -77,9 +104,22 @@ const BrowseBusiness = () => {
                     ((dieticians?.length === 0) ?
                         (<p>No dieticians found</p>) :
                         (dieticians?.slice(0, 2).map((item, index) => {
-                            return (<div key={index} style={{ width: "200px", backgroundColor: "grey", margin: "10px", cursor: "pointer" }} onClick={() => navigate(`gyms/${item._id}`)} >
+                            return (<div key={index} style={{ width: "300px", backgroundColor: "grey", margin: "10px", cursor: "pointer" }} onClick={() => navigate(`gyms/${item._id}`)} >
                                 <div><Avatar src={item.userImage} style={{ width: "50px", height: "50px" }} /></div>
                                 <div><strong>{item.name}</strong></div>
+                                <div>
+                                    {item.averageRating &&
+                                        <>
+                                            <span>{item.averageRating}</span>
+                                            <StarRatings rating={item.averageRating}
+                                                starRatedColor="black"
+                                                numberOfStars={5}
+                                                starDimension="20px"
+                                                starSpacing="15px"
+                                                name='rating' />
+                                            <span>({item.reviews.length})</span>
+                                        </>}
+                                </div>
                                 <div>About: {item.about}</div>
                                 <div>Contact: {item.contact}</div>
                             </div>)

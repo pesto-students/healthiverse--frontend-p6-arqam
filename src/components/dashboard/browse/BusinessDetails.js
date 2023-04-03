@@ -3,6 +3,7 @@ import { useParams, Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { getMemberships } from "../../../slices/membership";
 import { Avatar } from "@mui/material";
+import StarRatings from "react-star-ratings";
 
 const BusinessDetails = () => {
     const { allBusiness } = useSelector((state) => state.browseBusiness);
@@ -26,6 +27,19 @@ const BusinessDetails = () => {
                 <h3>
                     <strong>{business.name}</strong> Profile
                 </h3>
+                <div>
+                    {business.averageRating &&
+                        <>
+                            <span>{business.averageRating}</span>
+                            <StarRatings rating={business.averageRating}
+                                starRatedColor="black"
+                                numberOfStars={5}
+                                starDimension="20px"
+                                starSpacing="15px"
+                                name='rating' />
+                            <span>({business.reviews.length})</span>
+                        </>}
+                </div>
                 <button onClick={handleClick}>Buy Membership</button>
                 <div>
                     {business?.otherImages?.map((url) => (

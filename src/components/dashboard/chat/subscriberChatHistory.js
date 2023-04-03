@@ -8,16 +8,13 @@ import { Avatar } from "@mui/material";
 
 const SubscriberChatHistory = () => {
     const [chats, setChats] = useState([]);
-    const [isLoading, setLoading] = useState(true);
     const { user: currentUser } = useSelector((state) => state.auth);
 
     useEffect(() => {
         userService.getSubscriberChats().then(res => {
             console.log(res.data);
             setChats(res.data);
-            setLoading(false);
         }).catch((err) => {
-            setLoading(false);
             console.log(err);
         })
     }, []);
@@ -47,23 +44,29 @@ const SubscriberChatHistory = () => {
     return (
         <div>
             <h1>Chats</h1>
-            {(chats.length > 0) && chats.map((item) => {
-                return (<>
-                    <Avatar
-                        alt="Avatar"
-                        src={item.userImage}
-                        style={{ width: "50px", height: "50px" }}
-                    />
-                    <div>{item.business.name}</div>
-                    <div>{item.lastMessage.message}</div>
-                    <div>{formatDateFromTimestamp(item.lastMessage.__createdTime__)}</div>
-                    <button onClick={() => {
-                        chatClick(item.business);
-                    }}>
-                        Chat
-                    </button>
-                </>)
-            })}
+            {(chats.length === 0) ?
+                (<div>Loading...</div>) :
+                (<div>
+                    {
+                        chats.map((item, index) => {
+                            return (<div key={index}>
+                                <Avatar
+                                    alt="Avatar"
+                                    src={item.userImage}
+                                    style={{ width: "50px", height: "50px" }}
+                                />
+                                <div>{item.business.name}</div>
+                                <div>{item.lastMessage.message}</div>
+                                <div>{formatDateFromTimestamp(item.lastMessage.__createdTime__)}</div>
+                                <button onClick={() => {
+                                    chatClick(item.business);
+                                }}>
+                                    Chat
+                                </button>
+                            </div>)
+                        })
+                    }
+                </div>)}
         </div>
     )
 

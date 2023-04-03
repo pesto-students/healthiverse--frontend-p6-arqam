@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useNavigate, Link } from 'react-router-dom';
 import { useDispatch, useSelector } from "react-redux";
 import { getBusinessProfile } from "../../../slices/businessProfile";
+import { Avatar } from "@mui/material";
 
 const BusinessProfile = () => {
     const { user: currentUser } = useSelector((state) => state.auth);
@@ -43,21 +44,33 @@ const BusinessProfile = () => {
                     {gymProfiles.length !== 0 && (<div>
                         <h3>Gym Profile</h3>
                         {gymProfiles.map(profile => {
-                            return <Link key={profile._id} to={profile._id}>{profile.name}</Link>
+                            return (
+                                <div key={profile._id} style={{ width: "300px", backgroundColor: "grey", margin: "10px", cursor: "pointer" }} onClick={() => navigate(`${profile._id}`)} >
+                                    <div><Avatar src={profile.userImage} style={{ width: "50px", height: "50px" }} /></div>
+                                    <div><strong>{profile.name}</strong></div>
+                                </div>)
                         })}
                     </div>)}
 
                     {trainerProfile.length !== 0 && (<div>
                         <h3>Trainer Profile</h3>
                         {trainerProfile.map(profile => {
-                            return <Link key={profile._id} to={profile._id}>{profile.name}</Link>
+                            return (
+                                <div key={profile._id} style={{ width: "300px", backgroundColor: "grey", margin: "10px", cursor: "pointer" }} onClick={() => navigate(`${profile._id}`)} >
+                                    <div><Avatar src={profile.userImage} style={{ width: "50px", height: "50px" }} /></div>
+                                    <div><strong>{profile.name}</strong></div>
+                                </div>)
                         })}
                     </div>)}
 
                     {dieticianProfile.length !== 0 && (<div>
                         <h3>Dietician Profile</h3>
                         {dieticianProfile.map(profile => {
-                            return <Link key={profile._id} to={profile._id}>{profile.name}</Link>
+                            return (
+                                <div key={profile._id} style={{ width: "300px", backgroundColor: "grey", margin: "10px", cursor: "pointer" }} onClick={() => navigate(`${profile._id}`)} >
+                                    <div><Avatar src={profile.userImage} style={{ width: "50px", height: "50px" }} /></div>
+                                    <div><strong>{profile.name}</strong></div>
+                                </div>)
                         })}
                     </div>)}
 

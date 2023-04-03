@@ -47,19 +47,6 @@ const BusinessProfileDetails = () => {
                 <strong>Contact:</strong> {business?.contact}
             </p>
 
-            <div className="credentials">
-                <p>
-                    <h2>Credentials</h2>
-                </p>
-                <p>
-                    <strong>Email:</strong> {business?.email}
-                </p>
-                <p>
-                    <strong>Password:</strong> **********
-                </p>
-
-            </div>
-
         </div>
     );
 };
