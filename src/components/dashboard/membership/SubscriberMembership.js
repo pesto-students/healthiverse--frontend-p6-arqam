@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { getMemberships } from "../../../slices/membership";
 import { setRoom } from "../../../slices/chatRooms";
 import { getAllBusiness } from "../../../slices/browseBusiness";
@@ -67,11 +67,13 @@ const AllMembership = () => {
                                         alt="Avatar"
                                         src={item.userImage}
                                         style={{ width: "50px", height: "50px" }}
+                                        onClick={() => navigate(`${item._id}`)}
                                     />
                                     <p>
                                         {item.name}
                                     </p>
                                     <p>End Date: {formatDateFromTimestamp(item.endDate)}</p>
+                                  
                                     <button onClick={() => {
                                         chatClick(item);
                                     }}>
@@ -96,6 +98,7 @@ const AllMembership = () => {
                                         alt="Avatar"
                                         src={item.userImage}
                                         style={{ width: "50px", height: "50px" }}
+                                        onClick={() => navigate(`${item._id}`)}
                                     />
                                     <p>
                                         {item.name}
@@ -125,6 +128,7 @@ const AllMembership = () => {
                                         alt="Avatar"
                                         src={item.userImage}
                                         style={{ width: "50px", height: "50px" }}
+                                        onClick={() => navigate(`${item._id}`)}
                                     />
                                     <p>
                                         {item.name}
