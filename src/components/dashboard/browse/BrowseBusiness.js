@@ -39,7 +39,7 @@ const BrowseBusiness = () => {
                     ((gyms?.length === 0) ?
                         (<p>No gyms found</p>) :
                         (gyms?.slice(0, 2).map((item, index) => {
-                            return (<div style={{width: "200px",     backgroundColor: "grey", margin: "10px", cursor: "pointer" }} onClick={() => navigate(`gyms/${item._id}`)} >
+                            return (<div key={index} style={{ width: "200px", backgroundColor: "grey", margin: "10px", cursor: "pointer" }} onClick={() => navigate(`gyms/${item._id}`)} >
                                 <div><Avatar src={item.userImage} style={{ width: "50px", height: "50px" }} /></div>
                                 <div><strong>{item.name}</strong></div>
                                 <div>Address: {item.address}</div>
@@ -58,7 +58,7 @@ const BrowseBusiness = () => {
                     ((trainers?.length === 0) ?
                         (<p>No trainers found</p>) :
                         (trainers?.slice(0, 2).map((item, index) => {
-                            return (<div style={{width: "200px",     backgroundColor: "grey", margin: "10px", cursor: "pointer" }} onClick={() => navigate(`gyms/${item._id}`)} >
+                            return (<div key={index} style={{ width: "200px", backgroundColor: "grey", margin: "10px", cursor: "pointer" }} onClick={() => navigate(`gyms/${item._id}`)} >
                                 <div><Avatar src={item.userImage} style={{ width: "50px", height: "50px" }} /></div>
                                 <div><strong>{item.name}</strong></div>
                                 <div>About: {item.about}</div>
@@ -77,7 +77,7 @@ const BrowseBusiness = () => {
                     ((dieticians?.length === 0) ?
                         (<p>No dieticians found</p>) :
                         (dieticians?.slice(0, 2).map((item, index) => {
-                            return (<div style={{width: "200px",     backgroundColor: "grey", margin: "10px", cursor: "pointer" }} onClick={() => navigate(`gyms/${item._id}`)} >
+                            return (<div key={index} style={{ width: "200px", backgroundColor: "grey", margin: "10px", cursor: "pointer" }} onClick={() => navigate(`gyms/${item._id}`)} >
                                 <div><Avatar src={item.userImage} style={{ width: "50px", height: "50px" }} /></div>
                                 <div><strong>{item.name}</strong></div>
                                 <div>About: {item.about}</div>
