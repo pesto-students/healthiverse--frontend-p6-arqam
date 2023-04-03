@@ -12,8 +12,15 @@ const BuyMembership = () => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
-    const [duration, setDuration] = useState("");
+    const [duration, setDuration] = useState("one");
     const [alert, setAlert] = useState("");
+
+    const membershipObject = {
+        one: { value: 1, option: "1 Month" },
+        three: { value: 3, option: "3 Months" },
+        six: { value: 6, option: "6 Months" },
+        twelve: { value: 12, option: "12 Months" }
+    }
 
     const handleChange = (e) => {
         setDuration(e.target.value);
@@ -21,7 +28,7 @@ const BuyMembership = () => {
     }
     const handleSubmit = (e) => {
         e.preventDefault();
-        const months = Number(duration);
+        const months = Number(membershipObject[duration].value);
         let date = new Date();
         date.setMonth(date.getMonth() + months);
         const data = {
@@ -52,17 +59,21 @@ const BuyMembership = () => {
 
             </header>
             <form onChange={handleChange} onSubmit={handleSubmit}>
-                <p>Please select membership duration:</p>
-                <input type="radio" id="one" name="business" value="1" />
-                <label htmlFor="one">One month = {business.membership.one}</label>
-                <input type="radio" id="three" name="business" value="3" />
-                <label htmlFor="three">Three months = {business.membership.three}</label>
-                <input type="radio" id="six" name="business" value="6" />
-                <label htmlFor="six">Six months = {business.membership.six}</label>
-                <input type="radio" id="twelve" name="business" value="12" />
-                <label htmlFor="twelve">One year = {business.membership.twelve}</label>
-
-                <button type="submit" >Buy</button>
+                <label for="membership">Membership Period:</label>
+                <select id="membership" name="membership">
+                    {
+                        Object.keys(business.membership).map((key) => {
+                            return (
+                                <option value={key}>{membershipObject[key].option}</option>
+                            )
+                        })
+                    }
+                </select>
+                <div>Amount: <span>{business.membership[duration]}</span></div>
+                <div>Total membership price: <span>{business.membership[duration]}</span></div>
+                <div>GST(18%): <span>{business.membership[duration]*0.18}</span></div>
+                <div>Total outstanding price: <span>{business.membership[duration]*1.18}</span></div>
+                <button type="submit" >Pay ₹{business.membership[duration]*1.18}</button>
             </form>
             {alert && (
                 <div className="form-group">
