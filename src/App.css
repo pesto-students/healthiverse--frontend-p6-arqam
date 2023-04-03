@@ -48,3 +48,21 @@ label {
   display: flex;
   flex-direction: column;
 }
+
+button {
+  background-color: transparent;
+  border: none;
+  outline: none;
+  cursor: pointer;
+}
+.on {
+  color: #000;
+}
+.off {
+  color: #ccc;
+}
+.star{
+  height: 50px;
+  width: 50px;
+  font-size: 50px;
+}
