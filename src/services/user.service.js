@@ -33,7 +33,13 @@ const getBusinessChats = () => {
     return axios.get(API_URL + "business/chats", { headers: authHeader() });
 }
 
+const postReview = (data)=>{
+    return axios.post(API_URL + "subscriber/review", data, {headers: authHeader()})
+}
 
+const deleteReview = (data)=>{
+    return axios.put(API_URL + "subscriber/review/delete", data, {headers: authHeader()});
+}
 
 const userService = {
     getAdminBoard,
@@ -42,7 +48,9 @@ const userService = {
     getClients,
     buyMembership,
     getSubscriberChats,
-    getBusinessChats
+    getBusinessChats,
+    postReview,
+    deleteReview
 };
 
 export default userService;
