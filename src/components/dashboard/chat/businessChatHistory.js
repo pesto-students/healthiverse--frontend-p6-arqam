@@ -44,6 +44,17 @@ const BusinessChatHistory = () => {
         navigate(`/business/chats/${user2.s_id}`);
     };
 
+    function formatDateFromTimestamp(timestamp) {
+        const date = new Date(timestamp);
+        return date.toLocaleTimeString([], {
+            year: 'numeric',
+            month: '2-digit',
+            day: '2-digit',
+            hour: '2-digit',
+            minute: '2-digit',
+        });
+    }
+
     return (
         <div>
             <h1>Chats</h1>
@@ -55,7 +66,7 @@ const BusinessChatHistory = () => {
                         style={{ width: "50px", height: "50px" }}
                     />
                     <div>{item.subscriber.name}</div>
-                    <div>{item.lastMessage.message}</div>
+                    <div>{formatDateFromTimestamp(item.lastMessage.__createdTime__)}</div>
                     <button onClick={() => {
                         chatClick(item);
                     }}>
