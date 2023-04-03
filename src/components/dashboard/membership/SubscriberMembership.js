@@ -47,6 +47,10 @@ const AllMembership = () => {
         // socket.emit('join_room', { name: currentUser.name, roomId: roomId });
         navigate(`/subscriber/chats/${item._id}`);
     };
+    function formatDateFromTimestamp(timestamp) {
+        const date = new Date(timestamp);
+        return date.getDate() + '/' + (date.getMonth() + 1) + '/' + date.getFullYear();
+    }
 
     return (
         <div className="container">
@@ -67,7 +71,7 @@ const AllMembership = () => {
                                     <p>
                                         {item.name}
                                     </p>
-                                    <p>End Date: {item.endDate}</p>
+                                    <p>End Date: {formatDateFromTimestamp(item.endDate)}</p>
                                     <button onClick={() => {
                                         chatClick(item);
                                     }}>
@@ -96,7 +100,7 @@ const AllMembership = () => {
                                     <p>
                                         {item.name}
                                     </p>
-                                    <p>End Date: {item.endDate}</p>
+                                    <p>End Date: {formatDateFromTimestamp(item.endDate)}</p>
                                     <button onClick={() => {
                                         chatClick(item);
                                     }}>
@@ -125,7 +129,7 @@ const AllMembership = () => {
                                     <p>
                                         {item.name}
                                     </p>
-                                    <p>End Date: {item.endDate}</p>
+                                    <p>End Date: {formatDateFromTimestamp(item.endDate)}</p>
                                     <button onClick={() => {
                                         chatClick(item);
                                     }}>
