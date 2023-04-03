@@ -41,8 +41,9 @@ const BrowseBusiness = () => {
                         (gyms?.slice(0, 2).map((item, index) => {
                             return (<div style={{width: "200px",     backgroundColor: "grey", margin: "10px", cursor: "pointer" }} onClick={() => navigate(`gyms/${item._id}`)} >
                                 <div><Avatar src={item.userImage} style={{ width: "50px", height: "50px" }} /></div>
-                                <div>{item.name}</div>
-                                <div>{item.address}</div>
+                                <div><strong>{item.name}</strong></div>
+                                <div>Address: {item.address}</div>
+                                <div>Open Hours: {item.openTime.from} to {item.openTime.to}</div>
                             </div>)
                         })
                         )
@@ -59,8 +60,9 @@ const BrowseBusiness = () => {
                         (trainers?.slice(0, 2).map((item, index) => {
                             return (<div style={{width: "200px",     backgroundColor: "grey", margin: "10px", cursor: "pointer" }} onClick={() => navigate(`gyms/${item._id}`)} >
                                 <div><Avatar src={item.userImage} style={{ width: "50px", height: "50px" }} /></div>
-                                <div>{item.name}</div>
-                                <div>{item.about}</div>
+                                <div><strong>{item.name}</strong></div>
+                                <div>About: {item.about}</div>
+                                <div>Contact: {item.contact}</div>
                             </div>)
                         })
                         )
@@ -77,8 +79,9 @@ const BrowseBusiness = () => {
                         (dieticians?.slice(0, 2).map((item, index) => {
                             return (<div style={{width: "200px",     backgroundColor: "grey", margin: "10px", cursor: "pointer" }} onClick={() => navigate(`gyms/${item._id}`)} >
                                 <div><Avatar src={item.userImage} style={{ width: "50px", height: "50px" }} /></div>
-                                <div>{item.name}</div>
-                                <div>{item.about}</div>
+                                <div><strong>{item.name}</strong></div>
+                                <div>About: {item.about}</div>
+                                <div>Contact: {item.contact}</div>
                             </div>)
                         })
                         )

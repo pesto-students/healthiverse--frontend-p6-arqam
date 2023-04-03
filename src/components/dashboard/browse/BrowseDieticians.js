@@ -39,10 +39,11 @@ const BrowseDieticians = () => {
                     ((dieticians?.length === 0) ?
                         (<p>No dieticians found</p>) :
                         (dieticians?.map((item, index) => {
-                            return (<div style={{ width: "200px", backgroundColor: "grey", margin: "10px", cursor: "pointer" }} onClick={() => navigate(item._id)} >
+                            return (<div style={{width: "200px",     backgroundColor: "grey", margin: "10px", cursor: "pointer" }} onClick={() => navigate(`gyms/${item._id}`)} >
                                 <div><Avatar src={item.userImage} style={{ width: "50px", height: "50px" }} /></div>
-                                <div>{item.name}</div>
-                                <div>{item.about}</div>
+                                <div><strong>{item.name}</strong></div>
+                                <div>About: {item.about}</div>
+                                <div>Contact: {item.contact}</div>
                             </div>)
                         })
                         )
