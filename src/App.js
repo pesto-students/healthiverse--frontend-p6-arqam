@@ -35,6 +35,8 @@ import BrowseGyms from "./components/dashboard/browse/BrowseGyms";
 import BrowseTrainers from "./components/dashboard/browse/BrowseTrainers";
 import BrowseDieticians from "./components/dashboard/browse/BrowseDieticians";
 import EditAccount from "./components/dashboard/account/editAccount";
+import MembershipDetails from "./components/dashboard/membership/MembershipDetails";
+import StarRating from "./components/dashboard/membership/addReview";
 
 const App = () => {
   const [showBusinessBoard, setShowBusinessBoard] = useState(false);
@@ -195,7 +197,13 @@ const App = () => {
                   </Route>
                 </Route>
               </Route>
-              <Route path="memberships" element={<AllMembership />} />
+              <Route path="memberships" >
+                <Route index={true} element={<AllMembership />} />
+                <Route path=":id">
+                  <Route index={true} element={<MembershipDetails />} />
+                  <Route path="review" element={<StarRating/>}/>
+                </Route>
+              </Route>
               <Route path="chats" element={<SubscriberChatHistory />} />
               <Route path="chats/:id" element={<Chat />} />
               <Route path="addbusiness" element={<FormBusiness />} />
