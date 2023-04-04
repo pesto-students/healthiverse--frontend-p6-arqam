@@ -41,6 +41,10 @@ const deleteReview = (data)=>{
     return axios.put(API_URL + "subscriber/review/delete", data, {headers: authHeader()});
 }
 
+const getReview = (data)=>{
+    return axios.post(API_URL + "business/review", data);
+}
+
 const userService = {
     getAdminBoard,
     getAllBusiness,
@@ -50,7 +54,8 @@ const userService = {
     getSubscriberChats,
     getBusinessChats,
     postReview,
-    deleteReview
+    deleteReview,
+    getReview
 };
 
 export default userService;
