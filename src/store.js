@@ -9,6 +9,7 @@ import businessReducer from "./slices/businessProfile";
 import chatRoomReducer from "./slices/chatRooms";
 import browseBusinessReducer from "./slices/browseBusiness";
 import membershipReducer from "./slices/membership";
+import businessClientsReducer from "./slices/businessClients";
 
 const persistConfig = {
     key: 'root',
@@ -22,7 +23,8 @@ const reducer = combineReducers({
     business: businessReducer,
     browseBusiness: browseBusinessReducer,
     membership: membershipReducer,
-    chatRoom: chatRoomReducer
+    chatRoom: chatRoomReducer,
+    businessClients: businessClientsReducer
 });
 
 const rootReducer = (state, action) => {
