@@ -20,7 +20,6 @@ const AllMembership = () => {
     const trainerMembership = memberships?.filter(m => m.businessType === "trainer");
     const dieticianMembership = memberships?.filter(m => m.businessType === "dietician");
     const { user: currentUser } = useSelector((state) => state.auth);
-    const [error, setError] = useState("");
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
@@ -30,12 +29,7 @@ const AllMembership = () => {
         dispatch(getMemberships())
             .unwrap()
             .catch((err) => {
-                const _content = (err.response &&
-                    err.response.data &&
-                    err.response.data.message) ||
-                    err.message || err.toString();
-                console.log(_content);
-                setError(_content);
+                console.log(err);
             });
     }, []);
 
