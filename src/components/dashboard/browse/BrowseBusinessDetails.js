@@ -1,9 +1,11 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useParams, Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { getMemberships } from "../../../slices/membership";
 import { Avatar } from "@mui/material";
 import StarRatings from "react-star-ratings";
+import userService from "../../../services/user.service";
+import { getAllBusiness } from "../../../slices/browseBusiness";
 
 const BusinessDetails = () => {
     const { allBusiness } = useSelector((state) => state.browseBusiness);
@@ -13,6 +15,22 @@ const BusinessDetails = () => {
     const navigate = useNavigate();
     const dispatch = useDispatch();
 
+    useEffect(() => {
+        const fetchData = () => {
+            dispatch(getAllBusiness())
+                .unwrap()
+                .catch((err) => {
+                    const _content = (err.response &&
+                        err.response.data &&
+                        err.response.data.message) ||
+                        err.message || err.toString();
+                    console.log(_content);
+                });
+        }
+        if (!allBusiness) {
+            fetchData();
+        }
+    }, []);
 
     const handleClick = () => {
         dispatch(getMemberships());
@@ -55,6 +73,26 @@ const BusinessDetails = () => {
             </p>
             <p>
                 <strong>Contact:</strong> {business.contact}
+            </p>
+            <p>
+                <strong>Reviews:</strong>
+                {business.reviews.length === 0 ? (<p>No reviews</p>) :
+                    (
+                        business.reviews.map(review => {
+                            return (
+                                <div>
+                                    <Avatar
+                                        src={review.subscriberImage}
+                                        style={{ width: "50px", height: "50px" }}
+                                    />
+                                    <p>{review.subscriberName}</p>
+                                    <p>{review.comment}</p>
+                                </div>
+                            )
+                        })
+                    )
+                }
+
             </p>
 
         </div>

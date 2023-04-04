@@ -1,15 +1,21 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useParams, useLocation } from "react-router-dom";
 import { getAllBusiness } from "../../../slices/browseBusiness";
 import { Avatar } from "@mui/material";
 import StarRatings from "react-star-ratings";
 
-const BrowseGyms = () => {
+const BrowseBusinessType = () => {
     const { isLoading, allBusiness } = useSelector((state) => state.browseBusiness);
-    const gyms = allBusiness?.filter(business => business.businessType === "gym");
+    const { type } = useParams();
+    const businesses = allBusiness?.filter(business => business.businessType === type);
     const dispatch = useDispatch();
     const navigate = useNavigate();
+    const businessTypeObj = {
+        gym: "Gyms",
+        trainer: "Trainers",
+        dietician: "Dieticians"
+    };
     useEffect(() => {
         const fetchData = () => {
             dispatch(getAllBusiness())
@@ -25,21 +31,19 @@ const BrowseGyms = () => {
         if (!allBusiness) {
             fetchData();
         }
-
-
     }, []);
 
     return (
         <div className="container">
-            <div className="gyms">
-            <button onClick={() => navigate(-1)}>go back</button>
-                <h3>Gyms</h3>
+            <div className="businesses">
+                <button onClick={() => navigate(-1)}>go back</button>
+                <h3>{`${businessTypeObj[type]}`}</h3>
                 {isLoading ?
                     (<p>Loading...</p>) :
-                    ((gyms?.length === 0) ?
-                        (<p>No gyms found</p>) :
-                        (gyms?.map((item, index) => {
-                            return (<div key={index} style={{width: "300px",     backgroundColor: "grey", margin: "10px", cursor: "pointer" }} onClick={() => navigate(`gyms/${item._id}`)} >
+                    ((businesses?.length === 0) ?
+                        (<p>No businesses found</p>) :
+                        (businesses?.map((item, index) => {
+                            return (<div key={index} style={{ width: "300px", backgroundColor: "grey", margin: "10px", cursor: "pointer" }} onClick={() => navigate(`${item._id}`)} >
                                 <div><Avatar src={item.userImage} style={{ width: "50px", height: "50px" }} /></div>
                                 <div><strong>{item.name}</strong></div>
                                 <div>
@@ -69,4 +73,4 @@ const BrowseGyms = () => {
     );
 }
 
-export default BrowseGyms;
+export default BrowseBusinessType;
