@@ -88,6 +88,7 @@ const EditBusiness = () => {
             twelve: business ? business.membership.twelve : "",
         },
     };
+    const phoneRegExp = /^(\+?\d{0,4})?\s?-?\s?(\(?\d{3}\)?)\s?-?\s?(\(?\d{3}\)?)\s?-?\s?(\(?\d{4}\)?)?$/
 
     const validationSchema = Yup.object().shape({
         name: Yup.string()
@@ -95,9 +96,7 @@ const EditBusiness = () => {
         about: Yup.string()
             .required("This field is required"),
         address: Yup.string(),
-        contact: Yup.number().typeError("Contact must be a number")
-            .integer()
-            .required("This field is required"),
+        contact: Yup.string().matches(phoneRegExp, 'Phone number is not valid').required("This field is required"),
         businessType: Yup.string()
             .required("This field is required"),
         activites: Yup.array().min(1, "Select at least one activity"),
