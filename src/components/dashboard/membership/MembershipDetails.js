@@ -7,17 +7,30 @@ import { setRoom } from "../../../slices/chatRooms";
 import StarRatings from "react-star-ratings";
 import userService from "../../../services/user.service";
 import { getAllBusiness } from "../../../slices/browseBusiness";
+import BusinessInfo from "../profile/business/businessInfo";
+import BusinessHeader from "../profile/business/businessHeader";
 
 const MembershipDetails = () => {
     const { allBusiness } = useSelector((state) => state.browseBusiness);
     const { id } = useParams();
-    const businessArr = allBusiness.filter((business) => { return business._id === id });
-    const business = businessArr[0];
+    const business = allBusiness.filter((business) => { return business._id === id })[0];
+    const { memberships } = useSelector((state) => state.membership);
+    const membership = memberships?.filter(m => m.businessId === id)[0];
+
     const { user: currentUser } = useSelector((state) => state.auth);
     const review = business?.reviews?.filter(review =>
         review.subscriberId === currentUser._id)[0];
     const navigate = useNavigate();
     const dispatch = useDispatch();
+
+    useEffect(() => {
+        if (!allBusiness) {
+            dispatch(getAllBusiness());
+        }
+        if (!memberships) {
+            dispatch(getMemberships());
+        }
+    });
 
     const chatClick = (business) => {
         dispatch(setRoom({
@@ -34,7 +47,12 @@ const MembershipDetails = () => {
                 dispatch(getAllBusiness());
             }).catch((err) => {
                 console.log(err);
-            });  
+            });
+    }
+
+    function formatDateFromTimestamp(timestamp) {
+        const date = new Date(timestamp);
+        return date.getDate() + '/' + (date.getMonth() + 1) + '/' + date.getFullYear();
     }
 
     return (
@@ -42,32 +60,17 @@ const MembershipDetails = () => {
         <div className="container">
             <header className="jumbotron">
                 <button onClick={() => navigate(-1)}>go back</button>
-                <Avatar src={business.userImage} style={{ width: "100px", height: "100px" }} />
-                <h3>
-                    <strong>{business.name}</strong> Profile
-                </h3>
-                <div>
-                    {business?.otherImages?.map((url) => (
-                        <img key={url} src={url} alt="uploaded" style={{ width: "200px", height: "200px" }} />
-                    ))}
-                </div>
-
+                <BusinessHeader business={business} />
                 <button onClick={() => {
                     chatClick(business);
                 }}>
                     Chat
                 </button>
+                <div>Membership ending on: {formatDateFromTimestamp(membership.endDate)}</div>
             </header>
 
-            <p>
-                <strong>About:</strong> {business.about}
-            </p>
-            <p>
-                <strong>Adress:</strong> {business.address}
-            </p>
-            <p>
-                <strong>Contact:</strong> {business.contact}
-            </p>
+            <BusinessInfo business={business} />
+
             {review ?
                 (<>
                     <h3>Your review:</h3>

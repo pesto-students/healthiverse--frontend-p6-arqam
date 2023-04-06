@@ -5,6 +5,7 @@ import { getMemberships } from "../../../slices/membership";
 import { setRoom } from "../../../slices/chatRooms";
 import { getAllBusiness } from "../../../slices/browseBusiness";
 import { Avatar } from "@mui/material";
+import MembershipItem from "./membershipItem";
 
 const AllMembership = () => {
     const { allBusiness } = useSelector((state) => state.browseBusiness);
@@ -41,10 +42,7 @@ const AllMembership = () => {
         // socket.emit('join_room', { name: currentUser.name, roomId: roomId });
         navigate(`/subscriber/chats/${item._id}`);
     };
-    function formatDateFromTimestamp(timestamp) {
-        const date = new Date(timestamp);
-        return date.getDate() + '/' + (date.getMonth() + 1) + '/' + date.getFullYear();
-    }
+   
 
     return (
         <div className="container">
@@ -57,16 +55,7 @@ const AllMembership = () => {
                         (gymMembership?.map((item, index) => {
                             return (
                                 <div key={index}>
-                                    <Avatar
-                                        alt="Avatar"
-                                        src={item.userImage}
-                                        style={{ width: "50px", height: "50px" }}
-                                        onClick={() => navigate(`${item._id}`)}
-                                    />
-                                    <p>
-                                        {item.name}
-                                    </p>
-                                    <p>End Date: {formatDateFromTimestamp(item.endDate)}</p>
+                                   <MembershipItem item={item}/>
                                   
                                     <button onClick={() => {
                                         chatClick(item);
@@ -88,16 +77,7 @@ const AllMembership = () => {
                         (trainerMembership?.map((item) => {
                             return (
                                 <div key={item._id}>
-                                    <Avatar
-                                        alt="Avatar"
-                                        src={item.userImage}
-                                        style={{ width: "50px", height: "50px" }}
-                                        onClick={() => navigate(`${item._id}`)}
-                                    />
-                                    <p>
-                                        {item.name}
-                                    </p>
-                                    <p>End Date: {formatDateFromTimestamp(item.endDate)}</p>
+                                    <MembershipItem item={item}/>
                                     <button onClick={() => {
                                         chatClick(item);
                                     }}>
@@ -118,16 +98,7 @@ const AllMembership = () => {
                         (dieticianMembership?.map((item, index) => {
                             return (
                                 <div key={index}>
-                                    <Avatar
-                                        alt="Avatar"
-                                        src={item.userImage}
-                                        style={{ width: "50px", height: "50px" }}
-                                        onClick={() => navigate(`${item._id}`)}
-                                    />
-                                    <p>
-                                        {item.name}
-                                    </p>
-                                    <p>End Date: {formatDateFromTimestamp(item.endDate)}</p>
+                                   <MembershipItem item={item}/>
                                     <button onClick={() => {
                                         chatClick(item);
                                     }}>
