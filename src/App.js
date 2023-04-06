@@ -10,33 +10,40 @@ import {
   RegisterBusiness,
 } from "./components/registration";
 import Home from "./components/home/Home";
-import Profile from "./components/dashboard/profile/Profile";
+import Profile from "./components/dashboard/profile/subscriber/SubscriberProfile";
 import BoardSubscriber from "./components/dashboard/BoardSubscriber";
 import BoardBusiness from "./components/dashboard/BoardBusiness";
 import BoardAdmin from "./components/dashboard/BoardAdmin";
 import { logout } from "./slices/auth";
 import EventBus from "./common/EventBus";
-import BrowseClients from "./components/dashboard/browse/BrowseClients";
-import FormProfile from "./components/dashboard/profile/FormSubscriber";
+import BrowseClients from "./components/dashboard/browse/clients/BrowseClients";
+import FormProfile from "./components/dashboard/profile/form/FormSubscriber";
 import BusinessLogin from "./components/login/BusinessLogin";
-import BrowseBusiness from "./components/dashboard/browse/BrowseBusiness";
+import BrowseBusiness from "./components/dashboard/browse/business/BrowseBusiness";
 import AllMembership from "./components/dashboard/membership/SubscriberMembership";
-import FormBusiness from "./components/dashboard/profile/FormBusiness";
-import BusinessProfile from "./components/dashboard/profile/BusinessProfile";
+import FormBusiness from "./components/dashboard/profile/form/FormBusiness";
+import BusinessProfile from "./components/dashboard/profile/business/BusinessProfile";
 import Chat from "./components/dashboard/chat";
-import BusinessDetails from "./components/dashboard/browse/BrowseBusinessDetails";
-import BusinessProfileDetails from "./components/dashboard/profile/BusinessProfileDetails";
+import BusinessDetails from "./components/dashboard/browse/business/BrowseBusinessDetails";
+import BusinessProfileDetails from "./components/dashboard/profile/business/BusinessProfileDetails";
 import BuyMembership from "./components/dashboard/membership/BuyMembership";
-import EditBusiness from "./components/dashboard/profile/EditBusinessProfile";
+import EditBusiness from "./components/dashboard/profile/form/EditBusinessProfile";
 import SubscriberChatHistory from "./components/dashboard/chat/subscriberChatHistory";
 import BusinessChatHistory from "./components/dashboard/chat/businessChatHistory";
 import Account from "./components/dashboard/account";
 import EditAccount from "./components/dashboard/account/editAccount";
 import MembershipDetails from "./components/dashboard/membership/MembershipDetails";
 import StarRating from "./components/dashboard/membership/addReview";
-import BrowseClientsType from "./components/dashboard/browse/BrowseClientsType";
-import BrowseClientDetails from "./components/dashboard/browse/BrowseClientDetails";
-import BrowseBusinessType from "./components/dashboard/browse/BrowseBusinessType";
+import BrowseClientsType from "./components/dashboard/browse/clients/BrowseClientsType";
+import BrowseClientDetails from "./components/dashboard/browse/clients/BrowseClientDetails";
+import BrowseBusinessType from "./components/dashboard/browse/business/BrowseBusinessType";
+import ReactDOM from 'react-dom'
+import { library } from '@fortawesome/fontawesome-svg-core'
+import { fab } from '@fortawesome/free-brands-svg-icons'
+import { faCheckSquare, faUserPen, faUser} from '@fortawesome/free-solid-svg-icons'
+library.add(fab, faCheckSquare, faUserPen, faUser)
+
+
 
 const App = () => {
   const [showBusinessBoard, setShowBusinessBoard] = useState(false);
@@ -70,7 +77,7 @@ const App = () => {
 
   return (
     <Router>
-      <div>
+      <div className="flex flex-col min-h-screen">
         <nav className="navbar navbar-expand navbar-dark bg-dark">
           <Link to={"/"} className="navbar-brand">
             HealthiVerse
@@ -137,7 +144,7 @@ const App = () => {
           )}
         </nav>
 
-        <div className="app-container ">
+        <div className="flex-1 bg-gray-100">
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="home">

@@ -6,13 +6,48 @@ import { PersistGate } from 'redux-persist/integration/react';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
+import {
+  ThemeProvider,
+  StyledEngineProvider,
+  createTheme
+} from "@mui/material/styles";
+import { CssBaseline } from "@mui/material";
 
-const root = ReactDOM.createRoot(document.getElementById('root'));
+const rootElement = document.getElementById('root');
+
+const theme = createTheme({
+  components: {
+    MuiPopover: {
+      defaultProps: {
+        container: rootElement
+      }
+    },
+    MuiPopper: {
+      defaultProps: {
+        container: rootElement
+      }
+    },
+    MuiDialog: {
+      defaultProps: {
+        container: rootElement,
+      },
+    },
+  }
+});
+
+
+
+const root = ReactDOM.createRoot(rootElement);
 
 root.render(
   <Provider store={store}>
     <PersistGate loading={null} persistor={persistor}>
-      <App />
+    <StyledEngineProvider injectFirst>
+      <ThemeProvider theme={theme}>
+        <CssBaseline />
+        <App />
+      </ThemeProvider>
+    </StyledEngineProvider>
     </PersistGate>
   </Provider>
 
