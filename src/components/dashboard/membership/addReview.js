@@ -16,11 +16,11 @@ const StarRating = () => {
         review.subscriberId === currentUser._id)[0];
     const navigate = useNavigate();
     const dispatch = useDispatch();
-    const [rating, setRating] = useState(review?review.rating:0);
+    const [rating, setRating] = useState(review ? review.rating : 0);
     const [hover, setHover] = useState(0);
-    const [comment, setComment] = useState(review?review.comment:"");
+    const [comment, setComment] = useState(review ? review.comment : "");
 
-    const handleSubmit = () => { 
+    const handleSubmit = () => {
         const review = {
             businessId: id,
             rating: rating,
@@ -44,11 +44,6 @@ const StarRating = () => {
                 <h3>
                     <strong>{business.name}</strong> Profile
                 </h3>
-                <div>
-                    {business?.otherImages?.map((url) => (
-                        <img key={url} src={url} alt="uploaded" style={{ width: "200px", height: "200px" }} />
-                    ))}
-                </div>
             </header>
 
             <div className="star-rating">
