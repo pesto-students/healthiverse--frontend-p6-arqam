@@ -34,7 +34,7 @@ const Profile = () => {
 
 
   return (
-    <>
+    <div className="flex w-full justify-center content-center">
       {(!subscriberProfileData) ?
         ((loading) ?
           (<div>
@@ -52,11 +52,11 @@ const Profile = () => {
         (<div className="w-1/2 max-w-lg min-w-max mt-4 bg-gray-50 shadow-xl rounded-xl flex flex-col">
           <header className="border-b w-auto ml-4 mr-4 flex flex-col">
             <div className="flex justify-end">
-              <Link to="/subscriber/profile/" className="mr-3 mt-3">
+              <Link to="/subscriber/profile/" >
                 <FontAwesomeIcon
                   icon="user-pen"
                   title="Edit profile"
-                  className="text-blue-600 hover:bg-gray-200 hover:scale-110 py-2 px-2 rounded-xl" />
+                  className="mt-3 text-blue-600  hover:scale-110 " />
               </Link>
             </div>
             <SubscriberHeader subscriberProfileData={subscriberProfileData} />
@@ -64,7 +64,7 @@ const Profile = () => {
           <SubscriberInfo subscriberProfileData={subscriberProfileData} />
         </div>)}
 
-    </>
+    </div>
   );
 };
 

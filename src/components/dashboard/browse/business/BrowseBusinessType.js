@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate, useParams, useLocation } from "react-router-dom";
 import { getAllBusiness } from "../../../../slices/browseBusiness";
 import BusinessItem from "./businessItem";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 const BrowseBusinessType = () => {
     const { isLoading, allBusiness } = useSelector((state) => state.browseBusiness);
@@ -33,26 +34,30 @@ const BrowseBusinessType = () => {
     }, []);
 
     return (
-        <div className="container">
-            <div className="businesses">
-                <button onClick={() => navigate(-1)}>go back</button>
-                <h3>{`${businessTypeObj[type]}`}</h3>
+
+        <div className="mt-3">
+            <button onClick={() => navigate(-1)}
+                className="text-base bg-gray-200 hover:bg-gray-300 px-2 py-1 rounded-xl">
+                <FontAwesomeIcon icon="fa-arrow-left" />
+            </button>
+            <h3 className="text-3xl font-bold mt-3">{`${businessTypeObj[type]}`}</h3>
+            <div className="flex flex-wrap ">
                 {isLoading ?
                     (<p>Loading...</p>) :
                     ((businesses?.length === 0) ?
                         (<p>No businesses found</p>) :
                         (businesses?.map((item, index) => {
-                            return (<div key={index} style={{ width: "300px", backgroundColor: "grey", margin: "10px", cursor: "pointer" }} onClick={() => navigate(`${item._id}`)} >
-                                <BusinessItem item={item} />
-                            </div>)
+                            return (
+                                <BusinessItem key={index} item={item} to="" />
+                            )
                         })
                         )
                     )
                 }
             </div>
-
-
         </div>
+
+
     );
 }
 

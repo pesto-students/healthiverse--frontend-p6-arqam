@@ -40,8 +40,9 @@ import BrowseBusinessType from "./components/dashboard/browse/business/BrowseBus
 import ReactDOM from 'react-dom'
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { fab } from '@fortawesome/free-brands-svg-icons'
-import { faCheckSquare, faUserPen, faUser} from '@fortawesome/free-solid-svg-icons'
-library.add(fab, faCheckSquare, faUserPen, faUser)
+import { faCheckSquare, faUserPen, faUser, faMagnifyingGlass, faCreditCard, faComments, faUserPlus, faKey, faArrowRight, faArrowLeft } from '@fortawesome/free-solid-svg-icons'
+import BrowsePublic from "./components/home/BrowsePublic";
+library.add(fab, faCheckSquare, faUserPen, faUser, faMagnifyingGlass, faCreditCard, faComments, faUserPlus, faKey, faArrowRight, faArrowLeft)
 
 
 
@@ -150,12 +151,12 @@ const App = () => {
             <Route path="home">
               <Route index={true} element={<BrowseBusiness />} />
               <Route path=":type">
-                  <Route index={true} element={<BrowseBusinessType />} />
-                  <Route path=":id">
-                    <Route index={true} element={<BusinessDetails />} />
-                    <Route path="buy" element={<BuyMembership />} />
-                  </Route>
+                <Route index={true} element={<BrowseBusinessType />} />
+                <Route path=":id">
+                  <Route index={true} element={<BusinessDetails />} />
+                  <Route path="buy" element={<BuyMembership />} />
                 </Route>
+              </Route>
             </Route>
             <Route path="/login" element={<Login />} />
             <Route path="/login/business" element={<BusinessLogin />} />

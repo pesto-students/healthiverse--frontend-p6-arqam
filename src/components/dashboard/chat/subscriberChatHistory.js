@@ -8,14 +8,17 @@ import { Avatar } from "@mui/material";
 
 const SubscriberChatHistory = () => {
     const [chats, setChats] = useState([]);
+    const [isLoading, setIsLoading] = useState(true);
     const { user: currentUser } = useSelector((state) => state.auth);
 
     useEffect(() => {
         userService.getSubscriberChats().then(res => {
             console.log(res.data);
             setChats(res.data);
+            setIsLoading(false);
         }).catch((err) => {
             console.log(err);
+            setIsLoading(false);
         })
     }, []);
 
@@ -45,7 +48,7 @@ const SubscriberChatHistory = () => {
         <div>
             <h1>Chats</h1>
             {(chats.length === 0) ?
-                (<div>Loading...</div>) :
+                ((isLoading) ? (<div>Loading...</div>) : (<div>No chats found</div>)) :
                 (<div>
                     {
                         chats.map((item, index) => {

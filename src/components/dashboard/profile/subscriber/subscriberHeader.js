@@ -7,7 +7,7 @@ const SubscriberHeader = ({ subscriberProfileData }) => {
                 <Avatar
                     alt="Avatar"
                     src={subscriberProfileData.userImage}
-                    className="h-auto w-auto"
+                    className="h-40 w-40"
                 />
             </div>
             <div className="text-3xl font-bold text-center mt-2 mb-2">
