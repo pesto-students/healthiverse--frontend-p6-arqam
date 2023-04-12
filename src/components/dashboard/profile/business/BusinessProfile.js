@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useNavigate, Link } from 'react-router-dom';
 import { useDispatch, useSelector } from "react-redux";
 import { getBusinessProfile } from "../../../../slices/businessProfile";
-import { Avatar } from "@mui/material";
+import BusinessItem from "../../browse/business/businessItem";
 
 const BusinessProfile = () => {
     const { user: currentUser } = useSelector((state) => state.auth);
@@ -23,60 +23,71 @@ const BusinessProfile = () => {
                 });
         };
 
-        fetchData();
+        // fetchData();
 
-        // if (!currentUser) {
-        //     navigate("/login");
-        // } else if (businessProfiles.length === 0) {
-        //     fetchData();
-        // }
+        if (!currentUser) {
+            navigate("/login");
+        } else if (businessProfiles.length === 0) {
+            fetchData();
+        }
 
     }, []);
 
 
     return (
-        <div className="profile-page">
+        <div className="w-auto">
             {(!businessProfiles) ?
                 (<div>
-                    <h1>Loading...</h1>
+                   <h3 className="text-3xl font-bold">Loading...</h3>
                 </div>) :
-                (<div>
-                    {gymProfiles.length !== 0 && (<div>
-                        <h3>Gym Profile</h3>
-                        {gymProfiles.map(profile => {
-                            return (
-                                <div key={profile._id} style={{ width: "300px", backgroundColor: "grey", margin: "10px", cursor: "pointer" }} onClick={() => navigate(`${profile._id}`)} >
-                                    <div><Avatar src={profile.userImage} style={{ width: "50px", height: "50px" }} /></div>
-                                    <div><strong>{profile.name}</strong></div>
-                                </div>)
-                        })}
-                    </div>)}
+                (
+                    <>
+                        <div className="flex flex-col">
+                            <div className="flex space-x-7 mt-3">
 
-                    {trainerProfile.length !== 0 && (<div>
-                        <h3>Trainer Profile</h3>
-                        {trainerProfile.map(profile => {
-                            return (
-                                <div key={profile._id} style={{ width: "300px", backgroundColor: "grey", margin: "10px", cursor: "pointer" }} onClick={() => navigate(`${profile._id}`)} >
-                                    <div><Avatar src={profile.userImage} style={{ width: "50px", height: "50px" }} /></div>
-                                    <div><strong>{profile.name}</strong></div>
-                                </div>)
-                        })}
-                    </div>)}
+                                {gymProfiles.length !== 0 && (<div>
+                                    <h3 className="text-3xl font-bold">Gym Profile</h3>
+                                    {gymProfiles.map((profile, index) => {
+                                        return <BusinessItem key={index} item={profile} to="" />
+                                    })}
+                                </div>)}
 
-                    {dieticianProfile.length !== 0 && (<div>
-                        <h3>Dietician Profile</h3>
-                        {dieticianProfile.map(profile => {
-                            return (
-                                <div key={profile._id} style={{ width: "300px", backgroundColor: "grey", margin: "10px", cursor: "pointer" }} onClick={() => navigate(`${profile._id}`)} >
-                                    <div><Avatar src={profile.userImage} style={{ width: "50px", height: "50px" }} /></div>
-                                    <div><strong>{profile.name}</strong></div>
-                                </div>)
-                        })}
-                    </div>)}
 
-                </div>)}
+
+                            </div>
+
+                        </div>
+                        <div className="flex flex-col">
+                            <div className="flex space-x-7 mt-3">
+
+                                {trainerProfile.length !== 0 && (<div>
+                                    <h3 className="text-3xl font-bold">Trainer Profile</h3>
+                                    {trainerProfile.map((profile, index) => {
+                                        return <BusinessItem key={index} item={profile} to="" />
+                                    })}
+                                </div>)}
+
+                            </div>
+
+                        </div>
+                        <div className="flex flex-col">
+                            <div className="flex space-x-7 mt-3">
+
+                                {dieticianProfile.length !== 0 && (<div>
+                                    <h3 className="text-3xl font-bold">Dietician Profile</h3>
+                                    {dieticianProfile.map((profile, index) => {
+                                        return <BusinessItem key={index} item={profile} to="" />
+                                    })}
+                                </div>)}
+
+                            </div>
+
+                        </div>
+                    </>
+                )}
 
         </div>
+
     );
 };
 

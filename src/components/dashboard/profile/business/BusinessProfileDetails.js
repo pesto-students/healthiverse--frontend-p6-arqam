@@ -1,16 +1,17 @@
 import React, { useEffect } from "react";
 import { useParams, Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { Avatar } from "@mui/material";
 import { getBusinessProfile } from "../../../../slices/businessProfile";
-import BusinessInfo from "./businessInfo";
-import BusinessHeader from "./businessHeader";
-import BusinessReviews from "./businessReviews";
+import BusinessHeader from "./header";
+import BusinessInfo from "./info";
+import BusinessReviews from "./reviews";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+
 
 const BusinessProfileDetails = () => {
     const { businessProfiles } = useSelector((state) => state.business);
     const { id } = useParams();
-    const business = businessProfiles?.filter((business) => { return business?._id === id })[0];
+    const business = businessProfiles?.filter((business) => { return business._id === id })[0];
     const dispatch = useDispatch();
     const navigate = useNavigate();
     useEffect(() => {
@@ -18,21 +19,38 @@ const BusinessProfileDetails = () => {
             dispatch(getBusinessProfile());
         };
         if (!businessProfiles) fetchData();
+        console.log(business);
     })
 
     return (
 
-        <div className="container">
-            <div className="jumbotron">
-                <button onClick={()=>navigate(-1)}>back</button>
-                <BusinessHeader business={business} id={id} />
-                <Link to={`/business/${id}/edit`}>Edit Profile</Link>
+
+        <div className="flex w-full h-max justify-center content-center">
+            <div className="w-full max-w-xl min-w-max mt-4 bg-gray-50 shadow-xl rounded-xl flex flex-col">
+                <header className="border-b w-auto ml-4 mr-4 flex flex-col content-center">
+                    <div className="mt-3 flex justify-between content-center">
+                        <button onClick={() => navigate("/business")}
+                            className="text-base hover:bg-gray-300 px-2 py-1 rounded-xl">
+                            <FontAwesomeIcon icon="fa-arrow-left" />
+                        </button>
+                        <Link to={`/business/${id}/edit`} >
+                            <FontAwesomeIcon
+                                icon="user-pen"
+                                title="Edit profile"
+                                className="text-blue-600  hover:scale-110 " />
+                        </Link>
+                    </div>
+                    <BusinessHeader business={business} id={id} />
+
+
+                </header>
+
+                <BusinessInfo business={business} />
+                <BusinessReviews business={business} />
+
             </div>
-
-            <BusinessInfo business={business} />
-            <BusinessReviews business={business}/>
-
         </div>
+
     );
 };
 

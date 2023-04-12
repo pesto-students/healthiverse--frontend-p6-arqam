@@ -4,7 +4,6 @@ import { Link, useNavigate } from "react-router-dom";
 import { getAllBusiness } from "../../../../slices/browseBusiness";
 import BusinessItem from "./businessItem";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-
 const BrowseBusiness = () => {
     const { isLoading, allBusiness } = useSelector((state) => state.browseBusiness);
     const gyms = allBusiness?.filter(business => business.businessType === "gym");
@@ -31,9 +30,9 @@ const BrowseBusiness = () => {
     }, []);
 
     return (
-        <div className="w-auto">
+        <div className="w-auto px-4 py-4 flex flex-col gap-7">
             <div className="flex flex-col">
-                <div className="flex space-x-7 mt-3">
+                <div className="flex space-x-7">
                     <h3 className="text-3xl font-bold">Gyms</h3>
                     {(!isLoading) && gyms?.length > 0 &&
                         <button
@@ -59,7 +58,7 @@ const BrowseBusiness = () => {
                 </div>
             </div>
             <div className="flex flex-col">
-                <div className="flex space-x-7 mt-3">
+                <div className="flex space-x-7">
                     <h3 className="text-3xl font-bold">Trainers</h3>
                     {(!isLoading) && trainers?.length > 0 &&
                         <button
@@ -86,7 +85,7 @@ const BrowseBusiness = () => {
                 </div>
             </div>
             <div className="flex flex-col">
-                <div className="flex space-x-7 mt-3">
+                <div className="flex space-x-7">
                     <h3 className="text-3xl font-bold">Dieticians</h3>
                     {(!isLoading) && dieticians?.length > 0 &&
                         <button
