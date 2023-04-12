@@ -34,7 +34,7 @@ const Profile = () => {
 
 
   return (
-    <div className="flex w-full justify-center content-center">
+    <div className="flex w-full h-max justify-center content-center">
       {(!subscriberProfileData) ?
         ((loading) ?
           (<div>
@@ -49,7 +49,7 @@ const Profile = () => {
             </p>
           </div>)
         ) :
-        (<div className="w-1/2 max-w-lg min-w-max mt-4 bg-gray-50 shadow-xl rounded-xl flex flex-col">
+        (<div className="flex flex-col w-full h-max max-w-lg min-w-max mt-4 bg-gray-50 shadow-xl rounded-xl flex flex-col">
           <header className="border-b w-auto ml-4 mr-4 flex flex-col">
             <div className="flex justify-end">
               <Link to="/subscriber/profile/" >
