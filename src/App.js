@@ -40,9 +40,9 @@ import BrowseBusinessType from "./components/dashboard/browse/business/BrowseBus
 import ReactDOM from 'react-dom'
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { fab } from '@fortawesome/free-brands-svg-icons'
-import { faCheckSquare, faUserPen, faUser, faMagnifyingGlass, faCreditCard, faComments, faUserPlus, faKey, faArrowRight, faArrowLeft } from '@fortawesome/free-solid-svg-icons'
+import { faCheckSquare, faUserPen, faUser, faMagnifyingGlass, faCreditCard, faComments, faUserPlus, faKey, faArrowRight, faArrowLeft, faMessage } from '@fortawesome/free-solid-svg-icons'
 import BrowsePublic from "./components/home/BrowsePublic";
-library.add(fab, faCheckSquare, faUserPen, faUser, faMagnifyingGlass, faCreditCard, faComments, faUserPlus, faKey, faArrowRight, faArrowLeft)
+library.add(fab, faCheckSquare, faUserPen, faUser, faMagnifyingGlass, faCreditCard, faComments, faUserPlus, faKey, faArrowRight, faArrowLeft, faMessage)
 
 
 
@@ -81,7 +81,10 @@ const App = () => {
       <div className="flex flex-col min-h-screen">
         <nav className="navbar navbar-expand navbar-dark bg-dark">
           <Link to={"/"} className="navbar-brand">
-            HealthiVerse
+            <div className="flex">
+              <img className="h-10 w-10" src="https://res.cloudinary.com/dhkb0cyyy/image/upload/v1681287043/healthiverse-website-favicon-color_qksmja.png" />
+              <div className="ml-1 font-bold m-auto text-center">HealthiVerse</div>
+            </div>
           </Link>
           <div className="navbar-nav mr-auto">
             <li className="nav-item">
@@ -145,7 +148,7 @@ const App = () => {
           )}
         </nav>
 
-        <div className="flex-1 bg-gray-100">
+        <div className="flex flex-1 justify-center bottom-0 bg-gray-100 h-full">
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="home">
