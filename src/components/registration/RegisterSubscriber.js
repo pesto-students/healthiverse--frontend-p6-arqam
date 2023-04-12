@@ -5,6 +5,9 @@ import * as Yup from "yup";
 import { Link } from "react-router-dom";
 import { register } from "../../slices/auth";
 import { clearMessage } from "../../slices/message";
+import Header from "../login/header";
+import ValidationMessage from "../login/error";
+import { Button } from "@mui/material";
 
 const RegisterSubscriber = () => {
     const [successful, setSuccessful] = useState(false);
@@ -23,7 +26,11 @@ const RegisterSubscriber = () => {
     };
 
     const validationSchema = Yup.object().shape({
-        name: Yup.string()
+        name: Yup.string().test("len",
+            "Name can not be longer than 40 characters",
+            (val) =>
+                val &&
+                val.toString().length <= 40)
             .required("This field is required"),
         email: Yup.string()
             .email("This is not a valid email")
@@ -51,78 +58,68 @@ const RegisterSubscriber = () => {
     };
 
     return (
-        <div className="signup-form">
-            <div className="heading">
-                <h1>Signup</h1>
-                <div style={{display: "flex"}}>
-                    <p>Already have an account?</p>
-
-                    <Link to={"/login"} >
-                        Login
-                    </Link>
-                </div>
+        <div className="flex w-full py-4">
+            <div className="w-1/2">
+                Image
             </div>
-            <Formik
-                initialValues={initialValues}
-                validationSchema={validationSchema}
-                onSubmit={handleRegister}>
-                <Form>
-                    {!successful && (
-                        <div>
-                            <div className="form-group">
-                                <label htmlFor="name">Name</label>
-                                <Field name="name" type="text" className="form-control" />
-                                <ErrorMessage
-                                    name="name"
-                                    component="div"
-                                    className="alert alert-danger"
-                                />
-                            </div>
+            <div className="w-1/2 flex justify-center">
+                <div className="max-w-max flex flex-col px-5 content-center justify-start">
+                    <Header
+                        heading="Create your account"
+                        paragraph="Already have an account? "
+                        linkName="Login"
+                        linkUrl="/login"
+                    />
+                    <Formik
+                        initialValues={initialValues}
+                        validationSchema={validationSchema}
+                        onSubmit={handleRegister}>
+                        <Form>
+                            {!successful && (
+                                <div>
+                                    <div className="form-group">
+                                        <label htmlFor="name">Name</label>
+                                        <Field name="name" type="text" className="form-control" />
+                                        <ValidationMessage name="name" />
 
-                            <div className="form-group">
-                                <label htmlFor="email">Email</label>
-                                <Field name="email" type="email" className="form-control" />
-                                <ErrorMessage
-                                    name="email"
-                                    component="div"
-                                    className="alert alert-danger"
-                                />
-                            </div>
+                                    </div>
 
-                            <div className="form-group">
-                                <label htmlFor="password">Password</label>
-                                <Field
-                                    name="password"
-                                    type="password"
-                                    className="form-control"
-                                />
-                                <ErrorMessage
-                                    name="password"
-                                    component="div"
-                                    className="alert alert-danger"
-                                />
-                            </div>
+                                    <div className="form-group">
+                                        <label htmlFor="email">Email</label>
+                                        <Field name="email" type="email" className="form-control" />
+                                        <ValidationMessage name="email" />
+                                    </div>
 
-                            <div className="form-group">
-                                <button type="submit" className="btn btn-primary btn-block">Sign Up</button>
+                                    <div className="form-group">
+                                        <label htmlFor="password">Password</label>
+                                        <Field
+                                            name="password"
+                                            type="password"
+                                            className="form-control"
+                                        />
+                                        <ValidationMessage name="password" />
+                                    </div>
+
+                                    <div className="mt-4 flex justify-center">
+                                        <Button className="bg-blue-500" type="submit" variant="contained">Submit</Button>
+                                    </div>
+
+                                </div>
+                            )}
+                        </Form>
+                    </Formik>
+
+                    {message && (
+                        <div className="form-group">
+                            <div className="alert alert-danger" role="alert">
+                                {message}
                             </div>
                         </div>
                     )}
-                </Form>
-            </Formik>
-
-            {message && (
-                <div className="form-group">
-                    <div
-                        className={successful ? "alert alert-success" : "alert alert-danger"}
-                        role="alert"
-                    >
-                        {message}
-                    </div>
                 </div>
-            )}
+            </div>
+        </div >
 
-        </div>
     );
 
 }

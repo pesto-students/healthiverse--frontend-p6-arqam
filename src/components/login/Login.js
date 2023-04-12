@@ -7,6 +7,9 @@ import { login } from "../../slices/auth";
 import { clearMessage } from "../../slices/message";
 import { getSubscriberProfile } from "../../slices/subscriberProfile";
 import { getBusinessProfile } from "../../slices/businessProfile";
+import Header from "./header";
+import ValidationMessage from "./error";
+import { Button } from "@mui/material";
 
 const Login = () => {
     let navigate = useNavigate();
@@ -53,59 +56,54 @@ const Login = () => {
 
 
     return (
-        <div className="login-form">
-            <div className="heading">
-                <h1>Login</h1>
-                <div style={{ display: 'flex' }}>
-                    <p>New User?</p>
-                    <Link to={"/register"}>
-                        Register
-                    </Link>
+        <div className="flex w-full py-4">
+            <div className="w-1/2">
+                Image
+            </div>
+            <div className="w-1/2 flex justify-center">
+                <div className="max-w-max flex flex-col px-5 content-center justify-start">
+                    <Header
+                        heading="Login to your account"
+                        paragraph="Don't have an account? "
+                        linkName="Register"
+                        linkUrl="/register"
+                    />
+                    <Formik
+                        initialValues={initialValues}
+                        validationSchema={validationSchema}
+                        onSubmit={handleLogin}>
+                        <Form className="flex flex-col">
+                            <div className="">
+                                <label htmlFor="email">Email</label>
+                                <Field name="email" type="email" className="form-control" />
+                                <ValidationMessage name="email" />
+                            </div>
+
+                            <div className="">
+                                <label htmlFor="password">Password</label>
+                                <Field name="password" type="password" className="form-control" />
+                                <ValidationMessage name="password" />
+                            </div>
+
+                            <div className="mt-4 flex justify-center">
+                                <Button className="bg-blue-500" type="submit" variant="contained">Submit</Button>
+                            </div>
+                        </Form>
+                    </Formik>
+                    {loading && (
+                        <div className="loading">Loading...</div>
+                    )}
+                    {message && (
+                        <div className="form-group">
+                            <div className="alert alert-danger" role="alert">
+                                {message}
+                            </div>
+                        </div>
+                    )}
                 </div>
             </div>
-            <Formik
-                initialValues={initialValues}
-                validationSchema={validationSchema}
-                onSubmit={handleLogin}>
-                <Form>
-                    <div className="form-group">
-                        <label htmlFor="email">Email</label>
-                        <Field name="email" type="email" className="form-control" />
-                        <ErrorMessage
-                            name="email"
-                            component="div"
-                            className="alert alert-danger"
-                        />
-                    </div>
-
-                    <div className="form-group">
-                        <label htmlFor="password">Password</label>
-                        <Field name="password" type="password" className="form-control" />
-                        <ErrorMessage
-                            name="password"
-                            component="div"
-                            className="alert alert-danger"
-                        />
-                    </div>
-
-                    <div className="form-group">
-                        <button type="submit" className="btn btn-primary btn-block" >
-                            Submit
-                        </button>
-                    </div>
-                </Form>
-            </Formik>
-            {loading && (
-                <div className="loading">Loading...</div>
-            )}
-            {message && (
-                <div className="form-group">
-                    <div className="alert alert-danger" role="alert">
-                        {message}
-                    </div>
-                </div>
-            )}
         </div>
+
 
 
     );
