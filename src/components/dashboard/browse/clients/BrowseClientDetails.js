@@ -3,10 +3,8 @@ import userService from "../../../../services/user.service";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useLocation, useNavigate, useParams } from "react-router-dom";
 import { setRoom } from "../../../../slices/chatRooms";
-import { Avatar } from "@mui/material";
 import { getAllClients } from "../../../../slices/businessClients";
-import SubscriberInfo from "../../profile/subscriber/subscriberInfo";
-import SubscriberHeader from "../../profile/subscriber/subscriberHeader";
+import SubscriberProfileWoEdit from "../../profile/subscriber/SubscriberProfileWoEdit";
 
 const BrowseClientDetails = () => {
     const { user: currentUser } = useSelector((state) => state.auth);
@@ -54,19 +52,7 @@ const BrowseClientDetails = () => {
 
     return (
         <>
-            <div className="container">
-
-                <header className="jumbotron">
-                    <button onClick={() => navigate(-1)}>go back</button>
-                    <SubscriberHeader subscriberProfileData={client} />
-                    <button onClick={() => {
-                        chatClick(client);
-                    }}>
-                        Chat
-                    </button>
-                </header>
-                <SubscriberInfo subscriberProfileData={client} />
-            </div>
+            <SubscriberProfileWoEdit subscriberProfileData={client}/>
 
         </>
     );

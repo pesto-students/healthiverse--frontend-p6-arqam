@@ -5,7 +5,8 @@ import { Link, useLocation, useNavigate, useParams } from "react-router-dom";
 import { setRoom } from "../../../../slices/chatRooms";
 import { Avatar } from "@mui/material";
 import { getAllClients } from "../../../../slices/businessClients";
-import ClientItem from "./clientItem";
+import ClientItem from "./item";
+import ClientGroup from "./group";
 
 const BrowseClientsType = () => {
     const { user: currentUser } = useSelector((state) => state.auth);
@@ -60,35 +61,17 @@ const BrowseClientsType = () => {
 
     return (
         <>
-            <div className="container">
-                <div className="clients">
-                    {(clients.length > 0) ?
-                        (<div>
-                            <button onClick={() => navigate(-1)}>go back</button>
-                            <h3>{`${businessTypeObj[type]} Clients`}</h3>
-                            {clients.map(item => {
-                                return (
-                                    <div key={item._id}>
-                                        <div onClick={() => navigate(`${item.s_id}`)}>
-                                            <ClientItem item={item} />
-                                        </div>
-                                        <button onClick={() => {
-                                            chatClick(item);
-                                        }}>
-                                            Chat
-                                        </button>
-                                    </div>
-                                )
-                            })}
-                        </div>) :
-                        (<></>)
-                    }
+            <div className="py-4 w-full max-w-xl">
 
-                    {(clients.length === 0) ?
-                        (<p>No active clients</p>) :
-                        (<></>)}
+                {(clients.length > 0) ?
+                    (<ClientGroup clients={clients} type={type} page="secondary" />) :
+                    (<></>)
+                }
 
-                </div>
+                {(clients.length === 0) ?
+                    (<p>No active clients</p>) :
+                    (<></>)}
+
             </div>
         </>
     );

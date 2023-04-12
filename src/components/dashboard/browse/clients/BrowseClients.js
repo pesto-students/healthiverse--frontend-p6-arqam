@@ -3,7 +3,9 @@ import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import { setRoom } from "../../../../slices/chatRooms";
 import { getAllClients } from "../../../../slices/businessClients";
-import ClientItem from "./clientItem";
+import ClientItem from "./item";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import ClientGroup from "./group";
 
 const BrowseClients = () => {
     const { isLoading, gymClients, trainerClients, dieticianClients } = useSelector(state => state.businessClients);
@@ -35,82 +37,30 @@ const BrowseClients = () => {
 
     return (
         <>
-            <div className="container">
-                <div className="clients">
-                    {(isLoading) &&
-                        (<p>Loading...</p>)}
+            <div className="py-4 w-full max-w-xl">
 
-                    {(!isLoading && gymClients?.length > 0) ?
-                        (<div>
-                            <h3>Gym Clients</h3>
-                            <button onClick={() => navigate("gym")}>see all</button>
-                            {gymClients.slice(0, 2).map(item => {
-                                return (
-                                    <div key={item._id}>
-                                        <div onClick={() => navigate(`gym/${item.s_id}`)}>
-                                            <ClientItem item={item} />
-                                        </div>
-                                        <button onClick={() => {
-                                            chatClick(item);
-                                        }}>
-                                            Chat
-                                        </button>
-                                    </div>
-                                )
-                            })}
-                        </div>) :
-                        (<></>)
-                    }
+                {(isLoading) &&
+                    (<p>Loading...</p>)}
 
-                    {(!isLoading && trainerClients?.length > 0) ?
-                        (<div>
-                            <h3>Trainer Clients</h3>
-                            <button onClick={() => navigate("trainer")}>see all</button>
-                            {trainerClients.slice(0, 2).map(item => {
-                                return (
-                                    <div key={item._id}>
-                                       <div onClick={() => navigate(`trainer/${item.s_id}`)}>
-                                            <ClientItem item={item} />
-                                        </div>
-                                        <button onClick={() => {
-                                            chatClick(item);
-                                        }}>
-                                            Chat
-                                        </button>
-                                    </div>
-                                )
-                            })}
-                        </div>) :
-                        (<></>)
-                    }
+                {(!isLoading && gymClients?.length > 0) ?
+                    (<ClientGroup clients={gymClients} type="gym" page="primary" />) :
+                    (<></>)
+                }
 
-                    {(!isLoading && dieticianClients?.length > 0) ?
-                        (<div>
-                            <h3>Dietician Clients</h3>
-                            <button onClick={() => navigate("dietician")}>see all</button>
-                            {dieticianClients.slice(0, 2).map(item => {
-                                return (
-                                    <div key={item._id}>
-                                        <div onClick={() => navigate(`dietician/${item.s_id}`)}>
-                                            <ClientItem item={item} />
-                                        </div>
-                                        <button onClick={() => {
-                                            chatClick(item);
-                                        }}>
-                                            Chat
-                                        </button>
-                                    </div>
-                                )
-                            })}
-                        </div>) :
-                        (<></>)
-                    }
+                {(!isLoading && trainerClients?.length > 0) ?
+                    (<ClientGroup clients={trainerClients} type="trainer" page="primary" />) :
+                    (<></>)
+                }
 
-                    {(!isLoading && gymClients?.length === 0 && trainerClients?.length === 0 && dieticianClients?.length === 0) ?
-                        (<p>No active clients</p>) :
-                        (<></>)}
+                {(!isLoading && dieticianClients?.length > 0) ?
+                    (<ClientGroup clients={dieticianClients} type="dietician" page="primary" />) :
+                    (<></>)
+                }
 
-                </div>
+                {(!isLoading && gymClients?.length === 0 && trainerClients?.length === 0 && dieticianClients?.length === 0) ?
+                    (<p>No active clients</p>) :
+                    (<></>)}
+
             </div>
         </>
     );
