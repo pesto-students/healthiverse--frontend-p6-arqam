@@ -5,6 +5,7 @@ import { getMemberships } from "../../../slices/membership";
 import { setRoom } from "../../../slices/chatRooms";
 import { useDispatch, useSelector } from "react-redux";
 import { Avatar } from "@mui/material";
+import ChatHistory from "./chatHistory";
 
 const SubscriberChatHistory = () => {
     const [chats, setChats] = useState([]);
@@ -45,32 +46,33 @@ const SubscriberChatHistory = () => {
     }
 
     return (
-        <div>
-            <h1>Chats</h1>
-            {(chats.length === 0) ?
-                ((isLoading) ? (<div>Loading...</div>) : (<div>No chats found</div>)) :
-                (<div>
-                    {
-                        chats.map((item, index) => {
-                            return (<div key={index}>
-                                <Avatar
-                                    alt="Avatar"
-                                    src={item.userImage}
-                                    style={{ width: "50px", height: "50px" }}
-                                />
-                                <div>{item.business.name}</div>
-                                <div>{item.lastMessage.message}</div>
-                                <div>{formatDateFromTimestamp(item.lastMessage.__createdTime__)}</div>
-                                <button onClick={() => {
-                                    chatClick(item.business);
-                                }}>
-                                    Chat
-                                </button>
-                            </div>)
-                        })
-                    }
-                </div>)}
-        </div>
+        <ChatHistory chats={chats} chatClick={chatClick}/>
+        // <div>
+        //     <h1>Chats</h1>
+        //     {(chats.length === 0) ?
+        //         ((isLoading) ? (<div>Loading...</div>) : (<div>No chats found</div>)) :
+        //         (<div>
+        //             {
+        //                 chats.map((item, index) => {
+        //                     return (<div key={index}>
+        //                         <Avatar
+        //                             alt="Avatar"
+        //                             src={item.userImage}
+        //                             style={{ width: "50px", height: "50px" }}
+        //                         />
+        //                         <div>{item.business.name}</div>
+        //                         <div>{item.lastMessage.message}</div>
+        //                         <div>{formatDateFromTimestamp(item.lastMessage.__createdTime__)}</div>
+        //                         <button onClick={() => {
+        //                             chatClick(item.business);
+        //                         }}>
+        //                             Chat
+        //                         </button>
+        //                     </div>)
+        //                 })
+        //             }
+        //         </div>)}
+        // </div>
     )
 
 }

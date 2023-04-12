@@ -58,20 +58,44 @@ const Messages = ({ socket }) => {
   }
 
   return (
-    <div className={styles.messagesColumn} ref={messagesColumnRef}>
-      {messagesRecieved.map((msg, i) => (
-        <div className={(msg.receiverId === user2.s_id) ?
-          (styles.messageSent) :
-          (styles.messageReceived)} key={i}>
-          <div >
-            <span className={styles.msgMeta}>
-              {formatDateFromTimestamp(msg.__createdTime__)}
-            </span>
-          </div>
-          <p className={styles.msgText}>{msg.message}</p>
+    <div class="flex flex-col items-center justify-center w-full h-full max-h-full bg-gray-100 text-gray-800">
+      <div class="flex flex-col flex-grow w-full bg-white shadow-xl rounded-lg overflow-hidden">
+        <div class="flex flex-col flex-grow h-0 p-4 overflow-auto" ref={messagesColumnRef}>
+
+          {messagesRecieved.map((msg, i) => {
+            if (msg.receiverId === user2.s_id) {
+              return (
+                <div class="flex w-full mt-2 space-x-3 max-w-xs ml-auto justify-end">
+                  <div>
+                    <div class="bg-blue-600 text-white p-3 rounded-l-lg rounded-br-lg">
+                      <span className='text-xs text-gray-200'>
+                        {formatDateFromTimestamp(msg.__createdTime__)}
+                      </span>
+                      <p class="text-base">{msg.message}</p>
+                    </div>
+                  </div>
+                </div>
+              )
+            } else {
+              return (
+                <div class="flex w-full mt-2 space-x-3 max-w-xs">
+                  <div class="flex-shrink-0 h-10 w-10 rounded-full bg-gray-300"></div>
+                  <div>
+                    <div class="bg-gray-300 p-3 rounded-r-lg rounded-bl-lg">
+                      <span className='text-xs text-gray-200'>
+                        {formatDateFromTimestamp(msg.__createdTime__)}
+                      </span>
+                      <p class="text-base">{msg.message}</p>
+                    </div>
+                  </div>
+                </div>
+              )
+            }
+          })}
+
         </div>
-      ))}
-    </div>
+      </div >
+    </div >
   );
 };
 

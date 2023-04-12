@@ -7,6 +7,7 @@ import { useEffect } from 'react';
 import io from 'socket.io-client';
 import PORT from '../../../services/port';
 import { useNavigate } from 'react-router-dom';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 
 const Chat = () => {
@@ -22,11 +23,15 @@ const Chat = () => {
     }, [socket]);
 
     return (
-        <div className={styles.chatContainer}>
-            <button onClick={() => navigate(-1)}>go back</button>
-            <Header />
-            <div>
-                <MessagesReceived socket={socket}/>
+        <div className="flex flex-col content-center max-w-xl w-full h-full py-4">
+            <div className="flex bg-gray-300 px-3 py-1 w-full min-w-max">
+                <button className='px-2 rounded-xl hover:scale-125' onClick={() => navigate(-1)}>
+                    <FontAwesomeIcon icon={"arrow-left"} />
+                </button>
+                <h1 className="text-xl px-3 font-bold py-2">{user2.name}</h1>
+            </div>
+            <div className="flex flex-col w-full h-full">
+                <MessagesReceived socket={socket} />
                 <SendMessage socket={socket} />
             </div>
         </div>
