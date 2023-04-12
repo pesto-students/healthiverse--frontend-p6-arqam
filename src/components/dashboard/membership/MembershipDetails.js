@@ -7,8 +7,8 @@ import { setRoom } from "../../../slices/chatRooms";
 import StarRatings from "react-star-ratings";
 import userService from "../../../services/user.service";
 import { getAllBusiness } from "../../../slices/browseBusiness";
-import BusinessInfo from "../profile/business/businessInfo";
-import BusinessHeader from "../profile/business/businessHeader";
+import BusinessHeader from "../profile/business/header";
+import BusinessInfo from "../profile/business/info";
 
 const MembershipDetails = () => {
     const { allBusiness } = useSelector((state) => state.browseBusiness);
