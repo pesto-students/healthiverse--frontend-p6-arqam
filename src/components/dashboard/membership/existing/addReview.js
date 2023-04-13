@@ -3,8 +3,8 @@ import { TextField } from "@mui/material";
 import { useNavigate, useParams } from "react-router";
 import { useDispatch, useSelector } from "react-redux";
 import { Avatar } from "@mui/material";
-import userService from "../../../services/user.service";
-import { getAllBusiness } from "../../../slices/browseBusiness";
+import userService from "../../../../services/user.service";
+import { getAllBusiness } from "../../../../slices/browseBusiness";
 
 const StarRating = () => {
     const { allBusiness } = useSelector((state) => state.browseBusiness);

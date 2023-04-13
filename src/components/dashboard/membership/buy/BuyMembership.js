@@ -1,11 +1,11 @@
 import React, { useState } from "react";
 import { useParams, Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { buyMembership } from "../../../slices/membership";
+import { buyMembership } from "../../../../slices/membership";
 import { FormControl, InputLabel, MenuItem, Select } from "@mui/material";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import BusinessHeader from "../profile/business/header";
-import OrderSummary from "./orderSummary";
+import BusinessHeader from "../../profile/business/header";
+import OrderSummary from "../orderSummary";
 
 const BuyMembership = () => {
     const { allBusiness } = useSelector((state) => state.browseBusiness);
