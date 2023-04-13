@@ -63,7 +63,7 @@ const RegisterSubscriber = () => {
                 Image
             </div>
             <div className="w-1/2 flex justify-center">
-                <div className="max-w-max flex flex-col px-5 content-center justify-start">
+                <div className="max-w-max flex flex-col px-5 content-center justify-center">
                     <Header
                         heading="Create your account"
                         paragraph="Already have an account? "
@@ -79,14 +79,14 @@ const RegisterSubscriber = () => {
                                 <div>
                                     <div className="form-group">
                                         <label htmlFor="name">Name</label>
-                                        <Field name="name" type="text" className="form-control" />
+                                        <Field name="name" type="text" className="form-control p-1 h-8 w-80" />
                                         <ValidationMessage name="name" />
 
                                     </div>
 
                                     <div className="form-group">
                                         <label htmlFor="email">Email</label>
-                                        <Field name="email" type="email" className="form-control" />
+                                        <Field name="email" type="email" className="form-control p-1 h-8 w-80" />
                                         <ValidationMessage name="email" />
                                     </div>
 
@@ -95,7 +95,7 @@ const RegisterSubscriber = () => {
                                         <Field
                                             name="password"
                                             type="password"
-                                            className="form-control"
+                                            className="form-control p-1 h-8 w-80"
                                         />
                                         <ValidationMessage name="password" />
                                     </div>

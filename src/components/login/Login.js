@@ -34,7 +34,9 @@ const Login = () => {
     };
 
     const validationSchema = Yup.object().shape({
-        email: Yup.string().required("This field is required"),
+        email: Yup.string()
+            .email("This is not a valid email")
+            .required("This field is required"),
         password: Yup.string().required("This field is required")
     });
 
@@ -56,12 +58,16 @@ const Login = () => {
 
 
     return (
-        <div className="flex w-full py-4">
+        <div className="flex flex-1 w-full h-full overflow-hidden">
             <div className="w-1/2">
-                Image
+                {/* 
+                <img src="https://res.cloudinary.com/dhkb0cyyy/image/upload/v1681331400/graham-mansfield-E8VOttj22s4-unsplash_ydv1cm.jpg"
+                        className="object-contain max-h-full max-w-full"
+                    /> */}
+
             </div>
             <div className="w-1/2 flex justify-center">
-                <div className="max-w-max flex flex-col px-5 content-center justify-start">
+                <div className="max-w-max flex flex-col px-5 content-center justify-center">
                     <Header
                         heading="Login to your account"
                         paragraph="Don't have an account? "
@@ -75,13 +81,13 @@ const Login = () => {
                         <Form className="flex flex-col">
                             <div className="">
                                 <label htmlFor="email">Email</label>
-                                <Field name="email" type="email" className="form-control" />
+                                <Field name="email" type="email" className="form-control p-1 h-8 w-80" />
                                 <ValidationMessage name="email" />
                             </div>
 
                             <div className="">
                                 <label htmlFor="password">Password</label>
-                                <Field name="password" type="password" className="form-control" />
+                                <Field name="password" type="password" className="form-control p-1 h-8 w-80" />
                                 <ValidationMessage name="password" />
                             </div>
 
@@ -102,7 +108,7 @@ const Login = () => {
                     )}
                 </div>
             </div>
-        </div>
+        </div >
 
 
 

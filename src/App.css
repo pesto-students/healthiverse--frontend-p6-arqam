@@ -1,8 +1,9 @@
-html, body, #root {
+html,
+body,
+#root {
   min-height: 100vh;
   max-height: max-content;
 }
-
 
 label {
   display: block;
@@ -44,7 +45,7 @@ label {
   display: flex;
 }
 
-.profile-outlet{
+.profile-outlet {
   display: flex;
   flex-basis: 100%;
   justify-content: center;
@@ -67,8 +68,12 @@ button {
 .off {
   color: #ccc;
 }
-.star{
+.star {
   height: 50px;
   width: 50px;
   font-size: 50px;
+}
+
+.login {
+  background-image: url("https://res.cloudinary.com/dhkb0cyyy/image/upload/v1681331400/graham-mansfield-E8VOttj22s4-unsplash_ydv1cm.jpg");
 }

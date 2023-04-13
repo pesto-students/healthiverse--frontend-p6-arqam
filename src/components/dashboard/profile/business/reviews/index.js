@@ -8,13 +8,17 @@ import {
 import StarRatings from "react-star-ratings";
 import { yellow } from "@mui/material/colors";
 
-export default function BusinessReviews({ business }) {
+export default function BusinessReviews({ business, page }) {
     return (
-        <div className="flex flex-col w-full ml-4 mr-4">
-            <div className="mt-2 ml-4 mr-4">
-                <span className="text-lg font-bold">Reviews:</span>
+        <div className="flex flex-col w-full">
+            <div className="mt-2">
+                {(page === "member") ?
+                    (<span className="text-lg font-bold">Your Review:</span>) :
+                    (<span className="text-lg font-bold">Reviews:</span>)
+                }
+
             </div>
-            <div className="ml-4 mr-4 mb-4 flex w-full">
+            <div className=" mb-4 flex w-full">
                 {(business?.reviews.length === 0) ? (<p>No reviews</p>) :
                     business?.reviews.map(review => {
                         return (

@@ -1,3 +1,15 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.profile-header {
+  @apply border-b w-auto pb-3 flex flex-col content-center;
+}
+
+.profile-container-inner{
+    @apply w-full max-w-xl min-w-max mt-4 mb-4 px-10 py-6 bg-gray-50 shadow-xl rounded-xl flex flex-col;
+}
+
+.profile-container-outer{
+    @apply flex w-full h-max justify-center content-center;
+}

@@ -2,7 +2,7 @@ import ProfileInfo from "../../info";
 
 const BusinessInfo = ({ business }) => {
     return (
-        <div className="border-b ml-4 mr-4 pb-2">
+        <div className="border-b pb-2">
             <ProfileInfo items={[{ heading: "About:", value: business?.about }]} />
             <ProfileInfo items={[{
                 heading: "Activities:", value: business?.activities.map((item) => {
