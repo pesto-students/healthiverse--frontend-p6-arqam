@@ -33,7 +33,7 @@ import BusinessChatHistory from "./components/dashboard/chat/businessChatHistory
 import Account from "./components/dashboard/account";
 import EditAccount from "./components/dashboard/account/editAccount";
 import MembershipDetails from "./components/dashboard/membership/existing/MembershipDetails";
-import StarRating from "./components/dashboard/membership/existing/addReview";
+import StarRating from "./components/dashboard/membership/existing/review/addReview";
 import BrowseClientsType from "./components/dashboard/browse/clients/BrowseClientsType";
 import BrowseClientDetails from "./components/dashboard/browse/clients/BrowseClientDetails";
 import BrowseBusinessType from "./components/dashboard/browse/business/BrowseBusinessType";
@@ -42,9 +42,10 @@ import { library } from '@fortawesome/fontawesome-svg-core'
 import { fab } from '@fortawesome/free-brands-svg-icons'
 import { faCheckSquare, faUserPen, faUser, faMagnifyingGlass, faCreditCard, faComments, faUserPlus, faKey, faArrowRight, faArrowLeft, faMessage } from '@fortawesome/free-solid-svg-icons'
 import BrowsePublic from "./components/home/BrowsePublic";
+import StripePayment from "./components/dashboard/membership/buy/stripePayment";
+import Failed from "./components/dashboard/membership/buy/failed";
+import Success from "./components/dashboard/membership/buy/success";
 library.add(fab, faCheckSquare, faUserPen, faUser, faMagnifyingGlass, faCreditCard, faComments, faUserPlus, faKey, faArrowRight, faArrowLeft, faMessage)
-
-
 
 const App = () => {
   const [showBusinessBoard, setShowBusinessBoard] = useState(false);
@@ -151,6 +152,8 @@ const App = () => {
         <div className="flex flex-1 justify-center bottom-0 bg-gray-100 h-full">
           <Routes>
             <Route path="/" element={<Home />} />
+            <Route path="failed" element={<Failed/>}/>
+            <Route path="success" element={<Success/>}/>
             <Route path="home">
               <Route index={true} element={<BrowseBusiness />} />
               <Route path=":type">
@@ -177,6 +180,7 @@ const App = () => {
                   <Route path=":id">
                     <Route index={true} element={<BusinessDetails />} />
                     <Route path="buy" element={<BuyMembership />} />
+                    <Route path="pay" element={<StripePayment />} />
                   </Route>
                 </Route>
               </Route>

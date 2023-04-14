@@ -39,30 +39,31 @@ const BuyMembership = () => {
     }
     const handleSubmit = (e) => {
         e.preventDefault();
-        const months = Number(membershipObject[duration].value);
-        let date = new Date();
-        date.setMonth(date.getMonth() + months);
-        const data = {
-            id: id,
-            endDate: date,
-            businessType: business.businessType
-        }
-        console.log(data);
-        console.log(memberships);
-        console.log(existingMembership);
-        if (existingMembership) { setAlert("You are already subscribed to the business") }
-        else {
-            dispatch(buyMembership(data)).unwrap()
-                .then((res) => {
-                    console.log(res);
-                    navigate("/subscriber/memberships");
-                })
-        }
+        navigate("../pay");
+        // const months = Number(membershipObject[duration].value);
+        // let date = new Date();
+        // date.setMonth(date.getMonth() + months);
+        // const data = {
+        //     id: id,
+        //     endDate: date,
+        //     businessType: business.businessType
+        // }
+        // console.log(data);
+        // console.log(memberships);
+        // console.log(existingMembership);
+        // if (existingMembership) { setAlert("You are already subscribed to the business") }
+        // else {
+        //     dispatch(buyMembership(data)).unwrap()
+        //         .then((res) => {
+        //             console.log(res);
+        //             navigate("/subscriber/memberships");
+        //         })
+        // }
     }
     return (
-        <div className="flex w-full h-max justify-center content-center py-4">
-            <div className="w-full max-w-xl px-4 min-w-max bg-gray-50 shadow-xl rounded-xl flex flex-col">
-                <header className="border-b w-auto pb-3 flex flex-col content-center">
+        <div className="profile-container-outer">
+            <div className="profile-container-inner">
+                <header className="profile-header">
                     <div className="flex justify-start">
                         <button onClick={() => navigate(-1)}
                             className="text-base mt-3 hover:bg-gray-300 px-2 py-1 rounded-xl">
@@ -72,7 +73,7 @@ const BuyMembership = () => {
                     <BusinessHeader business={business} id={id} />
 
                 </header>
-                <div className=" ml-4 mr-4 flex flex-col content-center">
+                <div className="flex flex-col content-center">
                     <FormControl variant="standard" sx={{ m: 1, minWidth: 120 }}>
                         <InputLabel id="membership-label" className="my-1">Membership Period</InputLabel>
                         <Select
