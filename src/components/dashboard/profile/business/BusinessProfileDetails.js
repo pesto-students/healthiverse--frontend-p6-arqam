@@ -26,9 +26,9 @@ const BusinessProfileDetails = ({ editable }) => {
     return (
 
 
-        <div className="flex w-full h-max justify-center content-center">
-            <div className="w-full max-w-xl min-w-max mt-4 bg-gray-50 shadow-xl rounded-xl flex flex-col">
-                <header className="border-b w-auto ml-4 mr-4 flex flex-col content-center">
+        <div className="profile-container-outer">
+            <div className="profile-container-inner">
+                <header className="profile-header">
                     <div className="mt-3 flex justify-between content-center">
                         <button onClick={() => navigate(-1)}
                             className="text-base hover:bg-gray-300 px-2 py-1 rounded-xl">
