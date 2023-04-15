@@ -5,7 +5,7 @@ import { setRoom } from "../../../../../slices/chatRooms";
 import { Avatar } from "@mui/material";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
-const ClientItem = ({ item, to }) => {
+const ClientItem = ({ item, to, type }) => {
     const { isLoading, gymClients, trainerClients, dieticianClients } = useSelector(state => state.businessClients);
     const { user: currentUser } = useSelector((state) => state.auth);
     const dispatch = useDispatch();
@@ -25,26 +25,44 @@ const ClientItem = ({ item, to }) => {
     }
 
     return (
-        <div class="bg-white px-3 flex items-center">
-            <div className="hover:cursor-pointer" onClick={() => navigate(`${to}${item.s_id}`)}>
-                <Avatar alt="Avatar" src={item.userImage} />
+      <tr>
+        <td className="px-5 py-5 border-b border-gray-200 bg-white dark:bg-gray-700 text-sm">
+          <div className="flex items-center">
+            <div className="flex-shrink-0">
+              <a href="#" className="block relative">
+                <Avatar
+                  alt="profile"
+                  src={item.userImage}
+                  className="mx-auto object-cover rounded-full h-10 w-10"
+                />
+              </a>
             </div>
-            <div class="ml-4 flex-1 border-b border-grey-lighter py-4">
-
-                <p class="text-grey-darkest">
-                    {item.name}
-                </p>
-
-                <p class="text-xs align-text-bottom text-grey-darkest">
-                    End Date: {formatDateFromTimestamp(item.endDate)}
-                </p>
+            <div className="ml-3">
+              <p className="text-gray-900 whitespace-no-wrap dark:text-white">
+                {item.name}
+              </p>
             </div>
+          </div>
+        </td>
+        <td className="px-5 py-5 border-b border-gray-200 bg-white dark:bg-gray-700 text-sm">
+          <p className="text-gray-900 whitespace-no-wrap dark:text-white">
+            {type}
+          </p>
+        </td>
+        <td className="px-5 py-5 border-b border-gray-200 bg-white dark:bg-gray-700 text-sm">
+          <p className="text-gray-900 whitespace-no-wrap dark:text-white">
+            {formatDateFromTimestamp(item.endDate)}
+          </p>
+        </td>
+        <td className="px-5 py-5 border-b border-gray-200 bg-white dark:bg-gray-700 text-sm">
+          <span className="relative inline-block px-3 py-1 font-semibold text-gray-900 leading-tight">
             <button>
-                <FontAwesomeIcon icon="fa-message" />
+              <FontAwesomeIcon icon="fa-message" className="h-5 w-5" />
             </button>
-        </div>
-
-    )
+          </span>
+        </td>
+      </tr>
+    );
 };
 
 export default ClientItem;
