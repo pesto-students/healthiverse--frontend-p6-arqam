@@ -2,8 +2,12 @@ import React, { useEffect, useState } from "react";
 import { useNavigate, Link } from 'react-router-dom';
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
+import EditIcon from '@mui/icons-material/Edit';
+import EditTwoToneIcon from '@mui/icons-material/EditTwoTone';
 
 import { updateAccountDetails } from "../../../slices/auth";
+import EditItem from "./editItem";
+import { Button } from "@mui/material";
 
 const Account = () => {
   const { user } = useSelector((state) => state.auth);
@@ -48,73 +52,27 @@ const Account = () => {
   };
 
   return (
-    <div className="account">
+    <div className="profile-container-outer">
+      <div className="profile-container-inner">
 
-      <p>
-        <h2>Your Account</h2>
-      </p>
-      <form onSubmit={handleSubmit}>
-        <label htmlFor="name">Name: </label>
-        <input
-          className="form-control mx-1"
-          id="name"
-          name="name"
-          defaultValue={user.name}
-          disabled={!editName}
-          onChange={updateData}
-        />
-        <button onClick={(e) => {
-          e.preventDefault();
-          setEditName(!editName);
-        }}>Edit Name</button>
-        <label htmlFor="email">Email: </label>
-        <input
-          className="form-control mx-1"
-          id="email"
-          name="email"
-          defaultValue={user.email}
-          disabled={!editEmail}
-          onChange={updateData}
-        />
-        <button onClick={(e) => {
-          e.preventDefault();
-          setEditEmail(!editEmail);
-        }}>Edit Email</button>
-        <label htmlFor="password">Password: </label>
-        <input
-          className="form-control mx-1"
-          type="password"
-          id="password"
-          name="password"
-          defaultValue={password}
-          disabled={!editPassword}
-          onChange={updateData}
-        />
-        <button onClick={showPassword}>
-          Show Password
-        </button>
-        <button onClick={(e) => {
-          e.preventDefault();
-          setEditPassword(!editPassword);
-        }}>Edit Password</button>
-        <br />
-        {(editEmail || editName || editPassword) && <button type="submit">Submit</button>}
-      </form>
-      {/* <p>
-        <strong>Name:</strong> {user.name}
-        <Link to="edit">Edit Name</Link>
-      </p>
-      <p>
-        <strong>Email:</strong> {user.email}
-        <Link to="edit">Edit Email</Link>
-      </p>
-      <p>
-        <strong>Password:</strong> **********
-        <Link to="edit">Edit Password</Link>
-      </p> */}
+        <div className="text-center py-2 border-b">
+          <h2 className="font-bold text-xl text-gray-600 dark:text-white">Account Details</h2>
+        </div>
+        <form onSubmit={handleSubmit}>
+          <EditItem label="Name" defaultValue={user.name} updateData={updateData} />
+          <EditItem label="Email" defaultValue={user.email} updateData={updateData} />
+          <EditItem label="Password" defaultValue={password} updateData={updateData} />
 
+          {Object.keys(formData).length > 0 &&
+            <div className="flex justify-center">
+              <Button type="submit" variant="contained" className="bg-blue-600">Submit</Button>
+            </div>
+          }
+        </form>
+
+
+      </div>
     </div>
-
   );
 };
 
