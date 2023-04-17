@@ -45,7 +45,7 @@ const ClientItem = ({ item, to, type }) => {
           </div>
         </td>
         <td className="px-5 py-5 border-b border-gray-200 bg-white dark:bg-gray-700 text-sm">
-          <p className="text-gray-900 whitespace-no-wrap dark:text-white">
+          <p className="text-center text-gray-900 whitespace-no-wrap dark:text-white">
             {type}
           </p>
         </td>
