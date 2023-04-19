@@ -4,8 +4,8 @@ import { useNavigate } from 'react-router-dom';
 
 const DashboardNavbar = ({ items }) => {
     const navigate = useNavigate();
-    const dark = "mt-4 py-2.5 px-4 bg-gray-800 rounded-xl shadow-xl text-white text-left";
-    const light = "mt-4 py-2.5 px-4 bg-gray-50 rounded-xl shadow-xl text-black text-left hover:scale-105 hover:cursor-pointer";
+    const dark = "mt-4  py-2.5 px-4 bg-black rounded-xl shadow-xl text-white text-left";
+    const light = "mt-4  py-2.5 px-4 rounded-xl shadow-xl text-black text-left hover:cursor-pointer";
 
     const [activeItem, setActiveItem] = useState(1);
 
