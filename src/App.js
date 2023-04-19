@@ -4,7 +4,7 @@ import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./globals.css";
 import "./App.css";
-import Login from "./components/login/Login3";
+import Login from "./components/login/Login";
 import {
   RegisterSubscriber,
   RegisterBusiness,
