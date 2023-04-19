@@ -4,7 +4,7 @@ import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./globals.css";
 import "./App.css";
-import Login from "./components/login/Login";
+import Login from "./components/login/Login3";
 import {
   RegisterSubscriber,
   RegisterBusiness,
@@ -149,7 +149,7 @@ const App = () => {
           )}
         </nav>
 
-        <div className="flex flex-1 justify-center bottom-0 bg-gray-100 h-full">
+        <div className="flex flex-1 justify-center bottom-0 bg-white h-full">
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="failed" element={<Failed/>}/>
