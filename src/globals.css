@@ -7,9 +7,9 @@
 }
 
 .profile-container-inner{
-    @apply w-full max-w-lg min-w-max mt-4 mb-4 px-10 py-6 bg-gray-50 shadow-xl rounded-xl flex flex-col;
+    @apply w-full max-w-lg min-w-max mt-4 mb-4 px-10 py-6 shadow-xl rounded-xl flex flex-col;
 }
 
 .profile-container-outer{
-    @apply flex w-full h-max justify-center content-center;
+    @apply flex w-full h-max justify-center content-center ;
 }
