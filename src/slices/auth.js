@@ -9,7 +9,7 @@ export const register = createAsyncThunk(
     async ({ name, email, password }, thunkAPI) => {
         try {
             const response = await authService.register({ name, email, password });
-            thunkAPI.dispatch(setMessage("Registration Successful"));
+            // thunkAPI.dispatch(setMessage("Registration Successful"));
             return response.data;
         } catch (error) {
             const message =
@@ -32,7 +32,7 @@ export const login = createAsyncThunk(
     async ({ email, password }, thunkAPI) => {
         try {
             const response = await authService.login({ email, password });
-            thunkAPI.dispatch(setMessage("Login Successful"));
+            // thunkAPI.dispatch(setMessage("Login Successful"));
             return response;
         } catch (error) {
             const message =
