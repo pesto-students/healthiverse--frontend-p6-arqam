@@ -4,11 +4,8 @@ import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./globals.css";
 import "./App.css";
-import Login from "./components/login/Login";
-import {
-  RegisterSubscriber,
-  RegisterBusiness,
-} from "./components/registration";
+import Login from "./components/auth/Login";
+import Register from "./components/auth/Register";
 import Home from "./components/home/Home";
 import Profile from "./components/dashboard/profile/subscriber/SubscriberProfile";
 import BoardSubscriber from "./components/dashboard/BoardSubscriber";
@@ -166,8 +163,7 @@ const App = () => {
             </Route>
             <Route path="/login" element={<Login />} />
             <Route path="/login/business" element={<BusinessLogin />} />
-            <Route path="/register" element={<RegisterSubscriber />} />
-            <Route path="/register/business" element={<RegisterBusiness />} />
+            <Route path="/register" element={<Register />} />
             <Route path="/subscriber" element={<BoardSubscriber />}>
               <Route path="" element={<Profile />} />
               <Route path="account" element={<Account />} />
