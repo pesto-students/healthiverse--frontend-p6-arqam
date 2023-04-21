@@ -11,7 +11,7 @@ import { Button } from "@mui/material";
 import * as EmailValidator from "email-validator";
 import pic from "./loginPage.jpg";
 
-const Register = () => {
+const SignUp = () => {
     const [loading, setLoading] = useState(false);
 
     const { message } = useSelector((state) => state.message);
@@ -245,9 +245,9 @@ const Register = () => {
 
                 </div>
             </div>
-            <div className="w-1/2 shadow-2xl">
+            <div className="w-1/2 hidden md:block shadow-2xl">
                 <img
-                    className="hidden object-cover w-full h-screen md:block"
+                    className="object-cover w-full h-screen"
                     src={pic}
                 />
             </div>
@@ -256,4 +256,4 @@ const Register = () => {
 
 }
 
-export default Register;
+export default SignUp;
