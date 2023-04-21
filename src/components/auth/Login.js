@@ -90,9 +90,9 @@ const Login = () => {
 
 
     return (
-      <div className="flex flex-wrap w-full">
-        <div className="flex flex-col w-full md:w-1/2">
-          <div className="flex flex-col justify-center px-8 pt-8 my-auto md:justify-start md:pt-0 md:px-24 lg:px-32">
+      <div className="flex flex-1 flex-wrap items-stretch w-full ">
+        <div className="flex flex-col w-full items-stretch md:w-1/2">
+          <div className="flex flex-col justify-center px-8 pt-8 my-auto md:justify-start md:pt-0 md:px-12 lg:px-20">
             <p className="text-3xl text-center">Welcome to HealthiVerse.</p>
             <form onSubmit={handleLogin} className="flex flex-col pt-3 md:pt-8">
               <div className="flex flex-col pt-4">
@@ -252,16 +252,16 @@ const Login = () => {
             <div className="pt-12 pb-12 text-center">
               <p>
                 Don&#x27;t have an account?
-                <Link to="/register" className="font-semibold underline ml-2">
-                  Register here.
+                <Link to="/signup" className="font-semibold underline ml-2">
+                  Signup here.
                 </Link>
               </p>
             </div>
           </div>
         </div>
-        <div className="w-1/2 hidden md:block shadow-2xl">
+        <div className="flex w-1/2 hidden md:block shadow-2xl">
           <img
-            className="hidden object-cover w-full h-screen md:block"
+            className="object-cover w-full h-screen"
             src={pic}
           />
         </div>
