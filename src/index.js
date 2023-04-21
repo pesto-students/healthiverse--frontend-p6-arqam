@@ -6,8 +6,8 @@ import { PersistGate } from 'redux-persist/integration/react';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
+import { ThemeProvider } from "@material-tailwind/react";
 import {
-  ThemeProvider,
   StyledEngineProvider,
   createTheme
 } from "@mui/material/styles";
