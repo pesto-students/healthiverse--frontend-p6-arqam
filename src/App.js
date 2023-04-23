@@ -44,6 +44,7 @@ import Failed from "./components/dashboard/membership/buy/failed";
 import Success from "./components/dashboard/membership/buy/success";
 import ComplexNavbar from "./components/navbar";
 import Footer from "./components/footer";
+import Example from "./components/dashboard/profile/subscriber/new/subscriberProfile";
 library.add(fab, faCheckSquare, faUserPen, faUser, faMagnifyingGlass, faCreditCard, faComments, faUserPlus, faKey, faArrowRight, faArrowLeft, faMessage)
 
 const App = () => {
@@ -79,140 +80,78 @@ const App = () => {
 
   return (
     <Router>
-      <div className="flex flex-col min-h-screen">
-        <ComplexNavbar />
-        {/* 
-        <nav className="flex fixed z-10 w-full items-center justify-between flex-wrap p-6 bg-gray-100">
-          <div className="flex items-center flex-shrink-0 text-black mr-6 lg:mr-72">
-            <Link to={""} className="navbar-brand">
-              <span className="ml-1 font-bold m-auto text-center">HealthiVerse</span>
-            </Link>
-          </div>
-
-          <div className="block lg:hidden">
-            <button
-              onClick={() => setIsOpen(!isOpen)}
-              className="flex items-center px-3 py-2 rounded text-black-500 hover:text-black-400"
-            >
-              <svg
-                className={`fill-current h-3 w-3 ${isOpen ? "hidden" : "block"}`}
-                viewBox="0 0 20 20"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path d="M0 3h20v2H0V3zm0 6h20v2H0V9zm0 6h20v2H0v-2z" />
-              </svg>
-              <svg
-                className={`fill-current h-3 w-3 ${isOpen ? "block" : "hidden"}`}
-                viewBox="0 0 20 20"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path d="M10 8.586L2.929 1.515 1.515 2.929 8.586 10l-7.071 7.071 1.414 1.414L10 11.414l7.071 7.071 1.414-1.414L11.414 10l7.071-7.071-1.414-1.414L10 8.586z" />
-              </svg>
-            </button>
-          </div>
-
-          <div
-            className={`w-full  block flex-grow lg:flex lg:items-center lg:w-auto ${isOpen ? "block" : "hidden"}`}
-          >
-            <div className="text-sm lg:flex-grow">
-              <Link to={""} onClick={() => setIsOpen(!isOpen)} className="block mt-4 lg:inline-block lg:mt-0 text-white-200 mr-4">
-                Home
-              </Link>
-              <Link to={"/discover"} onClick={() => setIsOpen(!isOpen)} className="block mt-4 lg:inline-block lg:mt-0 text-white-200 mr-4">
-                Discover
-              </Link>
-              <Link to={"/blog"} onClick={() => setIsOpen(!isOpen)} className="block mt-4 lg:inline-block lg:mt-0 text-white-200 mr-4">
-                Blog
-              </Link>
-            </div>
-          </div>
-
-          <div
-            className={`w-full block flex-grow lg:flex lg:items-center lg:w-auto ${isOpen ? "block" : "hidden"}`}
-          >
-            <div className="text-sm lg:flex-grow">
-              <Link to={"/login"} onClick={() => setIsOpen(!isOpen)} className="block mt-4 lg:inline-block lg:mt-0 text-white-200 mr-4">
-                Login
-              </Link>
-              <Link to={"/register"} onClick={() => setIsOpen(!isOpen)} className="block mt-4 lg:inline-block lg:mt-0 text-white-200 mr-4">
-                Sign Up
-              </Link>
-            </div>
-          </div>
-        </nav>
-        <div className="flex w-full items-center justify-between flex-wrap p-6 bg-gray-100">
-          <div className="flex items-center flex-shrink-0 text-black mr-6 lg:mr-72">
-            <Link to={""} className="navbar-brand">
-              <span className="ml-1 font-bold m-auto text-center">HealthiVerse</span>
-            </Link>
-          </div>
-        </div> */}
-
-        <div className="flex flex-1 justify-center bottom-0 bg-white h-full">
-          <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="failed" element={<Failed />} />
-            <Route path="success" element={<Success />} />
-            <Route path="home">
-              <Route index={true} element={<BrowseBusiness />} />
-              <Route path=":type">
-                <Route index={true} element={<BrowseBusinessType />} />
-                <Route path=":id">
-                  <Route index={true} element={<BusinessDetails />} />
-                  <Route path="buy" element={<BuyMembership />} />
-                </Route>
-              </Route>
-            </Route>
-            <Route path="/login" element={<Login />} />
-            <Route path="/login/business" element={<BusinessLogin />} />
-            <Route path="/signup" element={<SignUp />} />
-            <Route path="/subscriber" element={<BoardSubscriber />}>
-              <Route path="" element={<Profile />} />
-              <Route path="account" element={<Account />} />
-              <Route path="account/edit" element={<EditAccount />} />
-              <Route path="profile" element={<FormProfile />} />
-              <Route path="browse">
+      <div className="flex flex-col h-full">
+        <div className="flex flex-col h-full min-h-screen">
+          <ComplexNavbar />
+          <div className="flex flex-1 h-full justify-center bottom-0 bg-white">
+            <Routes>
+              <Route path="/" element={<Home />} />
+              <Route path="failed" element={<Failed />} />
+              <Route path="success" element={<Success />} />
+              <Route path="home">
                 <Route index={true} element={<BrowseBusiness />} />
                 <Route path=":type">
                   <Route index={true} element={<BrowseBusinessType />} />
                   <Route path=":id">
                     <Route index={true} element={<BusinessDetails />} />
                     <Route path="buy" element={<BuyMembership />} />
-                    <Route path="pay" element={<StripePayment />} />
                   </Route>
                 </Route>
               </Route>
-              <Route path="memberships" >
-                <Route index={true} element={<AllMembership />} />
-                <Route path=":id">
-                  <Route index={true} element={<MembershipDetails />} />
-                  <Route path="review" element={<StarRating />} />
+              <Route path="/login" element={<Login />} />
+              <Route path="/login/business" element={<BusinessLogin />} />
+              <Route path="/signup" element={<SignUp />} />
+
+              <Route path="/subscriber" element={<BoardSubscriber />}>
+                <Route path="" element={<Profile />} />
+                <Route path="profile" element={<FormProfile />} />
+                <Route path="browse">
+                  <Route index={true} element={<BrowseBusiness />} />
+                  <Route path=":type">
+                    <Route index={true} element={<BrowseBusinessType />} />
+                    <Route path=":id">
+                      <Route index={true} element={<BusinessDetails />} />
+                      <Route path="buy" element={<BuyMembership />} />
+                      <Route path="pay" element={<StripePayment />} />
+                    </Route>
+                  </Route>
                 </Route>
+                <Route path="memberships">
+                  <Route index={true} element={<AllMembership />} />
+                  <Route path=":id">
+                    <Route index={true} element={<MembershipDetails />} />
+                    <Route path="review" element={<StarRating />} />
+                  </Route>
+                </Route>
+                <Route path="chats" element={<SubscriberChatHistory />} />
+                <Route path="chats/:id" element={<Chat />} />
+                <Route path="addbusiness" element={<FormBusiness />} />
+                <Route path="account" element={<Account />} />
+                <Route path="account/edit" element={<EditAccount />} />
               </Route>
-              <Route path="chats" element={<SubscriberChatHistory />} />
-              <Route path="chats/:id" element={<Chat />} />
-              <Route path="addbusiness" element={<FormBusiness />} />
-            </Route>
-            <Route path="/business" element={<BoardBusiness />}>
-              <Route path="" element={<BusinessProfile />} />
-              <Route path="account" element={<Account />} />
-              <Route path="account/edit" element={<EditAccount />} />
-              <Route path=":id" element={<BusinessProfileDetails />} />
-              <Route path=":id/edit" element={<EditBusiness />} />
-              <Route path="profile" element={<FormBusiness />} />
-              <Route path="clients" element={<BrowseClients />} />
-              <Route path="clients/:type" element={<BrowseClientsType />} />
-              <Route path="clients/:type/:id" element={<BrowseClientDetails />} />
-              <Route path="chats" element={<BusinessChatHistory />} />
-              <Route path="chats/:id" element={<Chat />} />
-              <Route path="addbusiness" element={<FormBusiness />} />
-            </Route>
+              <Route path="/business" element={<BoardBusiness />}>
+                <Route path="" element={<BusinessProfile />} />
+                <Route path=":id" element={<BusinessProfileDetails />} />
+                <Route path=":id/edit" element={<EditBusiness />} />
+                <Route path="profile" element={<FormBusiness />} />
+                <Route path="clients" element={<BrowseClients />} />
+                <Route path="clients/:type" element={<BrowseClientsType />} />
+                <Route
+                  path="clients/:type/:id"
+                  element={<BrowseClientDetails />}
+                />
+                <Route path="chats" element={<BusinessChatHistory />} />
+                <Route path="chats/:id" element={<Chat />} />
+                <Route path="addbusiness" element={<FormBusiness />} />
+              </Route>
 
-            <Route path="/admin" element={<BoardAdmin />} />
-          </Routes>
+              <Route path="/admin" element={<BoardAdmin />} />
+            </Routes>
+          </div>
         </div>
-
-        <Footer />
+        <div>
+          <Footer />
+        </div>
       </div>
     </Router>
   );
