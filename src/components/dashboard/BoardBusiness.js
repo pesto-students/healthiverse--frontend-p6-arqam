@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Routes, Route, Link, Outlet } from 'react-router-dom';
-import DashboardNavbar from "./navbar";
+import DashboardNavbar from "./sidebar";
 
 const BoardBusiness = () => {
     const items = [
