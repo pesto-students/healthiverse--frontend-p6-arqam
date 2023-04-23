@@ -2,7 +2,6 @@ import ProfileInfo from "../info";
 
 const SubscriberInfo = ({ subscriberProfileData }) => {
   const items = [
-    { heading: "About:", value: subscriberProfileData.about },
     { heading: "Height:", value: subscriberProfileData.height },
     { heading: "Weight:", value: subscriberProfileData.weight },
     { heading: "Goals:", value: subscriberProfileData.goals },
