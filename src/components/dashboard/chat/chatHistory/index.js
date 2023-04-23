@@ -15,7 +15,7 @@ const ChatHistory = ({ chats, chatClick }) => {
     }
 
     return (
-        <div className="w-full max-w-xl min-w-max py-4">
+        <div className="w-full h-full max-w-xl min-w-max py-4">
             <h1 className="bg-gray-300 px-3 font-bold text-xl py-2">Chats</h1>
 
             {chats.length === 0 ?
