@@ -42,18 +42,22 @@ const profileMenuItems = [
     {
         label: "My Profile",
         icon: UserCircleIcon,
+        href: "/subscriber",
     },
     {
         label: "Memberships",
         icon: CreditCardIcon,
+        href: "/subscriber/memberships",
     },
     {
         label: "Chats",
         icon: ChatBubbleLeftRightIcon,
+        href: "/subscriber/chats",
     },
     {
         label: "Account",
         icon: LockClosedIcon,
+        href: "/subscriber/account",
     },
     {
         label: "Sign Out",
@@ -64,6 +68,7 @@ const profileMenuItems = [
 function ProfileMenu() {
     const [isMenuOpen, setIsMenuOpen] = React.useState(false);
     const closeMenu = () => setIsMenuOpen(false);
+    const navigate = useNavigate();
 
     return (
         <Menu open={isMenuOpen} handler={setIsMenuOpen} placement="bottom-end">
@@ -71,7 +76,7 @@ function ProfileMenu() {
                 <Button
                     variant="text"
                     color="blue-gray"
-                    className="flex items-center gap-1 rounded-full py-0.5 pr-2 pl-0.5 md:ml-auto"
+                    className="flex items-center gap-1 rounded-full py-0.5 pr-2 pl-0.5"
                 >
                     <Avatar
                         variant="circular"
@@ -88,30 +93,36 @@ function ProfileMenu() {
                 </Button>
             </MenuHandler>
             <MenuList className="p-1">
-                {profileMenuItems.map(({ label, icon }, key) => {
+                {profileMenuItems.map(({ label, icon, href }, key) => {
                     const isLastItem = key === profileMenuItems.length - 1;
                     return (
-                        <MenuItem
-                            key={label}
-                            onClick={closeMenu}
-                            className={`flex items-center gap-2 rounded ${isLastItem
-                                ? "hover:bg-red-500/10 focus:bg-red-500/10 active:bg-red-500/10"
-                                : ""
-                                }`}
+                      <MenuItem
+                        key={label}
+                        onClick={() => {
+                          closeMenu();
+                          navigate(href);
+                        }}
+                        className={`flex items-center gap-2 rounded ${
+                          isLastItem
+                            ? "hover:bg-red-500/10 focus:bg-red-500/10 active:bg-red-500/10"
+                            : ""
+                        }`}
+                      >
+                        {React.createElement(icon, {
+                          className: `h-4 w-4 ${
+                            isLastItem ? "text-red-500" : ""
+                          }`,
+                          strokeWidth: 2,
+                        })}
+                        <Typography
+                          as="span"
+                          variant="small"
+                          className="font-normal"
+                          color={isLastItem ? "red" : "inherit"}
                         >
-                            {React.createElement(icon, {
-                                className: `h-4 w-4 ${isLastItem ? "text-red-500" : ""}`,
-                                strokeWidth: 2,
-                            })}
-                            <Typography
-                                as="span"
-                                variant="small"
-                                className="font-normal"
-                                color={isLastItem ? "red" : "inherit"}
-                            >
-                                {label}
-                            </Typography>
-                        </MenuItem>
+                          {label}
+                        </Typography>
+                      </MenuItem>
                     );
                 })}
             </MenuList>
@@ -155,7 +166,7 @@ const navListItems2 = [
 function NavList() {
     const navigate = useNavigate();
     return (
-        <ul className="m-auto flex flex-col gap-2 md:mb-0 md:mt-0 md:flex-row md:items-center">
+        <ul className="m-auto flex flex-col gap-2 md:mb-0 md:mt-0 md:flex-row md:items-center ">
 
             {navListItems.map(({ label, icon, href }, key) => (
                 <Typography
@@ -168,7 +179,7 @@ function NavList() {
                 >
                     <MenuItem className="flex items-center gap-2 md:rounded-full">
                         {React.createElement(icon, { className: "h-[18px] w-[18px]" })}{" "}
-                        {label}
+                        <span className="no-underline hover:no-underline">{label}</span>
                     </MenuItem>
                 </Typography>
             ))}
@@ -190,7 +201,7 @@ function NavList2() {
                     color="blue-gray"
                     className="font-normal"
                 >
-                    <MenuItem className="flex items-center gap-2 md:rounded-full">
+                    <MenuItem className="flex items-center gap-2 md:rounded-full hover:no-underline">
                         {React.createElement(icon, { className: "h-[18px] w-[18px]" })}{" "}
                         {label}
                     </MenuItem>
@@ -199,7 +210,6 @@ function NavList2() {
         </ul>
     );
 }
-
 
 export default function ComplexNavbar() {
     const [isNavOpen, setIsNavOpen] = React.useState(false);
@@ -214,37 +224,40 @@ export default function ComplexNavbar() {
     }, []);
 
     return (
-        <Navbar className="sticky inset-0 z-10 w-full max-w-full rounded-none p-2 md:pl-6">
-            <div className="relative mx-auto flex justify-between items-center text-blue-gray-900">
-                <Typography
-                    as="a"
-                    href="#"
-                    className="mr-4 ml-2 cursor-pointer py-1.5 text-xl font-bold"
-                >
-                    HealthiVerse
-                </Typography>
-                <div className="hidden md:block">
-                    <NavList />
-                </div>
-                <div className="hidden md:block">
-                    <NavList2 />
-                </div>
-                <IconButton
-                    size="sm"
-                    color="blue-gray"
-                    variant="text"
-                    onClick={toggleIsNavOpen}
-                    className="ml-auto mr-2 md:hidden"
-                >
-                    <Bars2Icon className="h-6 w-6" />
-                </IconButton>
-
-                {currentUser && <ProfileMenu />}
+      <Navbar className="sticky inset-0 z-10 w-full max-w-full rounded-none p-2 md:pl-6">
+        <div className="relative mx-auto flex justify-between items-center text-blue-gray-900">
+          <Typography
+            as="a"
+            href="#"
+            className="mr-4 ml-2 cursor-pointer py-1.5 text-xl font-bold"
+          >
+            HealthiVerse
+          </Typography>
+          <div className="hidden md:block">
+            <NavList />
+          </div>
+          {!currentUser && (
+            <div className="hidden md:block">
+              {" "}
+              <NavList2 />{" "}
             </div>
-            <MobileNav open={isNavOpen} className="overflow-scroll">
-                <NavList />
-                <NavList2 />
-            </MobileNav>
-        </Navbar>
+          )}
+          <IconButton
+            size="sm"
+            color="blue-gray"
+            variant="text"
+            onClick={toggleIsNavOpen}
+            className="ml-auto mr-2 md:hidden"
+          >
+            <Bars2Icon className="h-6 w-6" />
+          </IconButton>
+
+          {currentUser && <ProfileMenu />}
+        </div>
+        <MobileNav open={isNavOpen} className="overflow-scroll">
+          <NavList />
+          {!currentUser && <NavList2 />}
+        </MobileNav>
+      </Navbar>
     );
 }
