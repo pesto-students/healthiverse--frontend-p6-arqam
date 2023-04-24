@@ -10,6 +10,7 @@ import ValidationMessage from "../login/error";
 import { Button } from "@mui/material";
 import * as EmailValidator from "email-validator";
 import pic from "./loginPage.jpg";
+import { setAnimation } from "@material-tailwind/react/components/Tabs/TabsContext";
 
 const SignUp = () => {
     const [loading, setLoading] = useState(false);
@@ -17,6 +18,9 @@ const SignUp = () => {
     const { message } = useSelector((state) => state.message);
     const navigate = useNavigate();
     const dispatch = useDispatch();
+    const [nameError, setNameError] = useState("");
+    const [emailError, setEmailError] = useState("");
+    const [passwordError, setPasswordError] = useState("");
 
     useEffect(() => {
         dispatch(clearMessage());
@@ -32,37 +36,38 @@ const SignUp = () => {
         e.preventDefault();
         const name = e.target.name;
         const value = e.target.value;
-        let nameError = errors.name;
-        let emailError = errors.email;
-        let passwordError = errors.password;
+       
         const passwordRegex = /(?=.*[0-9])/;
         if (name === "name") {
             if (!value) {
-                nameError = "This field is required.";
+                setNameError("This field is required.");
             } else if (value.length > 100) {
-                nameError = "Character limit exceeded.";
+                setNameError("Character limit exceeded.");
             } else {
-                nameError = "";
+                setNameError("");
             }
         } else if (name === "email") {
             if (!value) {
-                emailError = "This field is required.";
+                setEmailError("This field is required.");
             } else if (!EmailValidator.validate(value)) {
-                emailError = "Invalid email address.";
+                setEmailError("Invalid email address.");
             } else {
-                emailError = "";
+                setEmailError("");
             }
         } else if (name === "password") {
             if (!value) {
-                passwordError = "This field is required";
+                setPasswordError("This field is required");
             } else if (value.length < 8) {
-                passwordError = "Password must be 8 characters long.";
+                setPasswordError("Password must be 8 characters long.");
             } else if (!passwordRegex.test(value)) {
-                passwordError = "Invalid password. Must contain one number.";
+                setPasswordError("Invalid password. Must contain one number.");
             } else {
-                passwordError = "";
+                setPasswordError("");
             }
         }
+    }
+
+    const handleBlur = () => {
         setErrors({ name: nameError, email: emailError, password: passwordError });
     }
 
@@ -88,9 +93,9 @@ const SignUp = () => {
     };
 
     return (
-        <div className="flex flex-wrap w-full">
-            <div className="flex flex-col w-full md:w-1/2">
-                <div className="flex flex-col justify-center px-8 pt-8 my-auto md:justify-start md:pt-0 md:px-24 lg:px-32">
+        <div className="flex flex-1 flex-wrap items-stretch w-full">
+            <div className="flex justify-center w-full items-center items-stretch md:w-1/2">
+                <div className="flex flex-col justify-center px-8 pt-8 max-w-lg my-auto md:justify-start md:pt-0 md:px-12 lg:px-20">
                     <p className="text-3xl text-center">Welcome to HealthiVerse.</p>
                     <form onSubmit={handleRegister}
                         className="flex flex-col pt-3 md:pt-8">
@@ -106,6 +111,7 @@ const SignUp = () => {
                                     className=" flex-1 appearance-none border border-gray-300 w-full py-2 px-4 bg-white text-gray-700 placeholder-gray-400 shadow-sm text-base focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-transparent"
                                     placeholder="Name"
                                     onChange={hanldeChange}
+                                    onBlur={handleBlur}
                                 />
                             </div>
                             {errors.name &&
@@ -142,6 +148,7 @@ const SignUp = () => {
                                     className=" flex-1 appearance-none border border-gray-300 w-full py-2 px-4 bg-white text-gray-700 placeholder-gray-400 shadow-sm text-base focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-transparent"
                                     placeholder="Email"
                                     onChange={hanldeChange}
+                                    onBlur={handleBlur}
 
                                 />
                             </div>
@@ -181,6 +188,7 @@ const SignUp = () => {
                                     className=" flex-1 appearance-none border border-gray-300 w-full py-2 px-4 bg-white text-gray-700 placeholder-gray-400 shadow-sm text-base focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-transparent"
                                     placeholder="Password"
                                     onChange={hanldeChange}
+                                    onBlur={handleBlur}
                                 />
                             </div>
                             {errors.password &&
@@ -245,7 +253,7 @@ const SignUp = () => {
 
                 </div>
             </div>
-            <div className="w-1/2 hidden md:block shadow-2xl">
+            <div className="flex w-1/2 hidden md:block shadow-2xl">
                 <img
                     className="object-cover w-full h-screen"
                     src={pic}

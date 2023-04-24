@@ -37,7 +37,6 @@ const Login = () => {
         const name = e.target.name;
         const value = e.target.value;
         
-        const passwordRegex = /(?=.*[0-9])/;
         if (name === "email") {
             if (!value) {
                 setEmailError("This field is required");
@@ -91,8 +90,8 @@ const Login = () => {
 
     return (
       <div className="flex flex-1 flex-wrap items-stretch w-full ">
-        <div className="flex flex-col w-full items-stretch md:w-1/2">
-          <div className="flex flex-col justify-center px-8 pt-8 my-auto md:justify-start md:pt-0 md:px-12 lg:px-20">
+        <div className="flex justify-center w-full items-center items-stretch md:w-1/2">
+          <div className="flex flex-col justify-center px-8 pt-8 max-w-lg my-auto md:justify-start md:pt-0 md:px-12 lg:px-20">
             <p className="text-3xl text-center">Welcome to HealthiVerse.</p>
             <form onSubmit={handleLogin} className="flex flex-col pt-3 md:pt-8">
               <div className="flex flex-col pt-4">
