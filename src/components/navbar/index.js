@@ -42,7 +42,7 @@ const profileMenuItems = [
     {
         label: "My Profile",
         icon: UserCircleIcon,
-        href: "/subscriber",
+        href: "/subscriber/profile",
     },
     {
         label: "Memberships",
@@ -60,6 +60,11 @@ const profileMenuItems = [
         href: "/subscriber/account",
     },
     {
+        label: "Business Dashboard",
+        icon: LockClosedIcon,
+        href: "/subscriber/account",
+    },
+    {
         label: "Sign Out",
         icon: PowerIcon,
     },
@@ -67,6 +72,8 @@ const profileMenuItems = [
 
 function ProfileMenu() {
     const [isMenuOpen, setIsMenuOpen] = React.useState(false);
+    const { subscriberProfileCreated, subscriberProfileData } = useSelector((state) => state.subscriber);
+    const {businessProfileCreated} = useSelector(state=>state.business);
     const closeMenu = () => setIsMenuOpen(false);
     const navigate = useNavigate();
 
@@ -83,7 +90,7 @@ function ProfileMenu() {
                         size="sm"
                         alt="candice wu"
                         className="border border-blue-500 p-0.5"
-                        src="https://images.unsplash.com/photo-1633332755192-727a05c4013d?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1480&q=80"
+                        src={subscriberProfileData.userImage}
                     />
                     <ChevronDownIcon
                         strokeWidth={2.5}

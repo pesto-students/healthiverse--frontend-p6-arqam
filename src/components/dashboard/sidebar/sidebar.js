@@ -20,7 +20,6 @@ import { useLocation, useNavigate } from "react-router-dom";
 export default function Example() {
   const navigate = useNavigate();
   const location = useLocation();
-  console.log(location.pathname);
   const selectedClass =
     "flex items-center justify-start w-full p-4 my-2 font-thin text-gray-800 hover:cursor-pointer transition-colors duration-200 border-r-4 border-gray-500 bg-gradient-to-r from-gray-50 to-gray-300";
   const unselectedClass = "flex items-center justify-start w-full p-4 my-2 font-thin hover:cursor-pointer text-gray-500 transition-colors duration-200 dark:text-gray-200 hover:text-gray-800";
@@ -28,20 +27,20 @@ export default function Example() {
       {
         label: "My Profile",
         icon: UserCircleIcon,
-        href: "/subscriber",
-        value: "dashboard",
+        href: "/subscriber/profile",
+        value: "profile",
       },
       {
         label: "Memberships",
         icon: CreditCardIcon,
         href: "/subscriber/memberships",
-        value: "profile",
+        value: "memberships",
       },
       {
         label: "Chats",
         icon: ChatBubbleLeftRightIcon,
         href: "/subscriber/chats",
-        value: "settings",
+        value: "chats",
       },
       {
         label: "Account",
@@ -51,25 +50,11 @@ export default function Example() {
       },
     ];
   return (
-    // <Tabs value="dashboard" className="bg-white overflow-visible mt-3 z-0 hidden md:flex">
-    //   <TabsHeader className="flex flex-col gap-7 bg-gray-50 shadow-xl">
-    //     {data.map(({ label, value, icon, href }) => (
-    //       <Tab key={value} value={value} className="flex justify-start"
-    //       onClick={()=>navigate(href)}
-    //       >
-    //         <div className="flex justify-start items-center gap-2">
-    //           {React.createElement(icon, { className: "w-5 h-5" })}
-    //           {label}
-    //         </div>
-    //       </Tab>
-    //     ))}
-    //   </TabsHeader>
-    // </Tabs>
 
-    <div class="hidden w-max h-full my-4 ml-4 shadow-lg md:block w-80">
-      <div class="h-full bg-white rounded-2xl dark:bg-gray-700">
+    <div class="hidden w-max h-full my-4 ml-4 rounded-xl shadow-lg  md:block w-80">
+      <div class="h-full bg-white dark:bg-gray-700">
         
-        <nav class="mt-6">
+        <nav class="my-6">
           <div>
             {data.map(item => {
               return (
@@ -78,7 +63,7 @@ export default function Example() {
                     id={item.href}
                     key={item.value}
                     className={
-                      item.href === location.pathname
+                      item.value === location.pathname.split("/")[2]
                         ? selectedClass
                         : unselectedClass
                     }

@@ -8,7 +8,7 @@ import MembershipGroup from "./group";
 
 const AllMembership = () => {
     const { allBusiness } = useSelector((state) => state.browseBusiness);
-    let {  isLoading, memberships } = useSelector((state) => state.membership);
+    let { isLoading, memberships } = useSelector((state) => state.membership);
     memberships = memberships?.map(m => {
         let business = allBusiness?.filter(b => b._id === m.businessId)[0];
         business = { ...business, endDate: m.endDate };
@@ -24,37 +24,34 @@ const AllMembership = () => {
 
     useEffect(() => {
         if (!allBusiness) { dispatch(getAllBusiness()) }
-
-        dispatch(getMemberships())
-            .unwrap()
-            .catch((err) => {
-                console.log(err);
-                
-            });
+        if (!memberships) { dispatch(getMemberships()) }
     }, []);
 
 
     return (
-        <div className="flex flex-col justify-start content-center py-4 w-full max-w-xl">
-
-            {(isLoading) &&
-                (<div className="flex mt-4 justify-center content-center">
+        <>{
+            isLoading ?
+                (<div className="flex my-4 justify-center content-center" >
                     <CircularProgress />
-                </div>)}
+                </div >) :
+                (<div className="flex flex-col justify-start content-center rounded-xl h-max my-4 w-full max-w-xl shadow-xl">
+                    {gymMembership?.length > 0 &&
+                        <MembershipGroup memberships={gymMembership} type="gym" />
+                    }
 
-            {!isLoading &&
-                gymMembership?.length > 0 &&
-                <MembershipGroup memberships={gymMembership} type="gym" />}
+                    {trainerMembership?.length > 0 &&
+                        <MembershipGroup memberships={trainerMembership} type="trainer" />
+                    }
 
-            {!isLoading &&
-                trainerMembership?.length > 0 &&
-                <MembershipGroup memberships={trainerMembership} type="trainer" />}
+                    {dieticianMembership?.length > 0 &&
+                        <MembershipGroup memberships={dieticianMembership} type="dietician" />
+                    }
 
-            {!isLoading &&
-                dieticianMembership?.length > 0 &&
-                <MembershipGroup memberships={dieticianMembership} type="dietician" />}
+                </div>)
+        }
+        </>
 
-        </div>
+
     );
 }
 

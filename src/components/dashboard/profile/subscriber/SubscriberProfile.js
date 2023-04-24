@@ -49,10 +49,10 @@ const Profile = () => {
             </p>
           </div>)
         ) :
-        (<div className="profile-container-inner">
+        (<div className="profile-container-inner shadow-lg">
           <header className="profile-header">
             <div className="flex justify-end">
-              <Link to="/subscriber/profile/" >
+              <Link to="/subscriber/profile/edit" >
                 <FontAwesomeIcon
                   icon="user-pen"
                   title="Edit profile"
