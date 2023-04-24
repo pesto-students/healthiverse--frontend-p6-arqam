@@ -1,7 +1,9 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import { Avatar } from "@mui/material";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+    ChatBubbleLeftRightIcon
+} from "@heroicons/react/24/solid";
 
 const MembershipItem = ({ item }) => {
     const navigate = useNavigate();
@@ -12,22 +14,25 @@ const MembershipItem = ({ item }) => {
     }
 
     return (
-        <div class="bg-white px-3 flex items-center">
-            <div className="hover:cursor-pointer" onClick={() => navigate(`${item._id}`)}>
-                <Avatar alt="Avatar" src={item.userImage} />
-            </div>
-            <div class="ml-4 flex-1 border-b border-grey-lighter py-4">
+        <div class=" px-3 flex justify-between items-center">
+            <div className="flex hover:cursor-pointer" onClick={() => navigate(`${item._id}`)}>
+                <div className="flex items-center" >
+                    <Avatar alt="Avatar" src={item.userImage} />
+                </div>
+                <div class="ml-4 flex-1  border-grey-lighter py-4">
 
-                <p class="text-grey-darkest">
-                    {item.name}
-                </p>
+                    <p class="text-grey-darkest">
+                        {item.name}
+                    </p>
 
-                <p class="text-xs align-text-bottom text-grey-darkest">
-                    End Date: {formatDateFromTimestamp(item.endDate)}
-                </p>
+                    <p class="text-xs align-text-bottom text-grey-darkest">
+                        End Date: {formatDateFromTimestamp(item.endDate)}
+                    </p>
+                </div>
             </div>
+
             <button>
-                <FontAwesomeIcon icon="fa-message" />
+                {React.createElement(ChatBubbleLeftRightIcon, { className: "w-5 h-5" })}
             </button>
         </div>
 

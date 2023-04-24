@@ -53,7 +53,7 @@ const Account = () => {
 
   return (
     <div className="profile-container-outer">
-      <div className="profile-container-inner">
+      <div className="profile-container-inner shadow-lg">
 
         <div className="text-center py-2 border-b">
           <h2 className="font-bold text-xl text-gray-600 dark:text-white">Account Details</h2>

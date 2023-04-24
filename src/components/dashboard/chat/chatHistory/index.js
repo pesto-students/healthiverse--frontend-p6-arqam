@@ -15,18 +15,18 @@ const ChatHistory = ({ chats, chatClick }) => {
     }
 
     return (
-        <div className="w-full h-full max-w-xl min-w-max py-4">
-            <h1 className="bg-gray-300 px-3 font-bold text-xl py-2">Chats</h1>
+        <div className="w-full h-max rounded-xl shadow-xl max-w-xl min-w-max my-4">
+            <h1 className="bg-gray-200 rounded-t-xl  px-3 font-bold text-xl py-2">Chats</h1>
 
             {chats.length === 0 ?
-                (<div className="flex justify-center mt-3">
+                (<div className="flex justify-center my-3">
 
                     <CircularProgress />
 
                 </div>) :
                 (chats?.map((item) => {
                     return (<>
-                        <div class="bg-white px-3 flex items-center hover:bg-grey-lighter cursor-pointer"
+                        <div class="bg-white rounded-xl px-3 flex items-center hover:bg-grey-lighter cursor-pointer"
                             onClick={() => {
                                 chatClick(item.business ? item.business : item);
                             }}
