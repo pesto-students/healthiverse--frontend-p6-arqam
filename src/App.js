@@ -103,8 +103,8 @@ const App = () => {
               <Route path="/signup" element={<SignUp />} />
 
               <Route path="/subscriber" element={<BoardSubscriber />}>
-                <Route path="profile" element={<Profile />} />
-                <Route path="profile/edit" element={<FormProfile />} />
+                <Route path="" element={<Profile />} />
+                <Route path="edit" element={<FormProfile />} />
                 <Route path="browse">
                   <Route index={true} element={<BrowseBusiness />} />
                   <Route path=":type">
