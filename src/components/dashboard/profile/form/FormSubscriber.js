@@ -90,7 +90,7 @@ const FormProfile = () => {
     return (
 
         <div className="profile-form">
-            <Link to="/subscriber/profile">back</Link>
+            <Link to="/subscriber">back</Link>
             <h1>Complete your profile</h1 >
             <div>
                 <Avatar
