@@ -23,37 +23,46 @@ export default function Example() {
   const selectedClass =
     "flex items-center justify-start w-full p-4 my-2 font-thin text-gray-800 hover:cursor-pointer transition-colors duration-200 border-r-4 border-gray-500 bg-gradient-to-r from-gray-50 to-gray-300";
   const unselectedClass = "flex items-center justify-start w-full p-4 my-2 font-thin hover:cursor-pointer text-gray-500 transition-colors duration-200 dark:text-gray-200 hover:text-gray-800";
-    const data = [
-      {
-        label: "My Profile",
-        icon: UserCircleIcon,
-        href: "/subscriber/profile",
-        value: "profile",
-      },
-      {
-        label: "Memberships",
-        icon: CreditCardIcon,
-        href: "/subscriber/memberships",
-        value: "memberships",
-      },
-      {
-        label: "Chats",
-        icon: ChatBubbleLeftRightIcon,
-        href: "/subscriber/chats",
-        value: "chats",
-      },
-      {
-        label: "Account",
-        icon: LockClosedIcon,
-        href: "/subscriber/account",
-        value: "account",
-      },
-    ];
+  const data = [
+    {
+      label: "My Profile",
+      icon: UserCircleIcon,
+      href: "/subscriber",
+      value: "edit",
+    },
+    {
+      label: "Memberships",
+      icon: CreditCardIcon,
+      href: "/subscriber/memberships",
+      value: "memberships",
+    },
+    {
+      label: "Chats",
+      icon: ChatBubbleLeftRightIcon,
+      href: "/subscriber/chats",
+      value: "chats",
+    },
+    {
+      label: "Account",
+      icon: LockClosedIcon,
+      href: "/subscriber/account",
+      value: "account",
+    },
+  ];
+
+  const handleClass = (item) => {
+    if (location.pathname.split("/")[2] === undefined) {
+      return item.value === "edit" ? selectedClass : unselectedClass;
+    } else {
+      return item.value === location.pathname.split("/")[2] ? selectedClass : unselectedClass;
+    }
+  }
+
   return (
 
     <div class="hidden w-max h-full my-4 ml-4 rounded-xl shadow-lg  md:block w-80">
       <div class="h-full bg-white dark:bg-gray-700">
-        
+
         <nav class="my-6">
           <div>
             {data.map(item => {
@@ -63,9 +72,7 @@ export default function Example() {
                     id={item.href}
                     key={item.value}
                     className={
-                      item.value === location.pathname.split("/")[2]
-                        ? selectedClass
-                        : unselectedClass
+                      handleClass(item)
                     }
                     onClick={() => navigate(item.href)}
                   >
