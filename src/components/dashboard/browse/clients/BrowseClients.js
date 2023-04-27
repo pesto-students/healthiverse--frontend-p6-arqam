@@ -76,13 +76,13 @@ const BrowseClients = () => {
                           <MenuItem value="">
                             <em>None</em>
                           </MenuItem>
-                          {gymClients.length > 0 && (
+                          {gymClients?.length > 0 && (
                             <MenuItem value={"gym"}>Gym</MenuItem>
                           )}
-                          {trainerClients.length > 0 && (
+                          {trainerClients?.length > 0 && (
                             <MenuItem value={"trainer"}>Trainer</MenuItem>
                           )}
-                          {dieticianClients.length > 0 && (
+                          {dieticianClients?.length > 0 && (
                             <MenuItem value={"dietician"}>Dietician</MenuItem>
                           )}
                         </Select>

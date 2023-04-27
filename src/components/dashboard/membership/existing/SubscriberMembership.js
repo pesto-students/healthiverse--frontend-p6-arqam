@@ -24,14 +24,14 @@ const AllMembership = () => {
 
     useEffect(() => {
         if (!allBusiness) { dispatch(getAllBusiness()) }
-        if (!memberships) { dispatch(getMemberships()) }
+        if (memberships.length===0) { dispatch(getMemberships()) }
     }, []);
 
 
     return (
         <>{
             isLoading ?
-                (<div className="flex my-4 justify-center content-center" >
+                (<div className="flex mt-24 justify-center content-center" >
                     <CircularProgress />
                 </div >) :
                 (<div className="flex flex-col justify-start content-center rounded-xl h-max my-4 w-full max-w-xl shadow-xl">

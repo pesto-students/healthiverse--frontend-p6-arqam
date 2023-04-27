@@ -15,7 +15,7 @@ const Chat = () => {
     const { user1, user2 } = useSelector(state => state.chatRoom);
     const navigate = useNavigate();
     let socket = io.connect(PORT, {
-        query: { token: currentUser.token }
+        query: { token: currentUser?.token }
     });
 
     useEffect(() => {

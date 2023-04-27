@@ -25,6 +25,7 @@ const ChatHistory = ({ chats, chatClick }) => {
 
                 </div>) :
                 (chats?.map((item) => {
+                    console.log(item);
                     return (<>
                         <div class="bg-white rounded-xl px-3 flex items-center hover:bg-grey-lighter cursor-pointer"
                             onClick={() => {
@@ -32,7 +33,7 @@ const ChatHistory = ({ chats, chatClick }) => {
                             }}
                         >
                             <div>
-                                <Avatar alt="Avatar" src={item.userImage} />
+                                <Avatar alt="Avatar" src={item.business? item.business.userImage: item.subscriber.userImage} />
                             </div>
                             <div class="ml-4 flex-1 border-b border-grey-lighter py-4">
                                 <div class="flex items-center justify-between">
