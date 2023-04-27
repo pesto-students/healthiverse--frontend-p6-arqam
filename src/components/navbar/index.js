@@ -14,16 +14,9 @@ import {
 } from "@material-tailwind/react";
 
 import {
-    CubeTransparentIcon,
     UserCircleIcon,
-    CodeBracketSquareIcon,
-    Square3Stack3DIcon,
     ChevronDownIcon,
-    Cog6ToothIcon,
-    InboxArrowDownIcon,
-    LifebuoyIcon,
     PowerIcon,
-    RocketLaunchIcon,
     Bars2Icon,
     CreditCardIcon,
     ChatBubbleLeftRightIcon,
@@ -65,7 +58,7 @@ const profileMenuItems = [
     },
 ];
 
-function ProfileMenu() {
+function ProfileMenu({logOut}) {
     const [isMenuOpen, setIsMenuOpen] = React.useState(false);
     const { subscriberProfileCreated, subscriberProfileData } = useSelector((state) => state.subscriber);
     const { businessProfileCreated } = useSelector(state => state.business);
@@ -99,7 +92,7 @@ function ProfileMenu() {
                         size="sm"
                         alt="candice wu"
                         className="border border-blue-500 p-0.5"
-                        src={subscriberProfileData.userImage}
+                        src={subscriberProfileData?.userImage?subscriberProfileData.userImage:""}
                     />
                     <ChevronDownIcon
                         strokeWidth={2.5}
@@ -109,14 +102,19 @@ function ProfileMenu() {
                 </Button>
             </MenuHandler>
             <MenuList className="p-1">
-                {profileMenuItems.map(({ label, icon, href }, key) => {
-                    const isLastItem = key === profileMenuItems.length - 1;
+                {profileMenuItems.map(({ label, icon, href }, index) => {
+                    const isLastItem = index === profileMenuItems.length - 1;
                     return (
                         <MenuItem
                             key={label}
                             onClick={() => {
-                                closeMenu();
-                                navigate(href);
+                                if (!href) {
+                                    logOut()
+                                } else {
+                                    closeMenu();
+                                    navigate(href);
+                                }
+
                             }}
                             className={`flex items-center gap-2 rounded ${isLastItem
                                 ? "hover:bg-red-500/10 focus:bg-red-500/10 active:bg-red-500/10"
@@ -143,7 +141,6 @@ function ProfileMenu() {
         </Menu>
     );
 }
-
 
 // nav list component
 const navListItems = [
@@ -225,7 +222,7 @@ function NavList2() {
     );
 }
 
-export default function ComplexNavbar() {
+export default function ComplexNavbar({logOut}) {
     const [isNavOpen, setIsNavOpen] = React.useState(false);
     const toggleIsNavOpen = () => setIsNavOpen((cur) => !cur);
     const { user: currentUser } = useSelector((state) => state.auth);
@@ -266,7 +263,7 @@ export default function ComplexNavbar() {
                     <Bars2Icon className="h-6 w-6" />
                 </IconButton>
 
-                {currentUser && <ProfileMenu />}
+                {currentUser && <ProfileMenu logOut={logOut}/>}
             </div>
             <MobileNav open={isNavOpen} className="overflow-scroll">
                 <NavList />
