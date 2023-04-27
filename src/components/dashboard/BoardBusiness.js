@@ -1,8 +1,13 @@
 import React, { useState, useEffect } from "react";
-import { Routes, Route, Link, Outlet } from 'react-router-dom';
+import { Routes, Route, Link, Outlet, useNavigate } from 'react-router-dom';
 import DashboardNavbar from "./sidebar";
+import { useSelector } from "react-redux";
 
 const BoardBusiness = () => {
+    const navigate = useNavigate();
+    const { isLoggedIn } = useSelector(state => state.auth);
+    if (!isLoggedIn) navigate("/login");
+
     const items = [
         { id: 1, to: "", icon: "fa-user", text: "Profile" },
         { id: 2, to: "clients", icon: "fa-magnifying-glass", text: "Clients" },
