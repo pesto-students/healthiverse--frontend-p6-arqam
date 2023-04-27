@@ -82,7 +82,7 @@ const App = () => {
     <Router>
       <div className="flex flex-col h-full">
         <div className="flex flex-col h-full min-h-screen">
-          <ComplexNavbar />
+          <ComplexNavbar logOut={logOut}/>
           <div className="flex flex-1 h-full justify-center bottom-0 bg-white">
             <Routes>
               <Route path="/" element={<Home />} />
