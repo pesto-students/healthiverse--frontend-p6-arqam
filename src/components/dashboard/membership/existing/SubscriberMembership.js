@@ -5,6 +5,13 @@ import { getMemberships } from "../../../../slices/membership";
 import { getAllBusiness } from "../../../../slices/browseBusiness";
 import { Avatar, CircularProgress } from "@mui/material";
 import MembershipGroup from "./group";
+import {
+    Tabs,
+    TabsHeader,
+    TabsBody,
+    Tab,
+    TabPanel,
+} from "@material-tailwind/react";
 
 const AllMembership = () => {
     const { allBusiness } = useSelector((state) => state.browseBusiness);
@@ -24,9 +31,25 @@ const AllMembership = () => {
 
     useEffect(() => {
         if (!allBusiness) { dispatch(getAllBusiness()) }
-        if (memberships.length===0) { dispatch(getMemberships()) }
+        if (memberships.length === 0) { dispatch(getMemberships()) }
     }, []);
 
+    const data = [
+        {
+            label: "Gym",
+            value: "gym",
+        },
+        {
+            label: "Trainer",
+            value: "trainer",
+        },
+        {
+            label: "Dietician",
+            value: "dietician",
+        },
+    ];
+
+    const [selected, setSelected] = useState("gym");
 
     return (
         <>{
@@ -34,16 +57,27 @@ const AllMembership = () => {
                 (<div className="flex mt-24 justify-center content-center" >
                     <CircularProgress />
                 </div >) :
-                (<div className="flex flex-col justify-start content-center rounded-xl h-max my-4 w-full max-w-xl shadow-xl">
-                    {gymMembership?.length > 0 &&
+                (<div className="flex flex-col justify-start content-center h-max my-4 w-full max-w-xl">
+                    <Tabs value="gym">
+                        <TabsHeader>
+                            {data.map(({ label, value }) => (
+                                <Tab key={value} value={value}
+                                onClick={()=>setSelected(value)}
+                                >
+                                    {label}
+                                </Tab>
+                            ))}
+                        </TabsHeader>
+                    </Tabs>
+                    {selected==="gym" && gymMembership?.length > 0 &&
                         <MembershipGroup memberships={gymMembership} type="gym" />
                     }
 
-                    {trainerMembership?.length > 0 &&
+                    {selected==="trainer" && trainerMembership?.length > 0 &&
                         <MembershipGroup memberships={trainerMembership} type="trainer" />
                     }
 
-                    {dieticianMembership?.length > 0 &&
+                    {selected==="dietician" && dieticianMembership?.length > 0 &&
                         <MembershipGroup memberships={dieticianMembership} type="dietician" />
                     }
 
