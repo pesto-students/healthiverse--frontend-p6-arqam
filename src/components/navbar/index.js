@@ -55,6 +55,7 @@ const profileMenuItems = [
     {
         label: "Sign Out",
         icon: PowerIcon,
+        href: "/login",
     },
 ];
 
@@ -108,8 +109,10 @@ function ProfileMenu({logOut}) {
                         <MenuItem
                             key={label}
                             onClick={() => {
-                                if (!href) {
-                                    logOut()
+                                if (label==="Sign Out") {
+                                    logOut();
+                                    closeMenu();
+                                    navigate(href);
                                 } else {
                                     closeMenu();
                                     navigate(href);
