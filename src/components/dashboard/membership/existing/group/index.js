@@ -4,12 +4,8 @@ import MembershipItem from "../item";
 const MembershipGroup = ({ memberships, type }) => {
     const navigate = useNavigate();
     return (
-        <div className="rounded-xl overflow-hidden w-full min-w-max">
-            <div className="bg-gray-200 px-3">
-                <h1 className=" font-bold text-xl py-2">
-                    {type.charAt(0).toUpperCase() + type.slice(1) + " Membership"}
-                </h1>
-            </div>
+        <div className="rounded-xl mt-4 border  w-full min-w-max">
+            
             {memberships.map(item => {
                 return (
                     <div key={item._id}>
